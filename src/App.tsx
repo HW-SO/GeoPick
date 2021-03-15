@@ -19,7 +19,7 @@ import SearchScreen from './pages/search-page/index';
 import ExploreScreen from './pages/explore-page/index';
 
 import { UploadImage } from './pages/upload-image/index';
-import Accessibility from './pages/accessSetting';
+import AccessibilitySettings from './pages/accessSetting/AccessibilityV2';
 import Notification from './pages/notificationset';
 import Notificationpg from './pages/notification';
 import Places from './components/Inputs/Places';
@@ -61,7 +61,7 @@ function App(): JSX.Element {
                         <HelpandFeedback />
                     </Route>
                     <Route exact path="/accessibility">
-                        <Accessibility />
+                        <AccessibilitySettings />
                     </Route>
                     <Route exact path="/notificationset">
                         <Notification />

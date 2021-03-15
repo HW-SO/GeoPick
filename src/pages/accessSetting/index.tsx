@@ -36,8 +36,8 @@ const WhiteTypography = withStyles({
 export default function Accessibility() {
     const [state, setState] = React.useState({
         checkedA: true,
-        checkedB: true,
-        checkedC: true,
+        checkedB: false,
+        checkedC: false,
     });
 
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {

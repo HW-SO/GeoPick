@@ -16,6 +16,7 @@
     "@types/react": "^16.9.53",
     "@types/react-dom": "^16.9.8",
     "@types/react-swipeable-views": "^0.13.0",
+    "accessibility": "^3.0.13",
     "algoliasearch": "^4.8.5",
     "clsx": "^1.1.1",
     "dot-env": "^0.0.1",
