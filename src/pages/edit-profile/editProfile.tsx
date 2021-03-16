@@ -6,6 +6,7 @@ import WhiteLogo from '../welcome screen/WhiteLogo.svg';
 import OccupationSelect from '../../components/Inputs/occupation';
 import { Link } from 'react-router-dom';
 import { auth } from '../../firebase';
+import ReactDOM from 'react-dom';
 
 export interface EditProfileProps {}
 
@@ -142,3 +143,71 @@ class EditProfile extends Component<EditProfileProps, EditProfileState> {
 }
 
 export default EditProfile;
+
+class Username extends React.Component {
+  state = { value: "" };
+
+  changeValue(value) {
+    this.setState({ value });
+  }
+
+  render() {
+    const { value } = this.state;
+    return <h1>{value}</h1>;
+  }
+}
+
+function App() {
+  function clickHandler() {}
+
+  return (
+    <div>
+      <button onClick={clickHandler}>Change Username</button>
+      <input type="text" />
+      <Username />
+    </div>
+  );
+}
+
+document.body.innerHTML = "<div id='root'></div>";
+const rootElement = document.getElementById("root");
+ReactDOM.render(<App />, rootElement);
+
+class editAvatar extends React.Component {
+
+    constructor(props) {
+      super(props)
+      const src = './example/einshtein.jpg'
+      this.state = {
+        preview: null,
+        src
+      }
+      this.onCrop = this.onCrop.bind(this)
+      this.onClose = this.onClose.bind(this)
+      this.onBeforeFileLoad = this.onBeforeFileLoad.bind(this)
+    }
+    
+    onClose() {
+      this.setState({preview: null})
+    }
+    
+    onCrop(preview) {
+      this.setState({preview})
+    }
+  
+    onBeforeFileLoad(elem) {
+      if(elem.target.files[0].size > 71680){
+        alert("File is too big!");
+        elem.target.value = "";
+      };
+    }
+    
+    render () {
+      return (
+        <div>
+        </div>
+      )
+    }
+  }
+  
+  ReactDOM.render(<App /> , document.getElementById('root'))
