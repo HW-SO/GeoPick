@@ -89,7 +89,7 @@ const SignUpForm = () => {
             auth.doCreateUserWithEmailAndPassword(data.email, data.password)
                 .then(() => {
                     console.log('sucessfully signed up');
-                    push('/create-profile');
+                    // push('/create-profile');
                 })
                 .catch((err) => {
                     console.log('Error ' + err);
@@ -98,11 +98,14 @@ const SignUpForm = () => {
         } else {
             alert('type the same password in confirmation password');
         }
+
+        if (verified === true) {
+            push('/create-profile');
+        }
     };
 
-    
     function onChange(value: any) {
-        if(value) setVerified(true)
+        if (value) setVerified(false);
         console.log('Captcha value:', value);
     }
 
@@ -121,7 +124,7 @@ const SignUpForm = () => {
     function verifyCallback(response: any) {
         console.log(response);
         if (response) {
-            setVerified(true)
+            setVerified(true);
         }
     }
 
@@ -143,7 +146,7 @@ const SignUpForm = () => {
                     </div>
                     <label style={{ color: 'white' }}>
                         <input type="checkbox" name="Accept" required />
-                        By signing up I conform that I have read and accepted the{' '}
+                        By signing up I confirm that I have read and accepted the{' '}
                         <a href="/terms">terms and conditions</a> of using the application.
                     </label>
                     <br />
