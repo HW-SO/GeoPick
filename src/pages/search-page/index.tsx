@@ -9,6 +9,7 @@ import firebase from 'firebase';
 import ProfileOverview from '../../components/Display/profileOverview';
 import Button from '@material-ui/core/Button';
 import SinglePostNew1 from '../../components/Display/singlePostNew1';
+import Feed from '../../components/Layouts/feed';
 import './search.scss';
 
 export interface SearchProps {}
@@ -147,6 +148,7 @@ export default function SearchScreen() {
                                 </div>
                             );
                         })}
+                    {(posts.length == 0 && users.length == 0) && <Feed />}
                 </Card>
             </div>
             <br />

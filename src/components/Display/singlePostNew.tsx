@@ -6,7 +6,7 @@ import CardHeader from '@material-ui/core/CardHeader';
 import CardMedia from '@material-ui/core/CardMedia';
 import CardContent from '@material-ui/core/CardContent';
 import CardActions from '@material-ui/core/CardActions';
-import Avatar from '@material-ui/core/Avatar';
+import AvatarSmall from './avatarSmall';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
 import FavoriteIcon from '@material-ui/icons/Favorite';
@@ -267,14 +267,16 @@ class SinglePostNew extends Component<SinglePostNewProps, SinglePostNewState> {
             >
                 <CardHeader
                     avatar={
-                        <Avatar
+                        <AvatarSmall
                             aria-label="recipe"
-                            alt={this.state.post_user.User_name}
-                            src={this.state.post_user.Avatar}
+                            User_name={this.state.post_user.User_name}
+                            Avatar={this.state.post_user.Avatar}
                             style={{ backgroundColor: 'auto' }}
-                        >
-                            {this.state.post_user.User_name}
-                        </Avatar>
+                            uid={this.props.uid}
+                            Size="small"
+                        />
+                        //     {this.state.post_user.User_name}
+                        // </AvatarSmall>
                     }
                     action={
                         <>

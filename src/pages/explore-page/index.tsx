@@ -48,6 +48,7 @@ export default function ExploreScreen() {
             .onSnapshot((snapshot: any) => {
                 setPosts(snapshot.docs.map((doc: any) => ({ id: doc.id, post: doc.data() })));
             });
+        console.log(posts);
     });
 
     const handleViewportChange = useCallback((newViewport) => setViewport(newViewport), []);
@@ -102,33 +103,6 @@ export default function ExploreScreen() {
                             </Marker>
                         ))}
                     </ReactMapGL>
-                    {/* <ReactMapGL
-                    // ref={mapRef}
-                    {...viewport}
-                    mapboxApiAccessToken={process.env.REACT_APP_MAPBOX_TOKEN}
-                    mapStyle="mapbox://styles/geopick2021/ckmaljmwxfoku17qodcrj8oa6"
-                    onViewportChange={(viewport: any) => { setViewport(viewport); }}
-                >
-                    {posts.map(({id, post}) => (
-                        <Marker
-                            key={id}
-                            latitude={post.coordinates.lat}
-                            longitude={post.coordinates.lng}
-                        >
-                            <Link to={{ pathname: `/post/${id}`, state: post.uid}}>
-                                <Avatar alt={post.user_name} src={post.Image} />
-                            </Link>
-                            
-                        </Marker>
-                    ))}
-                    {/* <Geocoder
-                        mapRef={mapRef}
-                        onViewportChange={(viewport: any) => { setViewport(viewport);}
-                        mapboxApiAccessToken={process.env.REACT_APP_MAPBOX_TOKEN}
-                        position="top-left"
-                    /> */}
-
-                    {/* </ReactMapGL> */}
                 </Card>
             </div>
             <br />

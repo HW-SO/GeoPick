@@ -10,7 +10,7 @@ export default {
       const data = await firebase
       .firestore()
       .collection('Posts')
-      .orderBy('likes_count')
+      .orderBy('likes_count', "desc")
         .limit(5)
         .get();
 
@@ -38,7 +38,7 @@ export default {
       const data = await firebase
       .firestore()
       .collection('Posts')
-      .orderBy('likes_count')
+      .orderBy('likes_count', "desc")
         .startAfter(key)
         .limit(5)
         .get();

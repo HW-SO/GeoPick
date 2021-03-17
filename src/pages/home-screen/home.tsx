@@ -3,7 +3,7 @@ import { Component } from 'react';
 import WhiteLogo from '../welcome screen/WhiteLogo.svg';
 import './homesStyles.scss';
 import firebase from 'firebase';
-import Feed from '../../components/Layouts/feed';
+import HomeFeed from '../../components/Layouts/homefeed';
 import { Avatar, IconButton, Toolbar, Box, AppBar, Slide } from '@material-ui/core';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import useScrollTrigger from '@material-ui/core/useScrollTrigger';
@@ -123,8 +123,9 @@ export class HomeScreen extends Component<HomeScreenProps, HomeScreenState> {
                         />
                     </Toolbar>
                 </AppBar>
-                <SinglePostNew />
-                <Feed />
+                {/* <SinglePostNew /> */}
+                {/* <Feed /> */}
+                <HomeFeed uid = {this.state.uid}/>
 
                 <div style={{ padding: '30px' }}></div>
                 <BottomNavigation />
