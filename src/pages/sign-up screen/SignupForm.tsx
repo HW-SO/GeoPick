@@ -174,10 +174,3 @@ const SignUpForm = () => {
         </>
     );
 };
-
-function handleChange() {
-    throw new Error('Function not implemented.');
-}
-function setState(arg0: { isVerified: boolean }) {
-    throw new Error('Function not implemented.');
-}

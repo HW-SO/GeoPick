@@ -64,6 +64,14 @@ export default function HelpandFeedback() {
                     <form onSubmit={sendEmail}>
                         <TextField
                             id="standard-multiline-flexible"
+                            label="Username"
+                            variant="outlined"
+                            placeholder="Enter Username"
+                            name="username"
+                        />
+                        <br></br>
+                        <TextField
+                            id="standard-multiline-flexible"
                             label="Feedback"
                             variant="outlined"
                             placeholder="Write something..."
