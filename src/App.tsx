@@ -29,6 +29,7 @@ import LocationPicker from './components/Inputs/LocationPicker';
 import Camera from './components/Inputs/Camera';
 import ViewFollowers from './pages/followers-page/ViewFollowers';
 import WebCamFun from './pages/camera/index';
+import AccountSetting from './pages/AccountSetting/index';
 // import GTLexpanded from './components/Display/GTLexpanded';
 function App(): JSX.Element {
     return (
@@ -102,6 +103,9 @@ function App(): JSX.Element {
                     </Route>
                     <Route exact path="/ViewFollowers">
                         <ViewFollowers />
+                    </Route>
+                    <Route exact path="/AccountSetting">
+                        <AccountSetting />
                     </Route>
                 </Switch>
             </Router>
@@ -180,6 +184,9 @@ function Nav() {
                     </li>
                     <li>
                         <Link to="/ViewFollowers">ViewFollowers</Link>
+                    </li>
+                    <li>
+                        <Link to="/AccountSetting">AccountSetting</Link>
                     </li>
                 </ul>
             </nav>
