@@ -19,7 +19,7 @@ import SearchScreen from './pages/search-page/index';
 import ExploreScreen from './pages/explore-page/index';
 
 import { UploadImage } from './pages/upload-image/index';
-import AccessibilitySettings from './pages/accessSetting/AccessibilityV2';
+import AccessibilitySettings from './pages/accessSetting/index';
 import Notification from './pages/notificationset';
 import Notificationpg from './pages/notification';
 import Places from './components/Inputs/Places';
@@ -30,6 +30,7 @@ import Camera from './components/Inputs/Camera';
 import ViewFollowers from './pages/followers-page/ViewFollowers';
 import WebCamFun from './pages/camera/index';
 import AccountSetting from './pages/AccountSetting/index';
+import { createMuiTheme, ThemeProvider } from '@material-ui/core';
 // import GTLexpanded from './components/Display/GTLexpanded';
 function App(): JSX.Element {
     return (
