@@ -88,8 +88,7 @@ const SignUpForm = () => {
         if (data.password === data.confirmpassword) {
             auth.doCreateUserWithEmailAndPassword(data.email, data.password)
                 .then(() => {
-                    console.log('sucessfully signed up');
-                    // push('/create-profile');
+                    auth.doEmailVerification(data.email);
                 })
                 .catch((err) => {
                     console.log('Error ' + err);
@@ -174,10 +173,3 @@ const SignUpForm = () => {
         </>
     );
 };
-
-function handleChange() {
-    throw new Error('Function not implemented.');
-}
-function setState(arg0: { isVerified: boolean }) {
-    throw new Error('Function not implemented.');
-}
