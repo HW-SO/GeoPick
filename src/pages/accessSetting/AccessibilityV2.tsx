@@ -37,7 +37,7 @@ const options = {
     textToSpeech: [true],
     speechToText: [false],
 };
-new Accessibility({ animations: { buttons: false } }, options);
+// new Accessibility({ animations: { buttons: false } }, options);
 
 class AccessibilitySettings extends React.Component<AccessibilitySettingsProps, AccessibilitySettingsState> {
     render() {

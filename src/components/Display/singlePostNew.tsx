@@ -321,7 +321,7 @@ class SinglePostNew extends Component<SinglePostNewProps, SinglePostNewState> {
                         onClick={this.handleColorChange}
                     >
                         <FavoriteIcon />
-                        {<Typography style={{ color: '#fafafa' }}>{this.state.likes}</Typography>}
+                        <Typography style={{ color: '#fafafa' }}>{this.state.likes}</Typography>
                     </IconButton>
                     <Link to={{ pathname: `/post/${this.props.id}`, state: this.props.uid }}>
                         <IconButton aria-label="add a comment" style={{ color: '#FAFAFA', position: 'relative' }}>
