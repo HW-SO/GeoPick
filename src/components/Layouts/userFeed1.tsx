@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useState, useEffect, useRef, useLayoutEffect } from 'react';
+import { useState, useRef, useLayoutEffect } from 'react';
 import firebase from 'firebase';
 import SinglePostNew1 from '../Display/singlePostNew1';
 

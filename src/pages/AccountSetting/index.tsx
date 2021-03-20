@@ -1,10 +1,9 @@
 import * as React from 'react';
-import ArrowBackRoundedIcon from '@material-ui/icons/ArrowBackRounded';
 import WhiteLogo from '../welcome screen/WhiteLogo.svg';
 import { Grid, Typography, Box } from '@material-ui/core';
 import Card from '../../components/Layouts/Card';
 import { Avatar, IconButton, Toolbar } from '@material-ui/core';
-import { withStyles, Theme, createStyles, makeStyles  } from '@material-ui/core/styles';
+import { Theme, createStyles, makeStyles  } from '@material-ui/core/styles';
 import firebase from 'firebase';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
@@ -51,14 +50,6 @@ const SettingsMenu = () => {
         setOpen(false);
     };
     const classes = useStyles();
-
-    // function HomeButton() {
-    //     let history = useHistory();
-
-    function onClick(e: any) {
-         e.preventDefault();
-        
-     }
 
     const history = useHistory();
 

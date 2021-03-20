@@ -6,7 +6,7 @@ import SearchRoundedIcon from '@material-ui/icons/SearchRounded';
 import ExploreRoundedIcon from '@material-ui/icons/ExploreRounded';
 import SettingsRoundedIcon from '@material-ui/icons/SettingsRounded';
 import UploadIcon from '../Display/uploadIcon';
-import { AppBar, Fab, IconButton, Toolbar } from '@material-ui/core';
+import { AppBar, IconButton, Toolbar } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
     text: {

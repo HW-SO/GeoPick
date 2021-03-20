@@ -3,21 +3,13 @@ import { useState, useEffect } from 'react';
 import firebase from 'firebase';
 import SinglePostNew from '../Display/singlePostNew';
 import Post from "./Posts";
+import { Typography } from '@material-ui/core';
+
 
 export default function Feed() {
     const [posts, setPosts] = useState<any[]>([]);
     const [lastKey, setLastKey] = useState("" as unknown  as firebase.firestore.QueryDocumentSnapshot<firebase.firestore.DocumentData>);
     const [nextPosts_loading, setNextPostsLoading] = useState(false);
-    const [locations, setLocations] = useState<any[]>([]);
-
-    // useEffect(() => {
-    //     firebase
-    //         .firestore()
-    //         .collection('Posts')
-    //         .onSnapshot((snapshot: any) => {
-    //             setPosts(snapshot.docs.map((doc: any) => ({ id: doc.id, post: doc.data() })));
-    //         });
-    // }, []);
 
     useEffect(() => {
         // first 5 posts
@@ -86,34 +78,11 @@ export default function Feed() {
                         // otherLocs = {getLocations(post.location)}
                     />
                 );
-                } else return;
+                } else return (<Typography>No posts to show!</Typography>);
             })}
         </div>
     );
-    // console.log(lastKey)
     return (
-        // <div>
-        //     {posts.map(({ id, post }) => {
-        //         return (
-        //             <SinglePostNew
-        //                 key={id}
-        //                 id={id}
-        //                 // profileUrl={post.profileUrl}
-        //                 username={post.user_name}
-        //                 postPic={post.Image}
-        //                 uid={post.uid}
-        //                 // caption={post.caption}
-        //                 // comments={post.comments}
-        //                 date={new Date(post.post_time.seconds * 1000).toLocaleDateString('en-US')}
-        //                 likes_count={post.likes_count}
-        //                 caption={post.caption}
-        //                 sharedURL={window.location.href}
-        //                 hidden={false}
-        //                 comments_count={post.comments_count}
-        //             />
-        //         );
-        //     })}
-        // </div>
         <div>
             <div>{posts ? allPosts : null}</div>
             <div style={{ textAlign: "center" }}>

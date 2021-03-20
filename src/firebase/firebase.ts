@@ -65,6 +65,8 @@ const config = process.env.NODE_ENV === 'production' ? prodConfig : devConfig;
 
 if (!firebase.apps.length) {
    firebase.initializeApp(config);
+   firebase.auth().setPersistence(firebase.auth.Auth.Persistence.LOCAL);
+
 
 }
 // app.initializeApp(config);
@@ -94,9 +96,19 @@ if (!firebase.apps.length) {
 //     });
 // }
 
-
+firebase.firestore().enablePersistence()
+  .catch((err) => {
+      if (err.code === 'failed-precondition') {
+          // Multiple tabs open, persistence can only be enabled
+          // in one tab at a a time.
+          // ...
+      } else if (err.code === 'unimplemented') {
+          // The current browser does not support all of the
+          // features required to enable persistence
+          // ...
+      }
+});
 export const auth = firebase.auth();
-auth.setPersistence(firebase.auth.Auth.Persistence.LOCAL)
 export const GoogleProvider = new firebase.auth.GoogleAuthProvider();
 export const db = firebase.database();
 export default auth;

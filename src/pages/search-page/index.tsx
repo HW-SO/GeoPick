@@ -1,7 +1,6 @@
-import React, { useState } from 'react';
+import Reactfrom 'react';
 import WhiteLogo from '../welcome screen/WhiteLogo.svg';
 import Card from '../../components/Layouts/Card';
-import { RegularBtn } from '../../components/Buttons/RegularBtn';
 import TextField from '../../components/Inputs/TextField';
 import ArrowBackRoundedIcon from '@material-ui/icons/ArrowBackRounded';
 import { Box, Typography } from '@material-ui/core';
@@ -11,7 +10,6 @@ import Button from '@material-ui/core/Button';
 import SinglePostNew1 from '../../components/Display/singlePostNew1';
 import Feed from '../../components/Layouts/feed';
 import './search.scss';
-import { render } from '@testing-library/react';
 import { Component } from 'react';
 
 export interface SearchProps {}

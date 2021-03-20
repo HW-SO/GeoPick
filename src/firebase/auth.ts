@@ -1,6 +1,5 @@
 import { auth, GoogleProvider } from './firebase';
 import { useEffect } from 'react';
-import * as firebase from 'firebase';
 import { useHistory } from 'react-router-dom';
 
 // Sign Up with email

@@ -1,9 +1,8 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Grid from '@material-ui/core/Grid';
-import Box from '@material-ui/core/Box';
-import { IconButton } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import PhotoCameraRoundedIcon from "@material-ui/icons/PhotoCameraRounded";const useStyles = makeStyles((theme) => ({
+
+const useStyles = makeStyles((theme) => ({
   root: {
     height: "100%",
     textAlign: 'center',

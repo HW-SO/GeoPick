@@ -33,8 +33,8 @@ export class HomeScreen extends Component<HomeScreenProps, HomeScreenState> {
         };
     }
 
-    componentDidMount() {
-        const auth = checkUserLoggedIn();
+    async componentDidMount() {
+        const auth = await checkUserLoggedIn();
         if (auth != undefined) {
             this.getUser().then(
                 (user) => {

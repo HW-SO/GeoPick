@@ -1,14 +1,6 @@
-import React, { useState, useEffect } from 'react';
-import { makeStyles, withStyles } from '@material-ui/core/styles';
-import IconButton from '@material-ui/core/IconButton';
-import AddAvatar from './AddAvatar.png';
-// import Avatar from '@material-ui/core/Avatar';
-import BadgeAvatar from '../../components/Display/AddAvatarBadge';
-import { Avatar, Button, Card, CardContent, CardHeader, Grid, Typography } from '@material-ui/core';
-import { Link } from 'react-router-dom';
+import React from 'react';
+import { Button, Card, CardContent, Grid, Typography } from '@material-ui/core';
 import AvatarSmall from '../../components/Display/avatarSmall';
-import { truncate } from 'fs';
-import firebase from 'firebase';
 import fb from 'firebase/app';
 import { auth } from '../../firebase';
 import { Component } from 'react';
@@ -29,24 +21,6 @@ export interface ProfileOverviewState {
     color: boolean;
 }
 
-const useStyles = makeStyles((theme) => ({
-    root: {
-        '& > *': {
-            margin: theme.spacing(1),
-        },
-    },
-    input: {
-        display: 'none',
-    },
-}));
-
-const SmallAvatar = withStyles((theme) => ({
-    root: {
-        width: 22,
-        height: 22,
-        border: `2px solid ${theme.palette.background.paper}`,
-    },
-}))(Avatar);
 
 export default class ProfileOverview extends Component<ProfileOverviewProps, ProfileOverviewState> {
 
@@ -123,7 +97,7 @@ export default class ProfileOverview extends Component<ProfileOverviewProps, Pro
             const increment = fb.firestore.FieldValue.increment(1);
             const decrement = fb.firestore.FieldValue.increment(-1);
 
-            if (this.state.Follow == true) {
+            if (this.state.Follow === true) {
                 fb.firestore()
                     .collection('users/')
 

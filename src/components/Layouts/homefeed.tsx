@@ -2,21 +2,15 @@ import * as React from 'react';
 import { useState, useEffect } from 'react';
 import firebase from 'firebase';
 import SinglePostNew from '../Display/singlePostNew';
-import Post from "./Posts";
-import { checkUserLoggedIn } from '../../firebase/auth';
 
 export default function HomeFeed(props: any) {
     const [posts, setPosts] = useState<any[]>([]);
-    // const auth = checkUserLoggedIn();
     const [following, setFollowing] = useState<any[]>([]);
     const [done, setDone] = useState(false);
     let postsLoaded = false;
-    const [lastKey, setLastKey] = useState("" as unknown  as firebase.firestore.QueryDocumentSnapshot<firebase.firestore.DocumentData>);
-    const [nextPosts_loading, setNextPostsLoading] = useState(false);
-    const [locations, setLocations] = useState<any[]>([]);
 
     useEffect(() => {
-        if (!done && following.length == 0) {
+        if (!done && following.length === 0) {
             // console.log("trying");
             getFollowing();
         }
@@ -39,12 +33,10 @@ export default function HomeFeed(props: any) {
         .collection("following").get();
 
         for (doc of result.docs) {
-            // console.log(doc.id);
             f.push(doc.id);
         }
 
         setDone(true);
-        // console.log(f);
         setFollowing(f);
          
     };
@@ -76,6 +68,7 @@ export default function HomeFeed(props: any) {
                             sharedURL={window.location.href}
                             hidden={false}
                             comments_count={post.comments_count}
+                            location = {post.location}
                         />
                     );
             })}

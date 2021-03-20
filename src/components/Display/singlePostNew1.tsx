@@ -1,6 +1,5 @@
-import React, { Component, useState } from 'react';
+import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-// import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
 import CardMedia from '@material-ui/core/CardMedia';
@@ -10,21 +9,14 @@ import Avatar from '@material-ui/core/Avatar';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
 import FavoriteIcon from '@material-ui/icons/Favorite';
-// import ShareIcon from '@material-ui/icons/Share';
 import SharePost from './sharePost';
-import MoreVertIcon from '@material-ui/icons/MoreVert';
 import AddCommentRoundedIcon from '@material-ui/icons/AddCommentRounded';
 import './singlePostStyles.scss';
 import { checkUserLoggedIn } from '../../firebase/auth';
 import firebase from 'firebase';
 import fb from 'firebase/app';
-import GuessTheLocationPlay from '../Game/guessPlay';
-import GTLicon from '../Inputs/The pin.svg';
-import { Box, Button } from '@material-ui/core';
-import GTLexpanded from './GTLexpanded';
+import { Box } from '@material-ui/core';
 import EditButton from './edit';
-import GTLmenu from '../Game/GTLmenu';
-// import randomLocation from 'random-location';
 
 export interface SinglePostNewProps {
     username?: string;
@@ -163,17 +155,16 @@ class SinglePostNew extends Component<SinglePostNewProps, SinglePostNewState> {
     }
 
     getLocations = (loc: string) => {
-        var locs = new Array();
 
         return new Promise((resolve, reject) => {
             let locs = new Array();
-            const snapshot = firebase
+            firebase
                 .firestore()
                 .collection('Posts')
                 .get()
                 .then((querySnapshot) => {
                     querySnapshot.forEach((doc) => {
-                        if (!locs.includes(doc.data().location) && loc != doc.data().location) {
+                        if (!locs.includes(doc.data().location) && loc !== doc.data().location) {
                             locs.push(doc.data().location);
                         }
                     });
@@ -184,24 +175,6 @@ class SinglePostNew extends Component<SinglePostNewProps, SinglePostNewState> {
                 });
         });
 
-        return new Promise(function (resolve, reject) {
-            firebase
-                .firestore()
-                .collection('Posts')
-                .get()
-                .then((querySnapshot) => {
-                    querySnapshot.forEach((doc) => {
-                        if (!locs.includes(doc.data().location) && loc != doc.data().location) {
-                            locs = [...locs, doc.data().location];
-                        }
-                    });
-                });
-            if (locs) {
-                resolve(locs);
-            } else {
-                reject('not loading locations');
-            }
-        });
     };
 
     getUser = () => {
