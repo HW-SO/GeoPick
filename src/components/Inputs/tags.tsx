@@ -2,7 +2,9 @@ import React from 'react';
 import './tags.scss';
 import Textfield from './TextField';
 
-import { TextField as MatTextField, withStyles, Chip, Typography } from '@material-ui/core';
+import { TextField as 
+    //MatTextField
+     withStyles, Chip, Typography } from '@material-ui/core';
 
 const Tags = (props: any) => {
     const [tags, setTags] = React.useState(Array());

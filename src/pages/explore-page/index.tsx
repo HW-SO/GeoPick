@@ -1,18 +1,21 @@
 import React, { useState, useLayoutEffect, useRef, useCallback } from 'react';
 import WhiteLogo from '../welcome screen/WhiteLogo.svg';
 import Card from '../../components/Layouts/Card';
-import { RegularBtn } from '../../components/Buttons/RegularBtn';
-import TextField from '../../components/Inputs/TextField';
+//import { RegularBtn } from '../../components/Buttons/RegularBtn';
+//import TextField from '../../components/Inputs/TextField';
 import ArrowBackRoundedIcon from '@material-ui/icons/ArrowBackRounded';
-import { Box } from '@material-ui/core';
+//import { Box } from '@material-ui/core';
 import firebase from 'firebase';
-import ProfileOverview from '../../components/Display/profileOverview';
-import Button from '@material-ui/core/Button';
-import SinglePostNew from '../../components/Display/singlePostNew';
-import Places from '../../components/Inputs/Places';
+//import ProfileOverview from '../../components/Display/profileOverview';
+//import Button from '@material-ui/core/Button';
+//import SinglePostNew from '../../components/Display/singlePostNew';
+//import Places from '../../components/Inputs/Places';
 
-import ReactMapGL, { Marker, Popup } from 'react-map-gl';
-import { Typography } from '@material-ui/core';
+import ReactMapGL, { Marker
+     //Popup 
+    } from 'react-map-gl';
+
+//import { Typography } from '@material-ui/core';
 import Avatar from '@material-ui/core/Avatar';
 import { Link } from 'react-router-dom';
 // import 'react-map-gl-geocoder/dist/mapbox-gl-geocoder.css';
