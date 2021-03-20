@@ -5,7 +5,7 @@ import Card from '../../components/Layouts/Card';
 import { RegularBtn } from '../../components/Buttons/RegularBtn';
 import { auth } from '../../firebase';
 import { useForm } from 'react-hook-form';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 export interface ResetProps {}
 
 export default function ResetScreens() {
@@ -35,8 +35,8 @@ const ResetHeader = (props: { title: string }) => {
 const ResetFields = ({ register, errors }: { register: any; errors: any }) => {
     console.log(errors);
     return (
-        <Grid item container spacing={3} direction="row" alignItems="center" justify="center">
-            <Grid item style={{ width: '100%' }}>
+        <Grid item container spacing={4} direction="row" alignItems="center" justify="center">
+            <Grid item style={{ width: '150%' }}>
                 <TextField
                     name="email"
                     id="Email"
@@ -72,6 +72,8 @@ const ResetForm = () => {
             });
     };
 
+    const history = useHistory();
+
     return (
         <>
             <form onSubmit={handleSubmit(onSubmit)}>
@@ -93,11 +95,15 @@ const ResetForm = () => {
                 <br />
                 <br />
                 <Grid item xs={12} alignItems="center" justify="center" style={{ textAlign: 'center' }}>
-                    <Link to="/sign-in">
-                        <RegularBtn colorType="orange" style={{ width: '100%', borderRadius: '15px' }}>
-                            Go Back
-                        </RegularBtn>
-                    </Link>
+                    <RegularBtn
+                        colorType="orange"
+                        style={{ width: '100%', borderRadius: '15px' }}
+                        onClick={(e) => {
+                            history.push('/sign-in');
+                        }}
+                    >
+                        Go Back
+                    </RegularBtn>
                 </Grid>
                 <br />
             </form>

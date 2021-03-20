@@ -4,7 +4,7 @@ import { Component } from 'react';
 import TextField from '../../components/Inputs/TextField';
 import WhiteLogo from '../welcome screen/WhiteLogo.svg';
 import OccupationSelect from '../../components/Inputs/occupation';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { auth } from '../../firebase';
 import ReactDOM from 'react-dom';
 
@@ -18,11 +18,16 @@ class EditProfile extends Component<EditProfileProps, EditProfileState> {
     };
 
     handleonclickSubmit() {
-        console.log('Profile edit changes!');
+        console.log('Profile edit changes!')
+        //     .then(() => {
+        //     push('/welcome');
+        // });
     }
     handleonclickChangePassword() {
         console.log('Go to change password screen!');
+        // push('/ReSet-password'); CHECK
     }
+
     render() {
         return (
             <div style={{ background: '#1b1b1b', height: 'auto', paddingBottom: '5em' }}>
@@ -145,69 +150,65 @@ class EditProfile extends Component<EditProfileProps, EditProfileState> {
 export default EditProfile;
 
 class Username extends React.Component {
-  state = { value: "" };
+    state = { value: '' };
 
-  changeValue(value) {
-    this.setState({ value });
-  }
+    changeValue(value) {
+        this.setState({ value });
+    }
 
-  render() {
-    const { value } = this.state;
-    return <h1>{value}</h1>;
-  }
+    render() {
+        const { value } = this.state;
+        return <h1>{value}</h1>;
+    }
 }
 
 function App() {
-  function clickHandler() {}
+    function clickHandler() {}
 
-  return (
-    <div>
-      <button onClick={clickHandler}>Change Username</button>
-      <input type="text" />
-      <Username />
-    </div>
-  );
+    return (
+        <div>
+            <button onClick={clickHandler}>Change Username</button>
+            <input type="text" />
+            <Username />
+        </div>
+    );
 }
 
 document.body.innerHTML = "<div id='root'></div>";
-const rootElement = document.getElementById("root");
+const rootElement = document.getElementById('root');
 ReactDOM.render(<App />, rootElement);
 
 class editAvatar extends React.Component {
-
     constructor(props) {
-      super(props)
-      const src = './example/einshtein.jpg'
-      this.state = {
-        preview: null,
-        src
-      }
-      this.onCrop = this.onCrop.bind(this)
-      this.onClose = this.onClose.bind(this)
-      this.onBeforeFileLoad = this.onBeforeFileLoad.bind(this)
+        super(props);
+        const src = './example/einshtein.jpg';
+        this.state = {
+            preview: null,
+            src,
+        };
+        this.onCrop = this.onCrop.bind(this);
+        this.onClose = this.onClose.bind(this);
+        this.onBeforeFileLoad = this.onBeforeFileLoad.bind(this);
     }
-    
+
     onClose() {
-      this.setState({preview: null})
+        this.setState({ preview: null });
     }
-    
+
     onCrop(preview) {
-      this.setState({preview})
+        this.setState({ preview });
     }
-  
+
     onBeforeFileLoad(elem) {
-      if(elem.target.files[0].size > 71680){
-        alert("File is too big!");
-        elem.target.value = "";
-      };
+        if (elem.target.files[0].size > 71680) {
+            alert('File is too big!');
+            elem.target.value = '';
+        }
     }
-    
-    render () {
-      return (
-        <div>
-        </div>
-      )
+
+    render() {
+        return <div></div>;
     }
-  }
-  
-  ReactDOM.render(<App /> , document.getElementById('root'))
+}
+
+ReactDOM.render(<App />, document.getElementById('root'));

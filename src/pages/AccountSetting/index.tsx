@@ -3,11 +3,11 @@ import WhiteLogo from '../welcome screen/WhiteLogo.svg';
 import { Grid, Typography, Box } from '@material-ui/core';
 import Card from '../../components/Layouts/Card';
 import { Avatar, IconButton, Toolbar } from '@material-ui/core';
-import { Theme, createStyles, makeStyles  } from '@material-ui/core/styles';
+import { Theme, createStyles, makeStyles } from '@material-ui/core/styles';
 import firebase from 'firebase';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
-import { useHistory } from "react-router-dom";
+import { useHistory } from 'react-router-dom';
 import ListItemText from '@material-ui/core/ListItemText';
 import Divider from '@material-ui/core/Divider';
 import { Component } from 'react';
@@ -18,10 +18,10 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
+import EditOutlinedIcon from '@material-ui/icons/EditOutlined';
+import ThumbUpAltRoundedIcon from '@material-ui/icons/ThumbUpAltRounded';
+import HighlightOffOutlinedIcon from '@material-ui/icons/HighlightOffOutlined';
 //import { Link} from 'react-router-dom';
-
-
-
 
 export interface AccountSettingProps {}
 export interface AccountSettingMenuState {
@@ -58,50 +58,59 @@ const SettingsMenu = () => {
         var user = checkUserLoggedIn();
         // console.log(user)
 
-        if(user)
-        firebase.firestore().collection('users/').doc(`${user.uid}/`).delete().then(() => console.log("User Deleted"))
+        if (user)
+            firebase
+                .firestore()
+                .collection('users/')
+                .doc(`${user.uid}/`)
+                .delete()
+                .then(() => console.log('User Deleted'));
 
-       // const { push } = useHistory();
+        // const { push } = useHistory();
         history.push('/welcome');
-
-    }
-
+    };
 
     return (
         <div style={{ width: '100%', height: '100%' }}>
             <List component="nav" className={classes.root} aria-label="mailbox folders">
                 <ListItem button>
-                   <ListItemText primary="Edit profile" onClick={e => { history.push("/EditProfile") }}/>
+                    <ListItemText
+                        primary="Edit Profile"
+                        onClick={(e) => {
+                            history.push('/EditProfile');
+                        }}
+                    />
+                    <EditOutlinedIcon />
                 </ListItem>
                 <Divider />
-                <ListItem button divider  onClick={handleClickOpen}>
-                   
-                    <ListItemText primary="Delete users" />
+                <ListItem button divider onClick={handleClickOpen}>
+                    <ListItemText primary="Delete Users" />
+                    <HighlightOffOutlinedIcon />
                 </ListItem>
-                    <Dialog
-            open={open}
-            onClose={handleClose}
-            aria-labelledby="alert-dialog-title"
-            aria-describedby="alert-dialog-description"
-        >
-            <DialogTitle id="alert-dialog-title">{"Delete User"}</DialogTitle>
-            <DialogContent>
-            <DialogContentText id="alert-dialog-description">
-               Are you sure you want to delete your account permenantly?
-            </DialogContentText>
-            </DialogContent>
-            <DialogActions>
-                <Button onClick={handleClose} color="primary">
-                    No
-                </Button>
-                <Button onClick={handleCloseDelete} color="primary" autoFocus>
-                    Yes
-                </Button>
-                </DialogActions>
-            </Dialog>
+                <Dialog
+                    open={open}
+                    onClose={handleClose}
+                    aria-labelledby="alert-dialog-title"
+                    aria-describedby="alert-dialog-description"
+                >
+                    <DialogTitle id="alert-dialog-title">{'Delete User'}</DialogTitle>
+                    <DialogContent>
+                        <DialogContentText id="alert-dialog-description">
+                            Are you sure you want to delete your account permenantly?
+                        </DialogContentText>
+                    </DialogContent>
+                    <DialogActions>
+                        <Button onClick={handleClose} color="primary">
+                            No
+                        </Button>
+                        <Button onClick={handleCloseDelete} color="primary" autoFocus>
+                            Yes
+                        </Button>
+                    </DialogActions>
+                </Dialog>
                 <ListItem button divider>
-                    
-                    <ListItemText primary="Liked posts" />
+                    <ListItemText primary="Liked Posts" />
+                    <ThumbUpAltRoundedIcon />
                 </ListItem>
             </List>
             <Box m={5} />
@@ -115,9 +124,7 @@ const SettingsMenu = () => {
     );
 };
 
-
-
-export default class AccountSetting extends Component< AccountSettingProps, AccountSettingMenuState> {
+export default class AccountSetting extends Component<AccountSettingProps, AccountSettingMenuState> {
     constructor(AccountSettingProps: any) {
         super(AccountSettingProps);
         this.state = {
@@ -125,8 +132,8 @@ export default class AccountSetting extends Component< AccountSettingProps, Acco
         };
     }
     render() {
-            return (
-                <div style={{ background: '#1b1b1b' }} className="bgg">
+        return (
+            <div style={{ background: '#1b1b1b' }} className="bgg">
                 <Toolbar>
                     <img src={WhiteLogo} alt="GeoPicK" className="WhiteLogo" />
                     <IconButton edge="end">
@@ -144,7 +151,6 @@ export default class AccountSetting extends Component< AccountSettingProps, Acco
                 </div>
                 <br />
             </div>
-                );
+        );
     }
 }
-

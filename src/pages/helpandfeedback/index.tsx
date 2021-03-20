@@ -8,6 +8,9 @@ import ArrowBackRoundedIcon from '@material-ui/icons/ArrowBackRounded';
 import { Typography } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
 import emailjs from 'emailjs-com';
+import { useHistory } from 'react-router-dom';
+import HomeRoundedIcon from '@material-ui/icons/HomeRounded';
+import ArrowForwardIosOutlinedIcon from '@material-ui/icons/ArrowForwardIosOutlined';
 
 export interface HelpandFeedbackProps {}
 
@@ -24,6 +27,8 @@ function sendEmail(e: any) {
     emailjs.sendForm('service_7um7ypw', 'template_my7a0ii', e.target, 'user_pKzNS4ftM2sSAMAFNjGVw').then(
         (result) => {
             console.log(result.text);
+            alert('Thank You For Your Feedback ✅ ');
+            // push('/home'); MAKE USER MOVE TO HOME SCREEN. ASK SOMEONE.
         },
         (error) => {
             console.log(error.text);
@@ -33,11 +38,9 @@ function sendEmail(e: any) {
 }
 
 export default function HelpandFeedback() {
+    const history = useHistory();
     return (
         <div className="background">
-            <div className="button" style={{ float: 'left' }}>
-                <ArrowBackRoundedIcon />
-            </div>
             <div className="image">
                 <img src={WhiteLogo} alt="GeoPicK Logo" className="WhiteLogo" />
             </div>
@@ -55,6 +58,8 @@ export default function HelpandFeedback() {
                         message via the feedback form.
                     </WhiteTypography>
                     <br></br>
+                    <WhiteTypography>Your Feedback Matters ☺️ </WhiteTypography>
+                    <br></br>
                     <WhiteTypography>Thanks❤,</WhiteTypography>
                     <br></br>
                     <WhiteTypography>
@@ -70,7 +75,7 @@ export default function HelpandFeedback() {
                             name="username"
                         />
                         <br></br>
-                        
+
                         <TextField
                             id="standard-multiline-flexible"
                             label="Feedback"
@@ -83,8 +88,21 @@ export default function HelpandFeedback() {
                         <br></br>
                         <RegularBtn type="submit" colorType="orange" style={{ width: 'auto', borderRadius: '20px' }}>
                             Send Feedback
+                            <ArrowForwardIosOutlinedIcon />
                         </RegularBtn>
                     </form>
+                    <br></br>
+                    <RegularBtn
+                        type="submit"
+                        colorType="orange"
+                        style={{ width: 'auto', borderRadius: '20px' }}
+                        onClick={(e) => {
+                            history.push('/home');
+                        }}
+                    >
+                        Go to
+                        <HomeRoundedIcon />
+                    </RegularBtn>
                 </Card>
             </div>
             <br />

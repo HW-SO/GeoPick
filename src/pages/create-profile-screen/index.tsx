@@ -130,7 +130,7 @@ const CreateProfileFields = ({ register, errors, control }: { register: any; err
                 <TextField
                     name="username"
                     id="username"
-                    label="username"
+                    label="Username"
                     type="username"
                     inputRef={register({
                         required: true,
@@ -183,6 +183,7 @@ const CreateProfileForm = ({ img }: { img: string }) => {
         }
     };
 
+    const history = useHistory();
     return (
         <>
             <form onSubmit={handleSubmit(onSubmit)}>
@@ -198,21 +199,26 @@ const CreateProfileForm = ({ img }: { img: string }) => {
                         <Typography align="left" style={{ fontSize: '12px', color: '1B1B1E' }}>
                             *Other users will be able to view your username and display picture as set above
                         </Typography>
+                        <br></br>
                     </Grid>
                 </Grid>
                 <Grid item xs={12} alignItems="center" justify="center" style={{ textAlign: 'center' }}>
-                    <RegularBtn type="submit" colorType="white" style={{ width: '50%', borderRadius: '15px' }}>
+                    <RegularBtn type="submit" colorType="white" style={{ width: '80%', borderRadius: '15px' }}>
                         Complete Registration
                     </RegularBtn>
                 </Grid>
                 <br />
                 <br />
                 <Grid item xs={12} alignItems="center" justify="center" style={{ textAlign: 'center' }}>
-                    <Link to="/sign-up">
-                        <RegularBtn colorType="white" style={{ width: '100%', borderRadius: '15px' }}>
-                            Go Back
-                        </RegularBtn>
-                    </Link>
+                    <RegularBtn
+                        colorType="white"
+                        style={{ width: '100%', borderRadius: '15px' }}
+                        onClick={(e) => {
+                            history.push('/sign-up');
+                        }}
+                    >
+                        Go Back
+                    </RegularBtn>
                 </Grid>
             </form>
         </>

@@ -37,8 +37,8 @@ class UserPage extends Component<UserPageProps, UserPageState> {
         const path = window.location.pathname.split('/');
         const uid = path[path.length - 1];
         const u = checkUserLoggedIn();
-        if(u) this.setState({ user_uid: u.uid});
-       
+        if (u) this.setState({ user_uid: u.uid });
+
         this.getUser().then(
             (user) => {
                 this.setState({ isAuthenticated: true, user: user, uid: uid });
@@ -84,23 +84,22 @@ class UserPage extends Component<UserPageProps, UserPageState> {
     getUser = () => {
         const path = window.location.pathname.split('/');
         const uid = path[path.length - 1];
-        
+
         return new Promise(function (resolve, reject) {
-        
-                firebase
-                    .firestore()
-                    .collection('users')
-                    .doc(uid)
-                    .get()
-                    .then((querySnapshot) => {
-                        const data = querySnapshot.data();
-                        const id = querySnapshot.id;
-                        if (data) {
-                            resolve(data);
-                        } else {
-                            reject('User not authenticated');
-                        }
-                    });
+            firebase
+                .firestore()
+                .collection('users')
+                .doc(uid)
+                .get()
+                .then((querySnapshot) => {
+                    const data = querySnapshot.data();
+                    const id = querySnapshot.id;
+                    if (data) {
+                        resolve(data);
+                    } else {
+                        reject('User not authenticated');
+                    }
+                });
         });
     };
 
@@ -124,40 +123,41 @@ class UserPage extends Component<UserPageProps, UserPageState> {
                 />
                 <br></br>
                 <br></br>
-                {this.state.user_uid === this.state.uid && <>
-                <Button
-                    style={{
-                        paddingLeft: '15%',
-                        paddingRight: '15%',
-                        background: '#f56920',
-                        borderRadius: '20px',
-                        marginRight: '10%',
-                    }}
-                >
-                    <Typography variant="button" style={{ color: '#fafafa' }}>
-                        Edit Profile
-                    </Typography>
-                </Button>
-
-                <Button
-                    style={{
-                        background: '#1b1b1b',
-                        border: '3px solid #f56920',
-                        borderRadius: '20px',
-                        maxWidth: '600px',
-                        margin: 'auto',
-                        paddingLeft: '5%',
-                        paddingRight: '5%',
-                    }}
-                    onClick={this.signOut}
-                >
-                    <Link to="/welcome">
-                        <Typography variant="button" style={{ color: '#fafafa' }}>
-                            Sign Out
-                        </Typography>
-                    </Link>
-                </Button> </>
-                }
+                {this.state.user_uid === this.state.uid && (
+                    <>
+                        <Button
+                            style={{
+                                paddingLeft: '15%',
+                                paddingRight: '15%',
+                                background: '#f56920',
+                                borderRadius: '20px',
+                                marginRight: '10%',
+                            }}
+                        >
+                            <Typography variant="button" style={{ color: '#fafafa' }}>
+                                Edit Profile
+                            </Typography>
+                        </Button>
+                        <Button
+                            style={{
+                                background: '#1b1b1b',
+                                border: '3px solid #f56920',
+                                borderRadius: '20px',
+                                maxWidth: '600px',
+                                margin: 'auto',
+                                paddingLeft: '5%',
+                                paddingRight: '5%',
+                            }}
+                            onClick={this.signOut}
+                        >
+                            <Link to="/welcome">
+                                <Typography variant="button" style={{ color: '#fafafa' }}>
+                                    Sign Out
+                                </Typography>
+                            </Link>
+                        </Button>{' '}
+                    </>
+                )}
                 <div style={{ margin: 'auto' }}>
                     <Typography variant="h4" style={{ color: '#fafafa', paddingTop: '25px' }}>
                         My <span style={{ color: '#f56920' }}>Posts</span>

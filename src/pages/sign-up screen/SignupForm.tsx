@@ -127,6 +127,7 @@ const SignUpForm = () => {
         }
     }
 
+    const history = useHistory();
     return (
         <>
             <form onSubmit={handleSubmit(onSubmit)}>
@@ -163,11 +164,15 @@ const SignUpForm = () => {
                 <br />
                 <br />
                 <Grid item xs={12} alignItems="center" justify="center" style={{ textAlign: 'center' }}>
-                    <Link to="/welcome">
-                        <RegularBtn colorType="white" style={{ width: '100%', borderRadius: '15px' }}>
-                            Go Back
-                        </RegularBtn>
-                    </Link>
+                    <RegularBtn
+                        colorType="white"
+                        style={{ width: '100%', borderRadius: '15px' }}
+                        onClick={(e) => {
+                            history.push('/welcome');
+                        }}
+                    >
+                        Go Back
+                    </RegularBtn>
                 </Grid>
             </form>
         </>

@@ -2,6 +2,9 @@ import { Card, Typography } from '@material-ui/core';
 import * as React from 'react';
 import { Component } from 'react';
 import './Styles.scss';
+import GavelOutlinedIcon from '@material-ui/icons/GavelOutlined';
+import HomeRoundedIcon from '@material-ui/icons/HomeRounded';
+import { RegularBtn } from '../../components/Buttons/RegularBtn';
 
 export interface TermsProps {}
 
@@ -12,7 +15,8 @@ export class Terms extends Component<TermsProps, TermsState> {
         return (
             <div style={{ background: '#1b1b1b' }}>
                 <Typography variant="h3" style={{ fontWeight: 'bold', color: '#fafafa', padding: '15px' }}>
-                    Terms <span style={{ color: '#f56920' }}>&</span> Conditions
+                    Terms <span style={{ color: '#f56920' }}>&</span> Conditions <span></span>
+                    <GavelOutlinedIcon fontSize="large" /> {/* ADD SPACING BETWEEN TEXT AND ICON ? */}
                 </Typography>
                 <Card style={{ borderRadius: '20px', background: '#fafafa', margin: '20px' }}>
                     <Typography variant="body1" style={{ fontWeight: 'lighter', textAlign: 'left', margin: '20px' }}>
@@ -318,6 +322,18 @@ export class Terms extends Component<TermsProps, TermsState> {
                             </a>
                         </p>
                     </Typography>
+
+                    <RegularBtn
+                        type="submit"
+                        colorType="orange"
+                        style={{ width: 'auto', borderRadius: '20px' }}
+                        // onClick={(e) => {
+                        //     history.push('/home');
+                        //}}
+                    >
+                        Go to
+                        <HomeRoundedIcon />
+                    </RegularBtn>
                 </Card>
             </div>
         );
