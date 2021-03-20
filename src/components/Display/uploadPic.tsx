@@ -78,12 +78,12 @@ export default function UploadPic(props: any) {
                     if (typeof uri === 'string') {
                         const urinew = uri.split('base64,')[1];
                         storage
-                            .ref(`/Images/${user.uid}/Avatar/${file.name}`)
+                            .ref(`/Images/${user['uid']}/Avatar/${file.name}`)
                             .putString(urinew, 'base64')
                             .then((data) => {
                                 data.ref.getDownloadURL().then((url) => {
                                     setUrl(url);
-                                    firebase.firestore().collection('users/').doc(`${user.uid}/`).update({
+                                    firebase.firestore().collection('users/').doc(`${user['uid']}/`).update({
                                         Avatar: url,
                                     });
                                 });

@@ -47,7 +47,7 @@ export default function ProfileOverview(props: any) {
         const FollowingCheck = fb
             .firestore()
             .collection('users/')
-            .doc(`${user.uid}/`)
+            .doc(`${user['uid']}/`)
             .collection('Following')
             .doc(`${props.uid}/`)
             .get();
@@ -68,7 +68,7 @@ export default function ProfileOverview(props: any) {
             if (Follow == true) {
                 fb.firestore()
                     .collection('users/')
-                    .doc(`${user.uid}/`)
+                    .doc(`${user['uid']}/`)
                     .collection('Following')
                     .doc(`${props.uid}/`)
                     .update({
@@ -79,12 +79,12 @@ export default function ProfileOverview(props: any) {
                     .collection('users/')
                     .doc(`${props.uid}/`)
                     .collection('Followers')
-                    .doc(`${user.uid}/`)
+                    .doc(`${user['uid']}/`)
                     .update({
-                        UserId: user.uid,
+                        UserId: user['uid'],
                     });
 
-                fb.firestore().collection('users/').doc(`${user.uid}/`).update({
+                fb.firestore().collection('users/').doc(`${user['uid']}/`).update({
                     Following: increment,
                 });
 
@@ -94,7 +94,7 @@ export default function ProfileOverview(props: any) {
             } else {
                 fb.firestore()
                     .collection('users/')
-                    .doc(`${user.uid}/`)
+                    .doc(`${user['uid']}/`)
                     .collection('Following')
                     .doc(`${props.uid}/`)
                     .delete();
@@ -102,10 +102,10 @@ export default function ProfileOverview(props: any) {
                     .collection('users/')
                     .doc(`${props.uid}/`)
                     .collection('Followers')
-                    .doc(`${user.uid}/`)
+                    .doc(`${user['uid']}/`)
                     .delete();
 
-                fb.firestore().collection('users/').doc(`${user.uid}/`).update({
+                fb.firestore().collection('users/').doc(`${user['uid']}/`).update({
                     Following: decrement,
                 });
 

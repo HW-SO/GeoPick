@@ -64,7 +64,8 @@ const config = process.env.NODE_ENV === 'production' ? prodConfig : devConfig;
 //     }
 
 if (!firebase.apps.length) {
-    firebase.initializeApp(config);
+   firebase.initializeApp(config);
+
 }
 // app.initializeApp(config);
 
@@ -95,10 +96,12 @@ if (!firebase.apps.length) {
 
 
 export const auth = firebase.auth();
+auth.setPersistence(firebase.auth.Auth.Persistence.LOCAL)
 export const GoogleProvider = new firebase.auth.GoogleAuthProvider();
 export const db = firebase.database();
 export default auth;
 export const storage = firebase.storage();
+
 // export {
 //     messaging
 // };
