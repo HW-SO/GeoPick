@@ -1,115 +1,150 @@
-import React, { useState, useEffect } from 'react';
-import { makeStyles, withStyles } from '@material-ui/core/styles';
-import IconButton from '@material-ui/core/IconButton';
-import AddAvatar from './AddAvatar.png';
-// import Avatar from '@material-ui/core/Avatar';
-import BadgeAvatar from '../../components/Display/AddAvatarBadge';
-import { Avatar, Button, Card, CardContent, CardHeader, Grid, Typography } from '@material-ui/core';
-import { Link } from 'react-router-dom';
+import React from 'react';
+import { Button, Card, CardContent, Grid, Typography } from '@material-ui/core';
 import AvatarSmall from '../../components/Display/avatarSmall';
-import { truncate } from 'fs';
-import firebase from 'firebase';
 import fb from 'firebase/app';
 import { auth } from '../../firebase';
+import { Component } from 'react';
 
-const useStyles = makeStyles((theme) => ({
-    root: {
-        '& > *': {
-            margin: theme.spacing(1),
-        },
-    },
-    input: {
-        display: 'none',
-    },
-}));
+export interface ProfileOverviewProps {
+    uid?:any;
+    followers?:boolean;
+    User_name?:any;
+    key?:any;
+    Avatar?:any;
+    User?:any;
+    Size?:string;
+}
 
-const SmallAvatar = withStyles((theme) => ({
-    root: {
-        width: 22,
-        height: 22,
-        border: `2px solid ${theme.palette.background.paper}`,
-    },
-}))(Avatar);
+export interface ProfileOverviewState {
+    user: any;
+    Follow: boolean;
+    color: boolean;
+}
 
-export default function ProfileOverview(props: any) {
-    const [user, setUser] = useState(auth.checkUserLoggedIn());
-    useEffect(() => {
-        const authU = auth.checkUserLoggedIn();
-        if (authU != undefined) {
-            setUser(authU);
-        }
-    });
 
-    const Followers = () => {
-        const [Follow, setFollow] = useState(false);
-        const [color, setColor] = useState(false);
-        if (!user) return null;
-        const FollowingCheck = fb
+export default class ProfileOverview extends Component<ProfileOverviewProps, ProfileOverviewState> {
+
+
+    constructor(ProfileOverviewProps: any) {
+        super(ProfileOverviewProps);
+        
+        this.state = {
+            user: auth.checkUserLoggedIn(),
+            Follow: false,
+            color: false,
+        };
+    }
+    componentDidMount  () {
+        var a= false;
+        var user = auth.checkUserLoggedIn();
+        if(!user) return;
+       fb
+        .firestore()
+        .collection('users/')
+        .doc(`${user.uid}/`)
+        .collection('following')
+        .doc(`${this.props.uid}/`)
+        .get().then(snapshot => {
+            const data = snapshot.data()
+            if(data){
+    
+               a = true
+                this.setState({Follow:a,color:a})
+            }
+            }
+        );;;
+        
+        // console.log(a)
+    }
+    // useEffect(() => {
+    //     const authU = auth.checkUserLoggedIn();
+    //     if (authU != undefined) {
+    //         setState(authU);
+    //     }
+    // });
+    Followers = () => {
+        // const [Follow, setFollow] = useState(false);
+        // const [color, setColor] = useState(false);
+        
+
+        const FollowUpdate = async () => {
+            
+            if (!this.state.user) return null;
+            console.log(this.state.user)
+            console.log(this.props.uid)
+        var FollowingCheck = 
+         await fb
             .firestore()
             .collection('users/')
-            .doc(`${user.uid}/`)
-            .collection('Following')
-            .doc(`${props.uid}/`)
+
+            .doc(`${this.state.user.uid}/`)
+            .collection('following')
+            .doc(`${this.props.uid}/`)
+
             .get();
+            console.log(FollowingCheck.exists)
+            
 
-        if (FollowingCheck == null) {
-            setFollow(false);
+        if (!FollowingCheck.exists) {
+            
+            this.setState({Follow:false});
         } else {
-            setFollow(true);
+            
+            this.setState({Follow:true});
         }
-
-        const FollowUpdate = () => {
-            if (!user) return;
-            setFollow(!Follow);
-
+            if (!this.state.user) return;
+            this.setState({Follow:!this.state.Follow});
             const increment = fb.firestore.FieldValue.increment(1);
             const decrement = fb.firestore.FieldValue.increment(-1);
 
-            if (Follow == true) {
+            if (this.state.Follow === true) {
                 fb.firestore()
                     .collection('users/')
-                    .doc(`${user.uid}/`)
-                    .collection('Following')
-                    .doc(`${props.uid}/`)
-                    .update({
-                        UserId: props.uid,
+
+                    .doc(`${this.state.user.uid}/`)
+                    .collection('following')
+                    .doc(`${this.props.uid}/`)
+                    .set({
+                        UserId: this.props.uid,
+
                     });
 
                 fb.firestore()
                     .collection('users/')
-                    .doc(`${props.uid}/`)
-                    .collection('Followers')
-                    .doc(`${user.uid}/`)
-                    .update({
-                        UserId: user.uid,
+                    .doc(`${this.props.uid}/`)
+                    .collection('followers')
+                    .doc(`${this.state.user.uid}/`)
+                    .set({
+                        UserId: this.state.user.uid,
                     });
 
-                fb.firestore().collection('users/').doc(`${user.uid}/`).update({
+                fb.firestore().collection('users/').doc(`${this.state.user.uid}/`).update({
+
                     Following: increment,
                 });
 
-                fb.firestore().collection('users/').doc(`${props.uid}/`).update({
+                fb.firestore().collection('users/').doc(`${this.props.uid}/`).update({
                     Followers: increment,
                 });
             } else {
                 fb.firestore()
                     .collection('users/')
-                    .doc(`${user.uid}/`)
-                    .collection('Following')
-                    .doc(`${props.uid}/`)
+                    .doc(`${this.state.user.uid}/`)
+                    .collection('following')
+                    .doc(`${this.props.uid}/`)
                     .delete();
                 fb.firestore()
                     .collection('users/')
-                    .doc(`${props.uid}/`)
-                    .collection('Followers')
-                    .doc(`${user.uid}/`)
+                    .doc(`${this.props.uid}/`)
+                    .collection('followers')
+                    .doc(`${this.state.user.uid}/`)
                     .delete();
 
-                fb.firestore().collection('users/').doc(`${user.uid}/`).update({
+                fb.firestore().collection('users/').doc(`${this.state.user.uid}/`).update({
                     Following: decrement,
                 });
 
-                fb.firestore().collection('users/').doc(`${props.uid}/`).update({
+                fb.firestore().collection('users/').doc(`${this.props.uid}/`).update({
                     Followers: decrement,
                 });
             }
@@ -129,7 +164,7 @@ export default function ProfileOverview(props: any) {
                 //     color: '#fafafa',
                 // }}
                 style={
-                    !color
+                    !this.state.color
                         ? {
                               padding: '5px 10px 5px 10px',
                               marginRight: '5px',
@@ -148,117 +183,127 @@ export default function ProfileOverview(props: any) {
                           }
                 }
                 onClick={() => FollowUpdate()}
-                onClickCapture={() => setColor(!color)}
+                onClickCapture={() => this.setState({color:!this.state.color})}
             >
-                {Follow ? <div>Following</div> : <div>Follow</div>}
+                {this.state.Follow ? <div>Following</div> : <div>Follow</div>}
             </Button>
         );
     };
 
+
     // const classes = useStyles();
-    if (props.followers === true) {
-        return (
-            <Card
-                style={{
-                    background: '#1b1b1b',
-                    marginLeft: '15px',
-                    marginRight: '15px',
-                    border: '3px solid #f56920',
-                    borderRadius: '20px',
-                }}
-            >
-                <CardContent style={{ textAlign: 'left', padding: '50px 10px 50px 10px' }}>
-                    {/* <Grid container direction="column">
-                                <Grid item> */}
-                    {/* <Avatar
-                                style={{ float: 'right', width: '18vw', height: '18vw', marginRight: '20px' }}
-                            ></Avatar> */}
-                    <Grid style={{ float: 'right' }}>
-                        <AvatarSmall
-                            uid={props.uid}
-                            User_name={props.User_name}
-                            Avatar={props.Avatar}
-                            Size={props.Size}
-                        />
-                    </Grid>
-                    <Typography style={{ color: '#fafafa', fontSize: 'calc(12px + 2vw)' }}>
-                        Hi,<br></br>
-                    </Typography>
-                    <Typography style={{ color: '#f56920', fontSize: '2vw' }}>{props.User_name}</Typography>
-                    {/* </Grid>
-                                <Grid item></Grid> */}
-                    {/* </Grid> */}
+    
+
+    render() {
+        if (this.props.followers === true) {
+            // render() {
+                return (
+                <Card
+                    style={{
+                        background: '#1b1b1b',
+                        marginLeft: '15px',
+                        marginRight: '15px',
+                        border: '3px solid #f56920',
+                        borderRadius: '20px',
+                    }}
+                >
+                    <CardContent style={{ textAlign: 'left', padding: '50px 10px 50px 10px' }}>
+                        {/* <Grid container direction="column">
+                                    <Grid item> */}
+                        {/* <Avatar
+                                    style={{ float: 'right', width: '18vw', height: '18vw', marginRight: '20px' }}
+                                ></Avatar> */}
+                        <Grid style={{ float: 'right' }}>
+                            <AvatarSmall
+                                uid={this.props.uid}
+                                User_name={this.props.User_name}
+                                Avatar={this.props.Avatar}
+                                Size={this.props.Size}
+                            />
+                        </Grid>
+                        <Typography style={{ color: '#fafafa', fontSize: 'calc(12px + 2vw)' }}>
+                            Hi,<br></br>
+                        </Typography>
+                        <Typography style={{ color: '#f56920', fontSize: '2vw' }}>{this.props.User_name}</Typography>
+                        {/* </Grid>
+                                    <Grid item></Grid> */}
+                        {/* </Grid> */}
+                        <br></br>
+                        {/* <Card style={{ width: 'fit-content', height: 'fit-content', padding: '-5px' }}>
+                                    <CardContent> */}
+                        <Button style={{ padding: '1px' }}>
+                            <Typography variant="button" style={{ justifyContent: 'center' }}>
+                                <span style={{ color: '#fafafa' }}>2</span>
+                                <br></br>
+                                <span style={{ color: '#f56920' }}>posts</span>
+                            </Typography>
+                            {/* Number of posts by user */}
+                        </Button>
+                        <Button style={{ padding: '1px' }}>
+                            <Typography variant="button" style={{ justifyContent: 'center' }}>
+                                <span style={{ color: '#fafafa' }}>{this.props.User.GamePoint}</span>
+                                <br></br>
+                                <span style={{ color: '#f56920' }}>points</span>
+                            </Typography>
+                            {/* Number of posts by user */}
+                        </Button>
+                        <this.Followers />
+                    </CardContent>
+                </Card>
+            );
+        // }
+    }
+    else{
+    return(
+    <Card
+        style={{
+            background: '#1b1b1b',
+            marginLeft: '15px',
+            marginRight: '15px',
+            border: '3px solid #f56920',
+            borderRadius: '20px',
+        }}
+    >
+        <CardContent style={{ textAlign: 'left', padding: '50px 10px 50px 10px' }}>
+            {/* <Grid container direction="column">
+                        <Grid item> */}
+            {/* <Avatar
+                        style={{ float: 'right', width: '18vw', height: '18vw', marginRight: '20px' }}
+                    ></Avatar> */}
+            <Grid style={{ float: 'right' }}>
+                <AvatarSmall uid={this.props.uid} User_name={this.props.User_name} Avatar={this.props.Avatar} Size={this.props.Size} />
+            </Grid>
+            <Typography style={{ color: '#fafafa', fontSize: 'calc(12px + 2vw)' }}>
+                Hi,<br></br>
+            </Typography>
+            <Typography style={{ color: '#f56920', fontSize: '2vw' }}>{this.props.User_name}</Typography>
+            {/* </Grid>
+                        <Grid item></Grid> */}
+            {/* </Grid> */}
+            <br></br>
+            {/* <Card style={{ width: 'fit-content', height: 'fit-content', padding: '-5px' }}>
+                        <CardContent> */}
+            <Button style={{ padding: '1px' }}>
+                <Typography variant="button" style={{ justifyContent: 'center' }}>
+                    <span style={{ color: '#fafafa' }}>2</span>
                     <br></br>
-                    {/* <Card style={{ width: 'fit-content', height: 'fit-content', padding: '-5px' }}>
-                                <CardContent> */}
-                    <Button style={{ padding: '1px' }}>
-                        <Typography variant="button" style={{ justifyContent: 'center' }}>
-                            <span style={{ color: '#fafafa' }}>2</span>
-                            <br></br>
-                            <span style={{ color: '#f56920' }}>posts</span>
-                        </Typography>
-                        {/* Number of posts by user */}
-                    </Button>
-                    <Button style={{ padding: '1px' }}>
-                        <Typography variant="button" style={{ justifyContent: 'center' }}>
-                            <span style={{ color: '#fafafa' }}>{props.User.GamePoint}</span>
-                            <br></br>
-                            <span style={{ color: '#f56920' }}>points</span>
-                        </Typography>
-                        {/* Number of posts by user */}
-                    </Button>
-                    {/* <Followers /> */}
-                </CardContent>
-            </Card>
-        );
+                    <span style={{ color: '#f56920' }}>posts</span>
+                </Typography>
+                {/* Number of posts by user */}
+            </Button>
+            <Button style={{ padding: '1px' }}>
+                <Typography variant="button" style={{ justifyContent: 'center' }}>
+                    <span style={{ color: '#fafafa' }}>{this.props.User.GamePoint}</span>
+                    <br></br>
+                    <span style={{ color: '#f56920' }}>points</span>
+                </Typography>
+                {/* Number of posts by user */}
+            </Button>
+        </CardContent>
+    </Card>
+);
     }
 
-    return (
-        <Card
-            style={{
-                background: '#1b1b1b',
-                marginLeft: '15px',
-                marginRight: '15px',
-                border: '3px solid #f56920',
-                borderRadius: '20px',
-            }}
-        >
-            <CardContent style={{ textAlign: 'left', padding: '50px 10px 50px 10px' }}>
-                {/* <Grid container direction="column">
-                            <Grid item> */}
-                {/* <Avatar
-                            style={{ float: 'right', width: '18vw', height: '18vw', marginRight: '20px' }}
-                        ></Avatar> */}
-                <Grid style={{ float: 'right' }}>
-                    <AvatarSmall uid={props.uid} User_name={props.User_name} Avatar={props.Avatar} Size={props.Size} />
-                </Grid>
-                <Typography style={{ color: '#fafafa', fontSize: 'calc(12px + 2vw)' }}>
-                    Hi,<br></br>
-                </Typography>
-                <Typography style={{ color: '#f56920', fontSize: '2vw' }}>{props.User_name}</Typography>
-                {/* </Grid>
-                            <Grid item></Grid> */}
-                {/* </Grid> */}
-                <br></br>
-                {/* <Card style={{ width: 'fit-content', height: 'fit-content', padding: '-5px' }}>
-                            <CardContent> */}
-                <Button style={{ padding: '1px' }}>
-                    <Typography variant="button" style={{ justifyContent: 'center' }}>
-                        <span style={{ color: '#fafafa' }}>2</span>
-                        <br></br>
-                        <span style={{ color: '#f56920' }}>posts</span>
-                    </Typography>
-                    {/* Number of posts by user */}
-                </Button>
-                <Button style={{ padding: '1px' }}>
-                    <Typography variant="button" style={{ justifyContent: 'center' }}>
-                        <span style={{ color: '#fafafa' }}>{props.User.GamePoint}</span>
-                        <br></br>
-                        <span style={{ color: '#f56920' }}>points</span>
-                    </Typography>
-                    {/* Number of posts by user */}
-                </Button>
-            </CardContent>
-        </Card>
-    );
+} // i'll just go through the code.. one sec okkkkk
+
 }

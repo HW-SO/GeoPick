@@ -13,6 +13,16 @@ import CardMedia from '@material-ui/core/CardMedia';
 import CardContent from '@material-ui/core/CardContent';
 import CardActions from '@material-ui/core/CardActions';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
+import DeleteIcon from '@material-ui/icons/Delete';
+import { Link } from 'react-router-dom';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import AvatarSmall from '../../components/Display/avatarSmall';
+import ListItemAvatar from '@material-ui/core/ListItemAvatar';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
+import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
+import ListItemText from '@material-ui/core/ListItemText';
+
 
 export interface PostViewState {
     newComment: string;
@@ -26,6 +36,7 @@ export interface PostViewState {
     post_uid: string;
     post_user: any;
     comments: any;
+    uid: string;
 }
 
 export interface PostViewProps {
@@ -38,6 +49,7 @@ export default class PostViewScreen extends Component<PostViewProps, PostViewSta
         this.state = {
             favourited: false,
             user: {},
+            uid: '',
             Image: '',
             caption: '',
             likes_count: 0,
@@ -60,13 +72,14 @@ export default class PostViewScreen extends Component<PostViewProps, PostViewSta
         } else {
             fb.firestore()
                 .collection('users')
-                .doc(auth.uid)
+                .doc(auth['uid'])
                 .get()
                 .then((querySnapshot) => {
                     const data = querySnapshot.data();
                     // console.log(data);
                     this.setState({
                         user: data,
+                        uid: auth.uid,
                     });
                 });
         }
@@ -149,20 +162,44 @@ export default class PostViewScreen extends Component<PostViewProps, PostViewSta
             });
         };
 
-        const handleClick = (event: any) => {
-            const FieldValue = fb.firestore.FieldValue;
-            const comment = `${this.state.user.User_name} : ${this.state.newComment}`;
+        const handleDelete = (val: any) => {
+            const newC = this.state.comments.filter((item : any) => item !== val);
+            this.setState({
+                comments: newC,
+            });
             fb.firestore()
                 .collection('Posts')
                 .doc(pid)
                 .update({
-                    comments: FieldValue.arrayUnion(comment),
-                    comments_count: fb.firestore.FieldValue.increment(1),
+                    comments: fb.firestore.FieldValue.arrayRemove(val),
+                    comment_count: fb.firestore.FieldValue.increment(-1),
+                });
+                
+        };
+
+        const handleClick = (event: any) => {
+            const FieldValue = fb.firestore.FieldValue;
+            const comment = `${this.state.user.User_name} : ${this.state.newComment}`;
+            let newC = {
+                id: this.state.uid,
+                name: this.state.user.User_name,
+                comment: this.state.newComment,
+            };
+            // newC[this.state.uid] =  this.state.newComment;
+           
+            // setOptions(prev => {...prev, newC});
+            fb.firestore()
+                .collection('Posts')
+                .doc(pid)
+                .update({
+                    comments: FieldValue.arrayUnion(newC),
+                    comment_count: fb.firestore.FieldValue.increment(1),
                 });
             // console.log(`${this.state.user.User_name} : ${comment}`);
             // console.log(this.state.user);
+            console.log(newC);
             this.setState({
-                comments: [...this.state.comments, comment],
+                comments: [...this.state.comments, newC],
             });
         };
 
@@ -240,16 +277,7 @@ export default class PostViewScreen extends Component<PostViewProps, PostViewSta
                         <IconButton aria-label="share">
                             <SharePost sharedURL={window.location.href} />
                         </IconButton>
-                        {/* <IconButton
-                className={clsx(classes.expand, {
-                    [classes.expandOpen]: expanded,
-                })}
-                onClick={handleExpandClick}
-                aria-expanded={expanded}
-                aria-label="show more"
-            >
-                <ExpandMoreIcon />
-            </IconButton> */}
+                        
                     </CardActions>
                 </Card>
                 <Divider variant="middle" style={{ background: '#fafafa', margin: '10px' }} />
@@ -258,17 +286,34 @@ export default class PostViewScreen extends Component<PostViewProps, PostViewSta
                         <Typography variant="h4" style={{ marginBottom: '20px', color: '#f56920' }}>
                             Latest comments
                         </Typography>
-                        <ul>
-                            {this.state.comments.map((val: string, index: any) => {
+                        <List>
+                            {this.state.comments.map((val: any, index: any) => {
                                 return (
-                                    <li key={index}>
-                                        <Typography variant="body2" style={{ textAlign: 'left', color: 'white' }}>
-                                            {val}
-                                        </Typography>
-                                    </li>
+                                    <ListItem>
+                                        <ListItemAvatar>
+                                            <AvatarSmall
+                                                User={this.state.user}
+                                                uid={this.state.uid}
+                                                User_name={this.state.user.User_name}
+                                                Avatar={this.state.user.Avatar}
+                                                Size="small"
+                                            />
+                                        </ListItemAvatar>
+                                        <ListItemText
+                                                primary={val.comment}
+                                        />
+                                        {val.id == this.state.uid &&
+                                            <ListItemSecondaryAction>
+                                            <IconButton edge="end" aria-label="delete" color="inherit" onClick={() => handleDelete(val)}>
+                                                <DeleteIcon />
+                                            </IconButton>
+                                            </ListItemSecondaryAction>
+                                        }
+                                        
+                                    </ListItem>
                                 );
                             })}
-                        </ul>
+                        </List>
                     </Grid>
                 </Grid>
                 <InputBase

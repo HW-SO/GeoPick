@@ -1,8 +1,6 @@
 /* eslint-disable no-lone-blocks */
-import { Avatar, Grid, Card, Typography, IconButton, Container, Divider } from '@material-ui/core';
+import { Avatar, Grid, Card, Typography, IconButton } from '@material-ui/core';
 import * as React from 'react';
-import InputBase from '@material-ui/core/InputBase';
-import PublishRoundedIcon from '@material-ui/icons/PublishRounded';
 import fb from 'firebase/app';
 import { Component } from 'react';
 import { checkUserLoggedIn } from '../../firebase/auth';

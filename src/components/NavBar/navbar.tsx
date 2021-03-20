@@ -1,12 +1,14 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-
+import { Link } from 'react-router-dom';
 import HomeRoundedIcon from '@material-ui/icons/HomeRounded';
 import SearchRoundedIcon from '@material-ui/icons/SearchRounded';
 import ExploreRoundedIcon from '@material-ui/icons/ExploreRounded';
 import SettingsRoundedIcon from '@material-ui/icons/SettingsRounded';
 import UploadIcon from '../Display/uploadIcon';
-import { AppBar, Fab, IconButton, Toolbar } from '@material-ui/core';
+import { AppBar, IconButton, Toolbar } from '@material-ui/core';
+import CameraAltRoundedIcon from '@material-ui/icons/CameraAltRounded';
+
 
 const useStyles = makeStyles((theme) => ({
     text: {
@@ -41,42 +43,37 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function LabelBottomNavigation() {
-    // const classes = useStyles();
-    // const [value, setValue] = React.useState('recents');
 
-    // const handleChange = (event: React.ChangeEvent<{}>, newValue: string) => {
-    //     setValue(newValue);
-    // };
-
-    // return (
-    //     <BottomNavigation value={value} onChange={handleChange} className={classes.root}>
-    //         <BottomNavigationAction label="Home" value="Home" icon={<HomeRoundedIcon />} />
-    //         <BottomNavigationAction label="Search" value="Search" icon={<SearchRoundedIcon />} />
-    //         <BottomNavigationAction label="Camera" value="Add" icon={<CameraAltRoundedIcon />} />
-    //         <BottomNavigationAction label="Explore" value="Explore" icon={<ExploreRoundedIcon />} />
-    //         <BottomNavigationAction label="Settings" value="Settings" icon={<SettingsRoundedIcon />} />
-    //     </BottomNavigation>
-    // );
 
     
     const classes = useStyles();
     return (
         <AppBar position="fixed" color="primary" className={classes.appBar}>
             <Toolbar>
-                <IconButton color="inherit" aria-label="open drawer">
+                <Link to='/home' color="inherit">
+                <IconButton aria-label="open drawer">
                     <HomeRoundedIcon />
                 </IconButton>
-                <IconButton color="inherit" aria-label="open drawer">
+                </Link>
+                <Link to='/search' color="inherit">
+                <IconButton aria-label="open drawer">
                     <SearchRoundedIcon />
                 </IconButton>
-                <UploadIcon/>
+                </Link>
+                {/* <Link to='/upload-image'> */}
+                <UploadIcon />
+                {/* </Link> */}
                 <div className={classes.grow} />
-                <IconButton color="inherit">
+                <Link to='/explore' color="inherit">
+                <IconButton>
                     <ExploreRoundedIcon/>
                 </IconButton>
-                <IconButton color="inherit">
+                </Link>
+                <Link to='/settings' color="inherit">
+                <IconButton>
                     <SettingsRoundedIcon />
                 </IconButton>
+                </Link>
             </Toolbar>
         </AppBar>
     );

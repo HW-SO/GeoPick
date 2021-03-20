@@ -1,10 +1,9 @@
 import * as React from 'react';
-import ArrowBackRoundedIcon from '@material-ui/icons/ArrowBackRounded';
 import WhiteLogo from '../welcome screen/WhiteLogo.svg';
 import { Grid, Typography, Box } from '@material-ui/core';
 import Card from '../../components/Layouts/Card';
 import { Avatar, IconButton, Toolbar } from '@material-ui/core';
-import { withStyles, Theme, createStyles, makeStyles  } from '@material-ui/core/styles';
+import { Theme, createStyles, makeStyles  } from '@material-ui/core/styles';
 import firebase from 'firebase';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
@@ -19,6 +18,7 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
+//import { Link} from 'react-router-dom';
 
 
 
@@ -51,14 +51,6 @@ const SettingsMenu = () => {
     };
     const classes = useStyles();
 
-    // function HomeButton() {
-    //     let history = useHistory();
-
-    function onClick(e: any) {
-         e.preventDefault();
-        
-     }
-
     const history = useHistory();
 
     const handleCloseDelete = () => {
@@ -69,6 +61,9 @@ const SettingsMenu = () => {
         if(user)
         firebase.firestore().collection('users/').doc(`${user.uid}/`).delete().then(() => console.log("User Deleted"))
 
+       // const { push } = useHistory();
+        history.push('/welcome');
+
     }
 
 
@@ -76,7 +71,7 @@ const SettingsMenu = () => {
         <div style={{ width: '100%', height: '100%' }}>
             <List component="nav" className={classes.root} aria-label="mailbox folders">
                 <ListItem button>
-                   <ListItemText primary="Edit profile" />
+                   <ListItemText primary="Edit profile" onClick={e => { history.push("/EditProfile") }}/>
                 </ListItem>
                 <Divider />
                 <ListItem button divider  onClick={handleClickOpen}>

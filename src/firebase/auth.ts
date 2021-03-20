@@ -1,4 +1,6 @@
 import { auth, GoogleProvider } from './firebase';
+import { useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
 
 // Sign Up with email
 export const doCreateUserWithEmailAndPassword = (email: string, password: string) =>
@@ -32,5 +34,44 @@ export const doEmailVerification = async (email: string) => {
 };
 
 export const checkUserLoggedIn = () => {
+
+    // let user = await auth.currentUser;
+    // if(user) return user;
+
+    // auth.onAuthStateChanged(function(user) {
+    //     if (user) {
+    //         console.log(user);
+    //       return user;
+    //     } else {
+    //       // No user is signed in.
+    //       return false;
+    //     }
+    //   });
+    
+    // auth.onAuthStateChanged(async function(user) {
+    //     if (user) {
+    //         const u = await user;
+    //       return u;
+    //     } else {
+    //       return false;
+    //     }
+    //   });
     if (auth.currentUser) return auth.currentUser;
 };
+
+
+
+export function useProtectedRoute() {
+  const history = useHistory();
+
+  useEffect(() => {
+    auth.onAuthStateChanged(function(user) {
+      if (!user) {
+        console.error(
+          'Access to protected route denied, redirecting to login...'
+        );
+        history.push('/auth/login');
+      }
+    });
+  }, [history]);
+}

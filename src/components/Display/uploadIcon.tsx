@@ -1,13 +1,11 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import SpeedDial, { SpeedDialProps } from '@material-ui/lab/SpeedDial';
 import SpeedDialAction from '@material-ui/lab/SpeedDialAction';
-import GuessTheLocationButton from '../Display/guess-the-location.svg';
 import { Fab, IconButton } from '@material-ui/core';
 import CameraAltRoundedIcon from '@material-ui/icons/CameraAltRounded';
-import Camera from '../Inputs/Camera';
+import { useHistory } from 'react-router-dom';
 
-import UploadPic from './uploadPic';
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -50,22 +48,7 @@ export default function UploadIcon(props: any) {
     const [direction] = React.useState<SpeedDialProps['direction']>('up');
     const [open, setOpen] = React.useState(false);
     const [hidden] = React.useState(false);
-
-    const actions = [
-        { icon: <p>Select From Gallery</p>, name: 'gallery' },
-        { icon: <p>Take a photo</p>, name: 'camera' },
-    ];
-
-    const [source, setSource] = useState("");
-    const handleCapture = (target: any) => {
-        if (target.files) {
-        if (target.files.length !== 0) {
-            const file = target.files[0];
-            const newUrl = URL.createObjectURL(file); 
-            setSource(newUrl);
-        }
-        }
-    };
+    const history = useHistory();
 
     const handleClose = () => {
         setOpen(false);
@@ -73,14 +56,17 @@ export default function UploadIcon(props: any) {
 
     const handleOpen = () => {
         setOpen(true);
+        const path = window.location.pathname.split('/');
+        const page = path[path.length - 1];
+        if(page !== "upload-image")
+        history.push('/upload-image');
     };
 
+    
     return (
-        //   <div className={classes.exampleWrapper}>
         <SpeedDial
             className={classes.fabButton}
             ariaLabel="SpeedDial example"
-            // className={classes.speedDial}
             hidden={hidden}
             icon={
                 <Fab color="secondary" aria-label="add" >

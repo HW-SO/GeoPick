@@ -1,13 +1,10 @@
 /* eslint-disable no-lone-blocks */
-import { Avatar, Grid, Card, Typography, IconButton, Container, Divider } from '@material-ui/core';
+import { Avatar, Grid, Card, Typography, IconButton, Divider } from '@material-ui/core';
 import * as React from 'react';
-import InputBase from '@material-ui/core/InputBase';
-import PublishRoundedIcon from '@material-ui/icons/PublishRounded';
 import fb from 'firebase/app';
 import { Component } from 'react';
 import { checkUserLoggedIn } from '../../firebase/auth';
 import FavoriteIcon from '@material-ui/icons/Favorite';
-import SharePost from '../../components/Display/sharePost';
 import CardHeader from '@material-ui/core/CardHeader';
 import CardMedia from '@material-ui/core/CardMedia';
 import CardContent from '@material-ui/core/CardContent';
@@ -79,13 +76,9 @@ export default class PostViewScreen extends Component<EditPostViewProps, EditPos
     };
 
     updateCoordinates = (coordinates: any) => {
-        const coord = {
-            latitude: coordinates.lat,
-            longtitude: coordinates.lng,
-        };
+        
         this.setState({ coordinates: coordinates });
-        // this.setState({ : event.target.value });
-        console.log(this.state.coordinates);
+        // console.log(this.state.coordinates);
     };
 
  
@@ -168,31 +161,6 @@ export default class PostViewScreen extends Component<EditPostViewProps, EditPos
     render() {
         const path = window.location.pathname.split('/');
         const pid = path[path.length - 1];
-        // console.log(uid);
-        const handleChange = (event: any) => {
-            // console.log(event.target.value);
-            this.setState({
-                newComment: event.target.value as string,
-                // user: checkUserLoggedIn(),
-            });
-        };
-
-        const handleClick = (event: any) => {
-            /*const FieldValue = fb.firestore.FieldValue;
-            const comment = `${this.state.user.User_name} : ${this.state.newComment}`;
-            fb.firestore()
-                .collection('Posts')
-                .doc(pid)
-                .update({
-                    comments: FieldValue.arrayUnion(comment),
-                    comments_count: fb.firestore.FieldValue.increment(1),
-                });
-            // console.log(`${this.state.user.User_name} : ${comment}`);
-            // console.log(this.state.user);
-            this.setState({
-                comments: [...this.state.comments, comment],
-            });*/
-        };
         
         return (
             <Card

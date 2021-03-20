@@ -1,6 +1,6 @@
 import * as React from 'react';
-import { Component } from 'react';
-import { Accessibility } from 'accessibility/src/main';
+//import { Component } from 'react';
+//import { Accessibility } from 'accessibility/src/main';
 import Card from '../../components/Layouts/Card';
 import { Box } from '@material-ui/core';
 export interface AccessibilitySettingsProps {}
@@ -37,7 +37,7 @@ const options = {
     textToSpeech: [true],
     speechToText: [false],
 };
-new Accessibility({ animations: { buttons: false } }, options);
+// new Accessibility({ animations: { buttons: false } }, options);
 
 class AccessibilitySettings extends React.Component<AccessibilitySettingsProps, AccessibilitySettingsState> {
     render() {

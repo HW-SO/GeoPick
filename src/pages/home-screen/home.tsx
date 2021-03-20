@@ -33,12 +33,12 @@ export class HomeScreen extends Component<HomeScreenProps, HomeScreenState> {
         };
     }
 
-    componentDidMount() {
-        const auth = checkUserLoggedIn();
+    async componentDidMount() {
+        const auth = await checkUserLoggedIn();
         if (auth != undefined) {
             this.getUser().then(
                 (user) => {
-                    this.setState({ isAuthenticated: true, user: user, uid: auth.uid });
+                    this.setState({ isAuthenticated: true, user: user, uid: auth['uid'] });
                 },
                 (error) => {
                     this.setState({ isAuthenticated: true });
@@ -81,7 +81,7 @@ export class HomeScreen extends Component<HomeScreenProps, HomeScreenState> {
                 firebase
                     .firestore()
                     .collection('users')
-                    .doc(auth.uid)
+                    .doc(auth['uid'])
                     .get()
                     .then((querySnapshot) => {
                         const data = querySnapshot.data();

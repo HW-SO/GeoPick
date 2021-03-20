@@ -1,6 +1,5 @@
-import React, { Component, useState } from 'react';
+import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-// import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
 import CardMedia from '@material-ui/core/CardMedia';
@@ -10,21 +9,15 @@ import AvatarSmall from './avatarSmall';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
 import FavoriteIcon from '@material-ui/icons/Favorite';
-// import ShareIcon from '@material-ui/icons/Share';
 import SharePost from './sharePost';
-import MoreVertIcon from '@material-ui/icons/MoreVert';
 import AddCommentRoundedIcon from '@material-ui/icons/AddCommentRounded';
 import './singlePostStyles.scss';
 import { checkUserLoggedIn } from '../../firebase/auth';
 import firebase from 'firebase';
 import fb from 'firebase/app';
-import GuessTheLocationPlay from '../Game/guessPlay';
-import GTLicon from '../Inputs/The pin.svg';
-import { Box, Button } from '@material-ui/core';
-import GTLexpanded from './GTLexpanded';
+import { Box } from '@material-ui/core';
 import ReportButton from './report';
 import GTLmenu from '../Game/GTLmenu';
-// import randomLocation from 'random-location';
 
 export interface SinglePostNewProps {
     username?: string;
@@ -98,9 +91,9 @@ class SinglePostNew extends Component<SinglePostNewProps, SinglePostNewState> {
         this.setState({ random: rand });
     };
 
-    randomizeLocations = (locs: any) => {
-        const rand1 = Math.floor(Math.random() * this.state.random);
-        const rand2 = Math.floor(Math.random() * this.state.random);
+    randomizeLocations = () => {
+        const rand1 = Math.floor(Math.random() * this.state.locations.length);
+        const rand2 = Math.floor(Math.random() * this.state.locations.length);
 
         // console.log(locs);
         // while((this.state.locations.length == 0));
@@ -146,61 +139,33 @@ class SinglePostNew extends Component<SinglePostNewProps, SinglePostNewState> {
         this.getLocations(this.props.location).then(
             (locs) => {
                 this.setState({ gotLocs: true, locations: locs });
-                this.randomizeLocations(locs);
+                this.randomizeLocations();
             },
             (error) => {
                 this.setState({ gotLocs: false });
             },
         );
-
-        // this.getLocations(this.props.location);
-        // const loc = this.props.location
-
-        // console.log(this.state.locations);
-        // const loc = []
-
-        // console.log(this.state.locations)
     }
 
     getLocations = (loc: string) => {
-        var locs = new Array();
-
         return new Promise((resolve, reject) => {
             let locs = new Array();
-            const snapshot = firebase
-                .firestore()
-                .collection('Posts')
-                .get()
-                .then((querySnapshot) => {
-                    querySnapshot.forEach((doc) => {
-                        if (!locs.includes(doc.data().location) && loc != doc.data().location) {
-                            locs.push(doc.data().location);
-                        }
-                    });
-                    resolve(locs);
-                })
-                .catch((error) => {
-                    reject(error);
-                });
-        });
-
-        return new Promise(function (resolve, reject) {
             firebase
                 .firestore()
                 .collection('Posts')
                 .get()
                 .then((querySnapshot) => {
                     querySnapshot.forEach((doc) => {
-                        if (!locs.includes(doc.data().location) && loc != doc.data().location) {
-                            locs = [...locs, doc.data().location];
+                        if (!locs.includes(doc.data().location) && loc !== doc.data().location) {
+                            locs.push(doc.data().location);
                         }
                     });
+                    // console.log(locs);
+                    resolve(locs);
+                })
+                .catch((error) => {
+                    reject(error);
                 });
-            if (locs) {
-                resolve(locs);
-            } else {
-                reject('not loading locations');
-            }
         });
     };
 
@@ -321,7 +286,7 @@ class SinglePostNew extends Component<SinglePostNewProps, SinglePostNewState> {
                         onClick={this.handleColorChange}
                     >
                         <FavoriteIcon />
-                        {<Typography style={{ color: '#fafafa' }}>{this.state.likes}</Typography>}
+                        <Typography style={{ color: '#fafafa' }}>{this.state.likes}</Typography>
                     </IconButton>
                     <Link to={{ pathname: `/post/${this.props.id}`, state: this.props.uid }}>
                         <IconButton aria-label="add a comment" style={{ color: '#FAFAFA', position: 'relative' }}>

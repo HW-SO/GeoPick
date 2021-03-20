@@ -47,6 +47,7 @@ const SettingsMenu = () => {
 
     const history = useHistory();
 
+
     return (
         <div style={{ width: '100%', height: '100%' }}>
             <List component="nav" className={classes.root} aria-label="mailbox folders">
@@ -56,7 +57,7 @@ const SettingsMenu = () => {
                             <AccountCircleRoundedIcon style={{ color: 'black' }} />
                         </Avatar>
                     </ListItemAvatar>
-                    <ListItemText primary="Account Settings" />
+                    <ListItemText primary="Account Settings" onClick={e => { history.push("/AccountSetting") }}/>
                 </ListItem>
                 <Divider />
                 <ListItem button divider>
@@ -65,7 +66,7 @@ const SettingsMenu = () => {
                             <NotificationImportantRoundedIcon style={{ color: 'black' }} />
                         </Avatar>
                     </ListItemAvatar>
-                    <ListItemText primary="Notification Settings" />
+                    <ListItemText primary="Notification Settings" onClick={e => { history.push("/notificationset") }}/>
                 </ListItem>
                 <ListItem button divider>
                     <ListItemAvatar>
@@ -73,7 +74,7 @@ const SettingsMenu = () => {
                             <AccessibilityNewRoundedIcon style={{ color: 'black' }} />
                         </Avatar>
                     </ListItemAvatar>
-                    <ListItemText primary="Accessibility Settings" />
+                    <ListItemText primary="Accessibility Settings" onClick={e => { history.push("/accessibility") }}/>
                 </ListItem>
                 <ListItem button divider>
                     <ListItemAvatar>
@@ -89,7 +90,7 @@ const SettingsMenu = () => {
                             <GavelRoundedIcon style={{ color: 'black' }} />
                         </Avatar>
                     </ListItemAvatar>
-                    <ListItemText primary="Terms and Conditions" />
+                    <ListItemText primary="Terms and Conditions" onClick={e => { history.push("/terms") }}/>
                 </ListItem>
             </List>
             <Box m={5} />
