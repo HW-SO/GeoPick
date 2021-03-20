@@ -11,23 +11,46 @@ import Button from '@material-ui/core/Button';
 import SinglePostNew1 from '../../components/Display/singlePostNew1';
 import Feed from '../../components/Layouts/feed';
 import './search.scss';
+import { render } from '@testing-library/react';
+import { Component } from 'react';
 
 export interface SearchProps {}
 
-export default function SearchScreen() {
-    const [users, setUsers] = useState(Array());
-    const [posts, setPosts] = useState(Array());
-    const [userOn, setUserOn] = useState(false);
-    const [postOn, setPostOn] = useState(false);
-    const [query, setQuery] = useState('');
+export interface SearchState {
+    users: Array<any>;
+    posts: Array<any>;
+    userOn: boolean;
+    postOn: boolean;
+    query: string;
+}
 
-    const toggleUser = () => {
-        setUserOn(true);
-        setPostOn(false);
+export default class SearchScreen extends Component<SearchProps, SearchState>  {
+    // const [users, setUsers] = useState(Array());
+    // const [posts, setPosts] = useState(Array());
+    // const [userOn, setUserOn] = useState(false);
+    // const [postOn, setPostOn] = useState(false);
+    // const [query, setQuery] = useState('');
+
+    constructor(SearchProps: any) {
+        super(SearchProps);
+        this.state = {
+            users: [],
+            posts: [], 
+            userOn: false,
+            postOn: false,
+            query: '',
+        };
+    }
+
+        toggleUser = () => {
+        // setUserOn(true);
+        // setPostOn(false);
+        this.setState({userOn:true,postOn:false});
+
         firebase
             .firestore()
             .collection('users')
-            .where('User_name', '>=', query)
+            .where('User_name', '>=', this.state.query)
             .limit(5)
             .get()
             .then((snapshot) => {
@@ -36,18 +59,21 @@ export default function SearchScreen() {
                     const id = doc.id;
                     return { id, ...data };
                 });
-                setUsers(users);
-                setPosts([]);
+                // setUsers(users);
+                // setPosts([]);
+                this.setState({users: users,posts:[]});
+
             });
     };
 
-    const togglePost = () => {
-        setUserOn(false);
-        setPostOn(true);
+        togglePost = () => {
+        // setUserOn(false);
+        // setPostOn(true);
+        this.setState({userOn:false,postOn:true});
         firebase
             .firestore()
             .collection('Posts')
-            .where('tags', 'array-contains', query)
+            .where('tags', 'array-contains',this.state.query)
             .limit(5)
             .get()
             .then((snapshot) => {
@@ -56,21 +82,22 @@ export default function SearchScreen() {
                     const id = doc.id;
                     return { id, ...data };
                 });
-                setPosts(posts);
-                setUsers([]);
+                // setPosts(posts);
+                // setUsers([]);
+                this.setState({users:[] ,posts:posts});
             });
     };
 
-    const fetchResults = (search: React.ChangeEvent<HTMLInputElement>) => {
-        setQuery(search.target.value.toLowerCase());
-        if (userOn) {
-            toggleUser();
+    fetchResults = (search: React.ChangeEvent<HTMLInputElement>) => {
+        this.setState({query: search.target.value.toLowerCase()});
+        if (this.state.userOn) {
+            this.toggleUser();
         }
-        if (postOn) {
-            togglePost();
+        if (this.state.postOn) {
+            this.togglePost();
         }
     };
-
+    render(){
     return (
         <div className="background">
             <div className="button" style={{ float: 'left' }}>
@@ -86,24 +113,24 @@ export default function SearchScreen() {
                         label="Search"
                         variant="outlined"
                         placeholder="Search here..."
-                        onChange={fetchResults}
+                        onChange={this.fetchResults}
                     />
                     <br></br>
                     <Box>
                         <Typography variant="h5" style={{ float: 'left', color: '#fafafa' }}>
                             Based on
                         </Typography>
-                        <Button variant="contained" className="tags-button" onClick={togglePost}>
+                        <Button variant="contained" className="tags-button" onClick={this.togglePost}>
                             Tags
                         </Button>
-                        <Button variant="contained" className="users-button" onClick={toggleUser}>
+                        <Button variant="contained" className="users-button" onClick={this.toggleUser}>
                             Users
                         </Button>
                     </Box>
                     <br />
                     <br />
-                    {users.length > 0 &&
-                        users.map((data) => {
+                    {this.state.users.length > 0 &&
+                        this.state.users.map((data) => {
                             // console.log(data);
                             return (
                                 <div>
@@ -122,8 +149,8 @@ export default function SearchScreen() {
                             );
                         })}
 
-                    {posts.length > 0 &&
-                        posts.map((data) => {
+                    {this.state.posts.length > 0 &&
+                        this.state.posts.map((data) => {
                             // console.log(data);
                             return (
                                 <div>
@@ -148,10 +175,11 @@ export default function SearchScreen() {
                                 </div>
                             );
                         })}
-                    {(posts.length == 0 && users.length == 0) && <Feed />}
+                    {(this.state.posts.length == 0 && this.state.users.length == 0) && <Feed />}
                 </Card>
             </div>
             <br />
         </div>
     );
+}
 }

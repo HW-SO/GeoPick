@@ -19,6 +19,7 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
+//import { Link} from 'react-router-dom';
 
 
 
@@ -68,6 +69,9 @@ const SettingsMenu = () => {
 
         if(user)
         firebase.firestore().collection('users/').doc(`${user.uid}/`).delete().then(() => console.log("User Deleted"))
+
+       // const { push } = useHistory();
+        history.push('/welcome');
 
     }
 
