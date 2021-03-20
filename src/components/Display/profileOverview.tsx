@@ -37,6 +37,7 @@ export default class ProfileOverview extends Component<ProfileOverviewProps, Pro
     componentDidMount  () {
         var a= false;
         var user = auth.checkUserLoggedIn();
+        console.log(user)
         if(!user) return;
        fb
         .firestore()
@@ -116,6 +117,7 @@ export default class ProfileOverview extends Component<ProfileOverviewProps, Pro
                     .doc(`${this.state.user.uid}/`)
                     .set({
                         UserId: this.state.user.uid,
+                        
                     });
 
                 fb.firestore().collection('users/').doc(`${this.state.user.uid}/`).update({
