@@ -18,6 +18,7 @@ export interface UserPageState {
     user: any;
     isAuthenticated: boolean;
     uid: string;
+    user_uid: string;
 }
 
 class UserPage extends Component<UserPageProps, UserPageState> {
@@ -28,12 +29,16 @@ class UserPage extends Component<UserPageProps, UserPageState> {
             user: {},
             isAuthenticated: false,
             uid: '',
+            user_uid: '',
         };
     }
 
     componentDidMount() {
         const path = window.location.pathname.split('/');
         const uid = path[path.length - 1];
+        const u = checkUserLoggedIn();
+        if(u) this.setState({ user_uid: u.uid});
+       
         this.getUser().then(
             (user) => {
                 this.setState({ isAuthenticated: true, user: user, uid: uid });
@@ -46,6 +51,11 @@ class UserPage extends Component<UserPageProps, UserPageState> {
         );
     }
 
+    // getSelf = async () => {
+    //     const uuid = await checkUserLoggedIn();
+    //     if(uuid)
+    //         return uuid.uid;
+    // }
     // componentDidUpdate() {
 
     //     const auth = checkUserLoggedIn();
@@ -74,9 +84,9 @@ class UserPage extends Component<UserPageProps, UserPageState> {
     getUser = () => {
         const path = window.location.pathname.split('/');
         const uid = path[path.length - 1];
+        
         return new Promise(function (resolve, reject) {
-            if (auth === undefined) {
-            } else {
+        
                 firebase
                     .firestore()
                     .collection('users')
@@ -91,7 +101,6 @@ class UserPage extends Component<UserPageProps, UserPageState> {
                             reject('User not authenticated');
                         }
                     });
-            }
         });
     };
 
@@ -115,6 +124,7 @@ class UserPage extends Component<UserPageProps, UserPageState> {
                 />
                 <br></br>
                 <br></br>
+                {this.state.user_uid === this.state.uid && <>
                 <Button
                     style={{
                         paddingLeft: '15%',
@@ -146,7 +156,8 @@ class UserPage extends Component<UserPageProps, UserPageState> {
                             Sign Out
                         </Typography>
                     </Link>
-                </Button>
+                </Button> </>
+                }
                 <div style={{ margin: 'auto' }}>
                     <Typography variant="h4" style={{ color: '#fafafa', paddingTop: '25px' }}>
                         My <span style={{ color: '#f56920' }}>Posts</span>

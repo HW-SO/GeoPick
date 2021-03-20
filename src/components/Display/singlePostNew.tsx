@@ -160,7 +160,7 @@ class SinglePostNew extends Component<SinglePostNewProps, SinglePostNewState> {
                             locs.push(doc.data().location);
                         }
                     });
-                    console.log(locs);
+                    // console.log(locs);
                     resolve(locs);
                 })
                 .catch((error) => {

@@ -37,8 +37,6 @@ const WelcomeScreen: React.FunctionComponent<WelcomeProps> = (props) => {
             });
     };
     return (
-        <html>
-            <body>
                 <div className="welcomepg">
                     <Grid container spacing={10} direction="column" alignItems="center" justify="center">
                         <Grid item>
@@ -61,11 +59,9 @@ const WelcomeScreen: React.FunctionComponent<WelcomeProps> = (props) => {
                             <Grid
                                 item
                                 xs={2}
-                                alignContent="center"
-                                alignItems="center"
                                 style={{ verticalAlign: 'true' }}
                             ></Grid>
-                            <Grid item xs={12} alignItems="center" justify="center" style={{ textAlign: 'center' }}>
+                            <Grid item xs={12} style={{ textAlign: 'center' }}>
                                 <Grid item>
                                     <span style={{ color: '#fafafa' }}>New to GeoPicK?</span>
                                     <br />
@@ -111,8 +107,6 @@ const WelcomeScreen: React.FunctionComponent<WelcomeProps> = (props) => {
                         </Grid>
                     </Grid>
                 </div>
-            </body>
-        </html>
     );
 };
 

@@ -17,6 +17,8 @@ import firebase from 'firebase';
 import fb from 'firebase/app';
 import { Box } from '@material-ui/core';
 import EditButton from './edit';
+import ReportButton from './report';
+
 
 export interface SinglePostNewProps {
     username?: string;
@@ -43,6 +45,7 @@ export interface SinglePostNewState {
     path_name: string;
     likes: number | undefined;
     isAuthenticated: boolean;
+    user_uid: string;
     // location1: String;
     // location2: String;
     // location3: String;
@@ -75,6 +78,7 @@ class SinglePostNew extends Component<SinglePostNewProps, SinglePostNewState> {
             locations: [],
             loc1: '',
             loc2: '',
+            user_uid: '',
         };
         this.handleColorChange = this.handleColorChange.bind(this);
         this.handleButtonClick = this.handleButtonClick.bind(this);
@@ -126,6 +130,8 @@ class SinglePostNew extends Component<SinglePostNewProps, SinglePostNewState> {
     share_area = React.createRef();
 
     componentDidMount() {
+        const auth = checkUserLoggedIn();
+        if (auth) this.setState({user_uid: auth.uid})
         this.getUser().then(
             (user) => {
                 this.setState({ isAuthenticated: true, post_user: user });
@@ -214,6 +220,7 @@ class SinglePostNew extends Component<SinglePostNewProps, SinglePostNewState> {
         // const classes = useStyles();
         const path = window.location.href.split('/');
         const root = path[path.length - 2];
+        const pid = path[path.length - 1];
 
         // let questions = null;
         // if (this.state.displayQuestions) {
@@ -249,13 +256,8 @@ class SinglePostNew extends Component<SinglePostNewProps, SinglePostNewState> {
                             {this.state.post_user.User_name}
                         </Avatar>
                     }
-                    action={
-                        <>
-                            {/* <IconButton aria-label="settings" style={{ color: '#fafafa' }}>
-                                <MoreVertIcon />
-                            </IconButton> */}
-                            <EditButton />
-                        </>
+                    action={this.props.uid === this.state.user_uid && <EditButton postURL={this.props.id} /> ||
+                    this.props.uid !== this.state.user_uid && <ReportButton />
                     }
                     title={<Typography variant="h6">{this.state.post_user.User_name}</Typography>}
                     subheader={

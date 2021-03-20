@@ -4,6 +4,8 @@ import SpeedDial, { SpeedDialProps } from '@material-ui/lab/SpeedDial';
 import SpeedDialAction from '@material-ui/lab/SpeedDialAction';
 import { Fab, IconButton } from '@material-ui/core';
 import CameraAltRoundedIcon from '@material-ui/icons/CameraAltRounded';
+import { useHistory } from 'react-router-dom';
+
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -46,6 +48,7 @@ export default function UploadIcon(props: any) {
     const [direction] = React.useState<SpeedDialProps['direction']>('up');
     const [open, setOpen] = React.useState(false);
     const [hidden] = React.useState(false);
+    const history = useHistory();
 
     const handleClose = () => {
         setOpen(false);
@@ -53,8 +56,13 @@ export default function UploadIcon(props: any) {
 
     const handleOpen = () => {
         setOpen(true);
+        const path = window.location.pathname.split('/');
+        const page = path[path.length - 1];
+        if(page !== "upload-image")
+        history.push('/upload-image');
     };
 
+    
     return (
         <SpeedDial
             className={classes.fabButton}

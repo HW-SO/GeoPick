@@ -71,7 +71,7 @@ const SettingsMenu = () => {
         <div style={{ width: '100%', height: '100%' }}>
             <List component="nav" className={classes.root} aria-label="mailbox folders">
                 <ListItem button>
-                   <ListItemText primary="Edit profile" />
+                   <ListItemText primary="Edit profile" onClick={e => { history.push("/EditProfile") }}/>
                 </ListItem>
                 <Divider />
                 <ListItem button divider  onClick={handleClickOpen}>

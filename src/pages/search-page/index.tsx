@@ -1,4 +1,4 @@
-import Reactfrom 'react';
+import React from 'react';
 import WhiteLogo from '../welcome screen/WhiteLogo.svg';
 import Card from '../../components/Layouts/Card';
 import TextField from '../../components/Inputs/TextField';
