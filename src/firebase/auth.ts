@@ -24,11 +24,11 @@ export const doPasswordUpdate = async (password: string) => {
     throw Error("User isn't logged in");
 };
 
-export const doEmailVerification = async (email: string) => {
+// Email Verification 
+export const doEmailVerification = async (email: string) => { 
     if (auth.currentUser) {
         await auth.currentUser.sendEmailVerification();
     }
-    throw Error("/**  */");
 };
 
 export const checkUserLoggedIn = () => {

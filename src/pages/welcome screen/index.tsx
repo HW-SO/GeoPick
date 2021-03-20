@@ -36,6 +36,9 @@ const WelcomeScreen: React.FunctionComponent<WelcomeProps> = (props) => {
                 window.alert('Failed to login');
             });
     };
+
+    const history = useHistory();
+
     return (
         <html>
             <body>
@@ -84,27 +87,32 @@ const WelcomeScreen: React.FunctionComponent<WelcomeProps> = (props) => {
                                     <br></br>
                                     <br />
                                     <div style={{ paddingBottom: '5%' }}>
-                                        <a href="/sign-up">
-                                            <RegularBtn
-                                                // className="sign-btn"
-                                                colorType="orange"
-                                                style={{
-                                                    borderRadius: '20px',
-                                                    width: '195px',
-                                                    height: '45px',
-                                                }}
-                                            >
-                                                <div style={{ color: '#fafafa' }}>Sign up now!</div>
-                                            </RegularBtn>
-                                        </a>
+                                        <RegularBtn
+                                            colorType="orange"
+                                            style={{
+                                                borderRadius: '20px',
+                                                width: '195px',
+                                                height: '45px',
+                                            }}
+                                            onClick={(e) => {
+                                                history.push('/sign-up');
+                                            }}
+                                        >
+                                            <div style={{ color: '#fafafa' }}>Sign up now!</div>
+                                        </RegularBtn>
                                     </div>
                                     <hr style={{ width: '500px' }} />
+                                    <br></br>
                                     <div style={{ paddingBottom: '20%' }}>
-                                        <a href="/sign-in">
-                                            <RegularBtn colorType="dark" className="sign-btn1">
-                                                Sign in
-                                            </RegularBtn>
-                                        </a>
+                                        <RegularBtn
+                                            colorType="dark"
+                                            className="sign-btn1"
+                                            onClick={(e) => {
+                                                history.push('/sign-in');
+                                            }}
+                                        >
+                                            Sign in
+                                        </RegularBtn>
                                     </div>
                                 </Grid>
                             </Grid>
