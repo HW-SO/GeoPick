@@ -102,15 +102,11 @@ export default class ProfileOverview extends Component<ProfileOverviewProps, Pro
          await fb
             .firestore()
             .collection('users/')
-<<<<<<< Updated upstream
-            .doc(`${user['uid']}/`)
-            .collection('Following')
-            .doc(`${props.uid}/`)
-=======
+
             .doc(`${this.state.user.uid}/`)
             .collection('following')
             .doc(`${this.props.uid}/`)
->>>>>>> Stashed changes
+
             .get();
             console.log(FollowingCheck.exists)
             
@@ -130,33 +126,17 @@ export default class ProfileOverview extends Component<ProfileOverviewProps, Pro
             if (this.state.Follow == true) {
                 fb.firestore()
                     .collection('users/')
-<<<<<<< Updated upstream
-                    .doc(`${user['uid']}/`)
-                    .collection('Following')
-                    .doc(`${props.uid}/`)
-                    .update({
-                        UserId: props.uid,
-=======
+
                     .doc(`${this.state.user.uid}/`)
                     .collection('following')
                     .doc(`${this.props.uid}/`)
                     .set({
                         UserId: this.props.uid,
->>>>>>> Stashed changes
+
                     });
 
                 fb.firestore()
                     .collection('users/')
-<<<<<<< Updated upstream
-                    .doc(`${props.uid}/`)
-                    .collection('Followers')
-                    .doc(`${user['uid']}/`)
-                    .update({
-                        UserId: user['uid'],
-                    });
-
-                fb.firestore().collection('users/').doc(`${user['uid']}/`).update({
-=======
                     .doc(`${this.props.uid}/`)
                     .collection('followers')
                     .doc(`${this.state.user.uid}/`)
@@ -165,7 +145,7 @@ export default class ProfileOverview extends Component<ProfileOverviewProps, Pro
                     });
 
                 fb.firestore().collection('users/').doc(`${this.state.user.uid}/`).update({
->>>>>>> Stashed changes
+
                     Following: increment,
                 });
 
@@ -175,20 +155,6 @@ export default class ProfileOverview extends Component<ProfileOverviewProps, Pro
             } else {
                 fb.firestore()
                     .collection('users/')
-<<<<<<< Updated upstream
-                    .doc(`${user['uid']}/`)
-                    .collection('Following')
-                    .doc(`${props.uid}/`)
-                    .delete();
-                fb.firestore()
-                    .collection('users/')
-                    .doc(`${props.uid}/`)
-                    .collection('Followers')
-                    .doc(`${user['uid']}/`)
-                    .delete();
-
-                fb.firestore().collection('users/').doc(`${user['uid']}/`).update({
-=======
                     .doc(`${this.state.user.uid}/`)
                     .collection('following')
                     .doc(`${this.props.uid}/`)
@@ -201,7 +167,6 @@ export default class ProfileOverview extends Component<ProfileOverviewProps, Pro
                     .delete();
 
                 fb.firestore().collection('users/').doc(`${this.state.user.uid}/`).update({
->>>>>>> Stashed changes
                     Following: decrement,
                 });
 
