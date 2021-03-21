@@ -14,23 +14,18 @@ export default function HomeFeed(props: any) {
             // console.log("trying");
             getFollowing();
         }
-        
-        if(done && following.length > 0 && !postsLoaded){
+
+        if (done && following.length > 0 && !postsLoaded) {
             postsLoaded = true;
             getPosts();
         }
-       
     });
-    
+
     const getFollowing = async () => {
         const f = new Array();
         let doc;
 
-        const result = await firebase
-        .firestore()
-        .collection('users')
-        .doc(props.uid)
-        .collection("following").get();
+        const result = await firebase.firestore().collection('users').doc(props.uid).collection('following').get();
 
         for (doc of result.docs) {
             f.push(doc.id);
@@ -38,40 +33,39 @@ export default function HomeFeed(props: any) {
 
         setDone(true);
         setFollowing(f);
-         
     };
 
     const getPosts = async () => {
         const result = await firebase
             .firestore()
             .collection('Posts')
-            .where("uid", "in", following)
+            .where('uid', 'in', following)
             .onSnapshot((snapshot: any) => {
                 setPosts(snapshot.docs.map((doc: any) => ({ id: doc.id, post: doc.data() })));
             });
         // console.log(result);
     };
-    
+
     return (
         <div>
             {posts.map(({ id, post }) => {
-                    return (
-                        <SinglePostNew
-                            key={id}
-                            id={id}
-                            username={post.user_name}
-                            postPic={post.Image}
-                            uid={post.uid}
-                            date={new Date(post.post_time.seconds * 1000).toLocaleDateString('en-US')}
-                            likes_count={post.likes_count}
-                            caption={post.caption}
-                            sharedURL={window.location.href}
-                            hidden={false}
-                            comments_count={post.comments_count}
-                            location = {post.location}
-                        />
-                    );
+                return (
+                    <SinglePostNew
+                        key={id}
+                        id={id as string}
+                        username={post.user_name}
+                        postPic={post.Image}
+                        uid={post.uid}
+                        date={new Date(post.post_time.seconds * 1000).toLocaleDateString('en-US')}
+                        likes_count={post.likes_count}
+                        caption={post.caption}
+                        sharedURL={window.location.href}
+                        hidden={false}
+                        comments_count={post.comments_count}
+                        location={post.location}
+                    />
+                );
             })}
-        </div> 
+        </div>
     );
 }

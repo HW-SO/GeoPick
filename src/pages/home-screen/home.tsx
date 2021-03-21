@@ -123,9 +123,7 @@ export class HomeScreen extends Component<HomeScreenProps, HomeScreenState> {
                         />
                     </Toolbar>
                 </AppBar>
-                {/* <SinglePostNew /> */}
-                {/* <Feed /> */}
-                <HomeFeed uid = {this.state.uid}/>
+                <HomeFeed uid={this.state.uid} />
 
                 <div style={{ padding: '30px' }}></div>
                 <BottomNavigation />
