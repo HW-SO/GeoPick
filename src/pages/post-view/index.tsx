@@ -117,11 +117,12 @@ export default class PostViewScreen extends Component<PostViewProps, PostViewSta
                     post_user: data,
                 });
             });
-        db.checkLikedPost(this.state.post_uid).then((e) =>
+        db.checkLikedPost(pid).then((e) => {
+            console.log('e ', e);
             this.setState({
                 favourited: e as boolean,
-            }),
-        );
+            });
+        });
     }
 
     handleColorChange = () => {
