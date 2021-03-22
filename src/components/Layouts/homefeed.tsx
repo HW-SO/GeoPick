@@ -55,7 +55,6 @@ export default function HomeFeed(props: any) {
 
         setDone(true);
         setFollowing(f);
-         
     };
 
     // const getPosts = async () => {

@@ -110,6 +110,7 @@ firebase.firestore().enablePersistence()
 });
 export const auth = firebase.auth();
 export const GoogleProvider = new firebase.auth.GoogleAuthProvider();
+export const firestore = firebase.firestore();
 export const db = firebase.database();
 export default auth;
 export const storage = firebase.storage();
