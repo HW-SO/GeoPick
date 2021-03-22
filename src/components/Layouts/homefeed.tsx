@@ -117,18 +117,13 @@ export default function HomeFeed(props: any) {
       <div>
           {posts.map((post) => {
               if (post) {
-                // console.log("feed id", post)
-                // const loc = getLocations(post.location);
                 return (
                   <SinglePostNew
                       key={post.id}
                       id={post.id}
-                      // profileUrl={post.profileUrl}
                       username={post.user_name}
                       postPic={post.Image}
                       uid={post.uid}
-                      // caption={post.caption}
-                      // comments={post.comments}
                       date={new Date(post.post_time.seconds * 1000).toLocaleDateString('en-US')}
                       likes_count={post.likes_count}
                       caption={post.caption}
@@ -136,16 +131,15 @@ export default function HomeFeed(props: any) {
                       hidden={false}
                       comments_count={post.comments_count}
                       location = {post.location}
-                      // otherLocs = {getLocations(post.location)}
                   />
               );
-              } else return (<Typography color="inherit">No posts to show! Follow people to find more people!</Typography>);
-          })}
+          }})}
+          
       </div>
   );
   return (
       <div>
-          <div>{posts ? allPosts : null}</div>
+          <div>{posts ? allPosts : <Typography color="inherit">No posts to show! Follow people to find more people!</Typography>}</div>
           <div style={{ textAlign: "center" }}>
       {nextPosts_loading ? (
         <p>Loading..</p>

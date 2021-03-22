@@ -660,7 +660,9 @@ export default function Terms() {
                         {/* </p> */}
                         <br/>
                     </Typography>
-
+            </Card>
+            </Card>
+            
             <RegularBtn
                 type="submit"
                 colorType="orange"
@@ -673,6 +675,6 @@ export default function Terms() {
                 <HomeRoundedIcon />
             </RegularBtn>
             <br></br>
-        </div>
+            </div>
     );
 }

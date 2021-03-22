@@ -16,6 +16,7 @@ import { checkUserLoggedIn } from '../../firebase/auth';
 import firebase from 'firebase';
 import fb from 'firebase/app';
 import { Box } from '@material-ui/core';
+import AvatarSmall from './avatarSmall';
 import EditButton from './edit';
 import ReportButton from './report';
 
@@ -247,14 +248,22 @@ class SinglePostNew extends Component<SinglePostNewProps, SinglePostNewState> {
             >
                 <CardHeader
                     avatar={
-                        <Avatar
-                            aria-label="recipe"
-                            alt={this.state.post_user.User_name}
-                            src={this.state.post_user.Avatar}
-                            style={{ backgroundColor: 'auto' }}
-                        >
-                            {this.state.post_user.User_name}
-                        </Avatar>
+                        // <Avatar
+                        //     aria-label="recipe"
+                        //     alt={this.state.post_user.User_name}
+                        //     src={this.state.post_user.Avatar}
+                        //     style={{ backgroundColor: 'auto' }}
+                        // >
+                        //     {this.state.post_user.User_name}
+                        // </Avatar>
+                        <AvatarSmall
+                        aria-label="recipe"
+                        User_name={this.state.post_user.User_name}
+                        Avatar={this.state.post_user.Avatar}
+                        style={{ backgroundColor: 'auto' }}
+                        uid={this.props.uid}
+                        Size="small"
+                    />
                     }
                     action={this.props.uid === this.state.user_uid && <EditButton postURL={this.props.id} /> ||
                     this.props.uid !== this.state.user_uid && <ReportButton />
@@ -305,9 +314,9 @@ class SinglePostNew extends Component<SinglePostNewProps, SinglePostNewState> {
                         </IconButton>
                     </Link>
                     <Box m={1} />
-                    <IconButton aria-label="share">
+                    {/* <IconButton aria-label="share"> */}
                         <SharePost sharedURL={`${root}${this.state.path_name}`} />
-                    </IconButton>
+                    {/* </IconButton> */}
                     {/* <div
                         style={{ float: 'right', marginRight: '10px', marginLeft: 'auto' }}
                         onClick={this.handleClickRandomizer}
