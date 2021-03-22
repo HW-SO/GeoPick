@@ -84,8 +84,6 @@ export default class CreateProfileScreen extends React.Component<CreateProfilePr
 
     public render(): JSX.Element {
         return (
-            <html>
-                <body>
                     <div className="Create-Profile-Page">
                         <Card title="Create Profile" split={1}>
                             <Grid container spacing={4} direction="row" alignItems="center" justify="center">
@@ -96,8 +94,6 @@ export default class CreateProfileScreen extends React.Component<CreateProfilePr
                             </Grid>
                         </Card>
                     </div>
-                </body>
-            </html>
         );
     }
 }

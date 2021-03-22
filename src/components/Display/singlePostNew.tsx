@@ -244,12 +244,9 @@ class SinglePostNew extends Component<SinglePostNewProps, SinglePostNewState> {
                         // </AvatarSmall>
                     }
                     action={
-                        <>
-                            {/* <IconButton aria-label="settings" style={{ color: '#fafafa' }}>
-                                <MoreVertIcon />
-                            </IconButton> */}
+                        // <>
                             <ReportButton />
-                        </>
+                        //</>
                     }
                     title={<Typography variant="h6">{this.state.post_user.User_name}</Typography>}
                     subheader={
@@ -297,9 +294,9 @@ class SinglePostNew extends Component<SinglePostNewProps, SinglePostNewState> {
                         </IconButton>
                     </Link>
                     <Box m={1} />
-                    <IconButton aria-label="share">
+                    {/* <IconButton aria-label="share"> */}
                         <SharePost sharedURL={`${root}${this.state.path_name}`} />
-                    </IconButton>
+                    {/* </IconButton> */}
                     <div
                         style={{ float: 'right', marginRight: '10px', marginLeft: 'auto' }}
                         onClick={this.handleClickRandomizer}

@@ -51,7 +51,7 @@ export default function ExploreScreen() {
             .onSnapshot((snapshot: any) => {
                 setPosts(snapshot.docs.map((doc: any) => ({ id: doc.id, post: doc.data() })));
             });
-        console.log(posts);
+        // console.log(posts);
     });
 
     const handleViewportChange = useCallback((newViewport) => setViewport(newViewport), []);

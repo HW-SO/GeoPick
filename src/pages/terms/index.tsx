@@ -20,7 +20,7 @@ export class Terms extends Component<TermsProps, TermsState> {
                 </Typography>
                 <Card style={{ borderRadius: '20px', background: '#fafafa', margin: '20px' }}>
                     <Typography variant="body1" style={{ fontWeight: 'lighter', textAlign: 'left', margin: '20px' }}>
-                        <p>
+                        {/* <p> */}
                             By downloading or using the app, these terms will automatically apply to you – you should
                             make sure therefore that you read them carefully before using the app. You’re not allowed to
                             copy, or modify the app, any part of the app, or our trademarks in any way. You’re not
@@ -28,14 +28,17 @@ export class Terms extends Component<TermsProps, TermsState> {
                             translate the app into other languages, or make derivative versions. The app itself, and all
                             the trade marks, copyright, database rights and other intellectual property rights related
                             to it, still belong to GeoPicK.
-                        </p>{' '}
-                        <p>
+                        {/* </p> */}
+                        <br/>
+                        {' '}
+                        {/* <p> */}
                             GeoPicK is committed to ensuring that the app is as useful and efficient as possible. For
                             that reason, we reserve the right to make changes to the app or to charge for its services,
                             at any time and for any reason. We will never charge you for the app or its services without
                             making it very clear to you exactly what you’re paying for.
-                        </p>{' '}
-                        <p>
+                        {/* </p> */}
+                        {' '}
+                        {/* <p> */}
                             The GeoPicK app stores and processes personal data that you have provided to us, in order to
                             provide our Service. It’s your responsibility to keep your phone and access to the app
                             secure. We therefore recommend that you do not jailbreak or root your phone, which is the
@@ -43,10 +46,20 @@ export class Terms extends Component<TermsProps, TermsState> {
                             system of your device. It could make your phone vulnerable to malware/viruses/malicious
                             programs, compromise your phone’s security features and it could mean that the GeoPicK app
                             won’t work properly or at all.
-                        </p>{' '}
-                        <div>
-                            <p>The app does use third party services that declare their own Terms and Conditions.</p>{' '}
-                            <p>Link to Terms and Conditions of third party service providers used by the app</p>{' '}
+                        {/* </p> */}
+                        {' '}
+                        <br/>
+                        {/* <div> */}
+                            {/* <p> */}
+                            The app does use third party services that declare their own Terms and Conditions.
+                            {/* </p> */}
+                            {' '}
+                            <br/>
+                            {/* <p> */}
+                                Link to Terms and Conditions of third party service providers used by the app
+                            {/* </p> */}
+                            {' '}
+                            <br/>
                             <ul>
                                 <li>
                                     <a
@@ -67,16 +80,20 @@ export class Terms extends Component<TermsProps, TermsState> {
                                     </a>
                                 </li>
                             </ul>
-                        </div>{' '}
-                        <p>
+                        {/* </div>{' '} */}
+                        <br/>
+                        {/* <p> */}
                             You should be aware that there are certain things that GeoPicK will not take responsibility
                             for. Certain functions of the app will require the app to have an active internet
                             connection. The connection can be Wi-Fi, or provided by your mobile network provider, but
                             GeoPicK cannot take responsibility for the app not working at full functionality if you
                             don’t have access to Wi-Fi, and you don’t have any of your data allowance left.
-                        </p>{' '}
-                        <p></p>{' '}
-                        <p>
+                        {/* </p> */}
+                        {' '}
+                        <br/>
+                        {/* <p></p>{' '} */}
+                        <br/>
+                        {/* <p> */}
                             If you’re using the app outside of an area with Wi-Fi, you should remember that your terms
                             of the agreement with your mobile network provider will still apply. As a result, you may be
                             charged by your mobile provider for the cost of data for the duration of the connection
@@ -85,20 +102,26 @@ export class Terms extends Component<TermsProps, TermsState> {
                             outside of your home territory (i.e. region or country) without turning off data roaming. If
                             you are not the bill payer for the device on which you’re using the app, please be aware
                             that we assume that you have received permission from the bill payer for using the app.
-                        </p>{' '}
-                        <p>
+                        {/* </p> */}
+                        {' '}
+                        <br/>
+                        {/* <p> */}
                             Along the same lines, GeoPicK cannot always take responsibility for the way you use the app
                             i.e. You need to make sure that your device stays charged – if it runs out of battery and
                             you can’t turn it on to avail the Service, GeoPicK cannot accept responsibility.
-                        </p>{' '}
-                        <p>
+                        {/* </p> */}
+                        {' '}
+                        <br/>
+                        {/* <p> */}
                             With respect to GeoPicK’s responsibility for your use of the app, when you’re using the app,
                             it’s important to bear in mind that although we endeavour to ensure that it is updated and
                             correct at all times, we do rely on third parties to provide information to us so that we
                             can make it available to you. GeoPicK accepts no liability for any loss, direct or indirect,
                             you experience as a result of relying wholly on this functionality of the app.
-                        </p>{' '}
-                        <p>
+                        {/* </p> */}
+                        {' '}
+                        <br/>
+                        {/* <p> */}
                             At some point, we may wish to update the app. The app is currently available on Android &
                             iOS – the requirements for both systems(and for any additional systems we decide to extend
                             the availability of the app to) may change, and you’ll need to download the updates if you
@@ -109,11 +132,14 @@ export class Terms extends Component<TermsProps, TermsState> {
                             at any time without giving notice of termination to you. Unless we tell you otherwise, upon
                             any termination, (a) the rights and licenses granted to you in these terms will end; (b) you
                             must stop using the app, and (if needed) delete it from your device.
-                        </p>{' '}
-                        <p>
+                        {/* </p> */}
+                        {' '}
+                        <br/>
+                        {/* <p> */}
                             <strong>INTELLECTUAL PROPERTY RIGHTS</strong>
-                        </p>
-                        <p>
+                        {/* </p> */}
+                        <br/>
+                        {/* <p> */}
                             Unless otherwise indicated, the Application is our proprietary property and all source code,
                             databases, functionality, software, website designs, audio, video, text, photographs, and
                             graphics on the Application (collectively, the “Content”) and the trademarks, service marks,
@@ -130,11 +156,13 @@ export class Terms extends Component<TermsProps, TermsState> {
                             to download or print a copy of any portion of the Content to which you have properly gained
                             access solely for your personal, non-commercial use. We reserve all rights not expressly
                             granted to you in and to the Application, Content, and the Marks.
-                        </p>
-                        <p>
+                        {/* </p> */}
+                        <br/>
+                        {/* <p> */}
                             <strong>USER REPRESENTATIONS</strong>
-                        </p>
-                        <p>
+                        {/* </p> */}
+                        <br/>
+                        {/* <p> */}
                             By using the Application, you represent and warrant that: (1) all registration information
                             you submit will be true, accurate, current, and complete; (2) you will maintain the accuracy
                             of such information and promptly update such registration information as necessary; (3) you
@@ -147,20 +175,24 @@ export class Terms extends Component<TermsProps, TermsState> {
                             provide any information that is untrue, inaccurate, not current, or incomplete, we have the
                             right to suspend or terminate your account and refuse any and all current or future use of
                             the Application(or any portion thereof).
-                        </p>
-                        <p>
+                        {/* </p> */}
+                        <br/>
+                        {/* <p> */}
                             <strong>USER REGISTRATION</strong>
-                        </p>
-                        <p>
+                        {/* </p> */}
+                        <br/>
+                        {/* <p> */}
                             You may be required to register with the Application. You agree to keep your password
                             confidential and will be responsible for all use of your account and password. We reserve
                             the right to remove, reclaim, or change a username you select if we determine, in our sole
                             discretion, that such username is inappropriate, obscene, or otherwise objectionable.
-                        </p>
-                        <p>
+                        {/* </p> */}
+                        <br/>
+                        {/* <p> */}
                             <strong>PROHIBITED ACTIVITIES</strong>
-                        </p>
-                        <p>
+                        {/* </p> */}
+                        <br/>
+                        {/* <p> */}
                             You may not access or use the Application for any purpose other than that for which we make
                             the Application available. The Application may not be used in connection with any commercial
                             endeavors except those that are specifically endorsed or approved by us. As a user of the
@@ -208,11 +240,13 @@ export class Terms extends Component<TermsProps, TermsState> {
                             using or launching any unauthorized script or other software. 23. Disparage, tarnish, or
                             otherwise harm, in our opinion, us and/or the Application. 24. Use the Application in a
                             manner inconsistent with any applicable laws or regulations.
-                        </p>
-                        <p>
+                        {/* </p> */}
+                        <br/>
+                        {/* <p> */}
                             <strong>USER GENERATED CONTRIBUTIONS</strong>
-                        </p>
-                        <p>
+                        {/* </p> */}
+                        <br/>
+                        {/* <p> */}
                             The Application may invite you to chat, contribute to, or participate in blogs, message
                             boards, online forums, play games and other functionality, and may provide you with the
                             opportunity to create, submit, post, display, transmit, perform, publish, distribute, or
@@ -252,11 +286,13 @@ export class Terms extends Component<TermsProps, TermsState> {
                             use of the Application in violation of the foregoing violates these Terms of Use and may
                             result in, among other things, termination or suspension of your rights to use the
                             Application.
-                        </p>
-                        <p>
+                        {/* </p> */}
+                        <br/>
+                        {/* <p> */}
                             <strong>CONTRIBUTION LICENSE</strong>
-                        </p>
-                        <p>
+                        {/* </p> */}
+                        <br/>
+                        {/* <p> */}
                             By posting your Contributions to any part of the Application, or making Contributions
                             accessible to the Application by linking your account from the Application to any of your
                             social networking accounts, you automatically grant, and you represent and warrant that you
@@ -274,8 +310,9 @@ export class Terms extends Component<TermsProps, TermsState> {
                             personal and commercial images you provide. You waive all moral rights in your
                             Contributions, and you warrant that moral rights have not otherwise been asserted in your
                             Contributions.
-                        </p>
-                        <p>
+                        {/* </p> */}
+                        <br/>
+                        {/* <p> */}
                             <strong>
                                 <i>
                                     We do not assert any ownership over your Contributions. You retain full ownership of
@@ -287,31 +324,40 @@ export class Terms extends Component<TermsProps, TermsState> {
                                     refrain from any legal action against us regarding your Contributions.
                                 </i>
                             </strong>
-                        </p>
-                        <p>
+                        {/* </p> */}
+                        <br/>
+                        {/* <p> */}
                             We have the right, in our sole and absolute discretion, (1) to edit, redact, or otherwise
                             change any Contributions; (2) to re-categorize any Contributions to place them in more
                             appropriate locations on the Application; and (3) to pre-screen or delete any Contributions
                             at any time and for any reason, without notice. We have no obligation to monitor your
                             Contributions.
-                        </p>
-                        <p>
+                        {/* </p> */}
+                        <br/>
+                        {/* <p> */}
                             <strong>Changes to This Terms and Conditions</strong>
-                        </p>{' '}
-                        <p>
+                        {/* </p>{' '} */}
+                        <br/>
+                        {/* <p> */}
                             We may update our Terms and Conditions from time to time. Thus, you are advised to review
                             this page periodically for any changes. We will notify you of any changes by posting the new
                             Terms and Conditions on this page.
-                        </p>{' '}
-                        <p>These terms and conditions are effective as of 04-02-2021</p>{' '}
-                        <p>
+                        {/* </p>{' '} */}
+                        <br/>
+                        {/* <p> */}
+                            These terms and conditions are effective as of 04-02-2021
+                            {/* </p>{' '} */}
+                            <br/>
+                        {/* <p> */}
                             <strong>Contact Us</strong>
-                        </p>{' '}
-                        <p>
+                        {/* </p>{' '} */}
+                        <br/>
+                        {/* <p> */}
                             If you have any questions or suggestions about our Terms and Conditions, do not hesitate to
                             contact us at geopick2021@gmail.com.
-                        </p>{' '}
-                        <p>
+                        {/* </p>{' '} */}
+                        <br/>
+                        {/* <p> */}
                             This Terms and Conditions page was generated by{' '}
                             <a
                                 href="https://app-privacy-policy-generator.webwoob.com/"
@@ -320,7 +366,8 @@ export class Terms extends Component<TermsProps, TermsState> {
                             >
                                 App Privacy Policy Generator
                             </a>
-                        </p>
+                        {/* </p> */}
+                        <br/>
                     </Typography>
 
                     <RegularBtn

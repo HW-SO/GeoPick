@@ -274,9 +274,9 @@ export default class PostViewScreen extends Component<PostViewProps, PostViewSta
                             <FavoriteIcon />
                             {<Typography style={{ color: '#fafafa' }}>{this.state.likes_count}</Typography>}
                         </IconButton>
-                        <IconButton aria-label="share">
-                            <SharePost sharedURL={window.location.href} />
-                        </IconButton>
+                        {/* <IconButton aria-label="share"> */}
+                        <SharePost sharedURL={window.location.href} />
+                        {/* </IconButton> */}
                         
                     </CardActions>
                 </Card>
@@ -289,7 +289,7 @@ export default class PostViewScreen extends Component<PostViewProps, PostViewSta
                         <List>
                             {this.state.comments.map((val: any, index: any) => {
                                 return (
-                                    <ListItem>
+                                    <ListItem key = {index}>
                                         <ListItemAvatar>
                                             <AvatarSmall
                                                 User={this.state.user}

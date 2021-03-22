@@ -63,14 +63,15 @@ class EditProfile extends Component<EditProfileProps, EditProfileState> {
                     <Grid item> */}
 
                         <Typography variant="h3" style={{ color: '#fafafa' }}>
-                            Hi<br></br>
+                            Hi
+                            </Typography><br></br>
                             {
                                 <Typography variant="h4" style={{ color: '#f56920' }}>
                                     'mo.kvs_'
                                 </Typography>
                             }
                             {/* The username comes here */}
-                        </Typography>
+                        
                     </CardContent>
                     <div style={{ margin: '20px', textAlign: 'center' }}>
                         <Box m={2}></Box>

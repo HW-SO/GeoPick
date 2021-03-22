@@ -47,7 +47,7 @@ export default function UserFeed1(props: any) {
                         caption={post.caption}
                         sharedURL={window.location.href}
                         hidden={false}
-                        comments_count={post.comments_count}
+                        comments_count={post.comment_count}
                     />
                 );
             })}
