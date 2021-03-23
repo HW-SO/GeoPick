@@ -10,6 +10,8 @@ import firebase from 'firebase';
 //import Button from '@material-ui/core/Button';
 //import SinglePostNew from '../../components/Display/singlePostNew';
 //import Places from '../../components/Inputs/Places';
+import { Typography } from '@material-ui/core';
+
 
 import ReactMapGL, { Marker
      //Popup 
@@ -32,8 +34,8 @@ export default function ExploreScreen() {
     const firstUpdate = useRef(true);
     const mapRef = useRef(null);
     const [viewport, setViewport] = useState({
-        latitude: 45.4211,
-        longitude: -75.6903,
+        latitude: 25.2684,
+        longitude: 55.2962,
         width: '100%',
         height: '100vh',
         zoom: 5,
@@ -48,6 +50,8 @@ export default function ExploreScreen() {
         firebase
             .firestore()
             .collection('Posts')
+            .orderBy('post_time', 'desc')
+            .limit(20)
             .onSnapshot((snapshot: any) => {
                 setPosts(snapshot.docs.map((doc: any) => ({ id: doc.id, post: doc.data() })));
             });
@@ -85,6 +89,7 @@ export default function ExploreScreen() {
             </div>
             <div id="titleDiv">
                 <Card background="#202020" title="Explore" split={2}>
+                    <Typography color="inherit">Find the latest posts around the world!</Typography> 
                     <ReactMapGL
                         ref={mapRef}
                         {...viewport}
