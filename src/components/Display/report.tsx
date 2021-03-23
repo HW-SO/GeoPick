@@ -4,6 +4,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import Fade from '@material-ui/core/Fade';
 import { IconButton } from '@material-ui/core';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
+import { useHistory } from 'react-router-dom';
 
 export default function ReportButton() {
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
@@ -13,9 +14,11 @@ export default function ReportButton() {
         setAnchorEl(event.currentTarget);
     };
 
+    const history = useHistory();
+
     const handleReport = () => {
-        // setAnchorEl(null);
         console.log('post reported!');
+        history.push('/helpnfeedback'); // how do i take the posit id and add it here??
     };
     const handleClose = () => {
         setAnchorEl(null);

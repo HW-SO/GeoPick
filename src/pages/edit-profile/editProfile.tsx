@@ -18,7 +18,7 @@ class EditProfile extends Component<EditProfileProps, EditProfileState> {
     };
 
     handleonclickSubmit() {
-        console.log('Profile edit changes!')
+        console.log('Profile edit changes!');
         //     .then(() => {
         //     push('/welcome');
         // });

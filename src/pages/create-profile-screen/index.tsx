@@ -11,8 +11,10 @@ import firebase from 'firebase';
 import Compress from 'react-image-file-resizer';
 import OccupationSelect from '../../components/Inputs/occupation';
 import { useForm } from 'react-hook-form';
-import { Link, useHistory } from 'react-router-dom';
+import { Link, useHistory, useRouteMatch } from 'react-router-dom';
 import { auth } from '../../firebase';
+import { doEmailVerification } from '../../firebase/auth';
+import { userInfo } from 'os';
 export interface CreateProfileProps {}
 
 export default class CreateProfileScreen extends React.Component<CreateProfileProps> {
@@ -178,12 +180,14 @@ const CreateProfileForm = ({ img }: { img: string }) => {
                         console.log('Error ' + err);
                         alert(err);
                     });
+
                 push('/home');
             }
         }
     };
 
     const history = useHistory();
+
     return (
         <>
             <form onSubmit={handleSubmit(onSubmit)}>

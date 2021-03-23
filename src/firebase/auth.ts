@@ -30,7 +30,7 @@ export const doPasswordUpdate = async (password: string) => {
 export const doEmailVerification = async (email: string) => { 
     if (auth.currentUser) {
         await auth.currentUser.sendEmailVerification();
-    }
+    } 
 };
 
 export const checkUserLoggedIn = () => {
