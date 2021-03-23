@@ -38,3 +38,13 @@
         transform: rotate(360deg);
     }
 }
+
+body.light-mode {
+    background-color: #fafafa;
+    color: #1b1b1b;
+    transition: background-color 0.3s ease;
+}
+body.dark-mode {
+    background-color: #1b1b1b;
+    color: #fafafa;
+}
