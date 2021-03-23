@@ -23,6 +23,10 @@ class EditProfile extends Component<EditProfileProps, EditProfileState> {
     signOut = () => {
         auth.doSignOut();
     };
+    handleoneditAvatar(){
+        console.log('Go to change avatar screen!');
+        // push('/edit-Avatar');
+    }
 
     handleonclickSubmit() {
         console.log('Profile edit changes!');
@@ -118,7 +122,21 @@ class EditProfile extends Component<EditProfileProps, EditProfileState> {
                             marginRight: '20px',
                             marginTop: '20px',
                         }}
-                    ></Avatar> */}
+                    ></Avatar>
+                    <Button
+                        onClick={this.handleoneditAvatar}
+                        style={{
+                            background: '#f56920',
+                            color: '#fafafa',
+                            padding: '10px 20px 10px 20px',
+                            margin: 'auto',
+                            borderRadius: '20px',
+                            marginTop: '20px',
+                            // marginBottom: '25px',
+                        }}
+                    >
+                        Edit Avatar
+                    </Button>
                     <CardContent style={{ textAlign: 'left', padding: '50px 10px 50px 10px' }}>
                         {/* <Grid container direction="column">
                     <Grid item> */}
