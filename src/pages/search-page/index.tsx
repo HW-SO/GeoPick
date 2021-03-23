@@ -7,7 +7,7 @@ import { Box, Typography } from '@material-ui/core';
 import firebase from 'firebase';
 import ProfileOverview from '../../components/Display/profileOverview';
 import Button from '@material-ui/core/Button';
-import SinglePostNew1 from '../../components/Display/singlePostNew1';
+import SinglePostNew from '../../components/Display/singlePostNew';
 import Feed from '../../components/Layouts/feed';
 import './search.scss';
 import { Component } from 'react';
@@ -21,7 +21,9 @@ import { checkUserLoggedIn } from '../../firebase/auth';
 
 
 
-export interface SearchProps {}
+export interface SearchProps {
+    
+}
 
 export interface SearchState {
     users: Array<any>;
@@ -29,8 +31,6 @@ export interface SearchState {
     userOn: boolean;
     postOn: boolean;
     query: string;
-    uid: string;
-    user: any;
 }
 
 
@@ -49,74 +49,32 @@ export default class SearchScreen extends Component<SearchProps, SearchState>  {
             userOn: false,
             postOn: false,
             query: '',
-            uid: '',
-            user: {},
         };
     }
 
-    async componentDidMount() {
-        const auth = await checkUserLoggedIn();
-        if (auth != undefined) {
-            this.getUser().then(
-                (user) => {
-                    this.setState({ user: user, uid: auth['uid'] });
-                },
-                (error) => {
-                    // this.setState({ });
-                },
-            );
-        }
-    }
 
-    getUser = () => {
-        const auth = checkUserLoggedIn();
-        return new Promise(function (resolve, reject) {
-            if (auth === undefined) {
-            } else {
-                firebase
-                    .firestore()
-                    .collection('users')
-                    .doc(auth['uid'])
-                    .get()
-                    .then((querySnapshot) => {
-                        const data = querySnapshot.data();
-                        // this.se
-                        if (querySnapshot.data()) {
-                            resolve(data);
-                        } else {
-                            reject('User not authenticated');
-                        }
-                    });
-            }
-        });
-    };
+    toggleUser = () => {
+    // setUserOn(true);
+    // setPostOn(false);
+    this.setState({userOn:true,postOn:false});
 
-    signOut = () => {
-        auth.doSignOut();
-    };
-
-        toggleUser = () => {
-        // setUserOn(true);
-        // setPostOn(false);
-        this.setState({userOn:true,postOn:false});
-
-        firebase
-            .firestore()
-            .collection('users')
-            .where('User_name', '>=', this.state.query)
-            .limit(5)
-            .get()
-            .then((snapshot) => {
-                let users = snapshot.docs.map((doc) => {
-                    const data = doc.data();
-                    const id = doc.id;
-                    return { id, ...data };
-                });
-                // setUsers(users);
-                // setPosts([]);
-                this.setState({users: users,posts:[]});
-
+    firebase
+        .firestore()
+        .collection('users')
+        .where('User_name', '>=', this.state.query)
+        .limit(5)
+        .get()
+        .then((snapshot) => {
+            let users = snapshot.docs.map((doc) => {
+                const data = doc.data();
+                const id = doc.id;
+                return { id, ...data };
             });
+            // setUsers(users);
+            // setPosts([]);
+            this.setState({users: users,posts:[]});
+
+        });
     };
 
         togglePost = () => {
@@ -153,26 +111,6 @@ export default class SearchScreen extends Component<SearchProps, SearchState>  {
     render(){
     return (
         <div className="background">
-            <AppBar position="fixed" style={{ background: '#1b1b1b' }}>
-                    <Toolbar style={{ position: 'relative' }}>
-                        <Link to="/welcome">
-                            <IconButton edge="end" onClick={this.signOut}>
-                                <ExitToAppIcon style={{ color: 'white' }} />
-                            </IconButton>
-                        </Link>
-
-                        <img src={WhiteLogo} alt="GeoPicK" className="WhiteLogo" />
-                        <AvatarSmall
-                            User={this.state.user}
-                            uid={this.state.uid}
-                            User_name={this.state.user.User_name}
-                            Avatar={this.state.user.Avatar}
-                            Size="small"
-                        />
-                    </Toolbar>
-                </AppBar>
-
-
             <div id="titleDiv">
                 {/* <Card background="#202020" title="Search" split={2}> */}
                 {/* <div>Sea</div> */}
@@ -187,7 +125,7 @@ export default class SearchScreen extends Component<SearchProps, SearchState>  {
                         onChange={this.fetchResults}
                     />
                     <br></br>
-                    <Box marginLeft={8} marginRight={8} display="flex" justifyContent="space-between">
+                    <Box marginLeft={4} marginRight={4} display="flex" justifyContent="space-between">
                         <Typography variant="h5" style={{ float: 'left', color: '#fafafa' }}>
                             Based on
                         </Typography>
@@ -196,7 +134,7 @@ export default class SearchScreen extends Component<SearchProps, SearchState>  {
                         <Button variant="contained" className="tags-button" onClick={this.togglePost}>
                             Tags
                         </Button>{'         '}
-
+                        <br/>
                         <Button variant="contained" className="users-button" onClick={this.toggleUser}>
                             Users
                         </Button>
@@ -229,7 +167,7 @@ export default class SearchScreen extends Component<SearchProps, SearchState>  {
                             // console.log(data);
                             return (
                                 <div>
-                                    <SinglePostNew1
+                                    <SinglePostNew
                                         key={data.id}
                                         id={data.id}
                                         // profileUrl={post.profileUrl}
@@ -244,6 +182,7 @@ export default class SearchScreen extends Component<SearchProps, SearchState>  {
                                         sharedURL={window.location.href}
                                         hidden={false}
                                         comments_count={data.comments_count}
+                                        nogame
                                     />
                                     <br />
                                     <br />
@@ -254,7 +193,6 @@ export default class SearchScreen extends Component<SearchProps, SearchState>  {
                 {/* </Card> */}
             </div>
             <br />
-            <BottomNavigation />
         </div>
     );
 }

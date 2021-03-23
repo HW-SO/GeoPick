@@ -11,6 +11,8 @@ import firebase from 'firebase';
 //import SinglePostNew from '../../components/Display/singlePostNew';
 //import Places from '../../components/Inputs/Places';
 import { Typography } from '@material-ui/core';
+import BottomNavigation from '../../components/NavBar/navbar';
+
 
 
 import ReactMapGL, { Marker
@@ -38,9 +40,9 @@ export default function ExploreScreen() {
         longitude: 55.2962,
         width: '100%',
         height: '100vh',
-        zoom: 5,
+        zoom: 4,
     });
-
+    
     useLayoutEffect(() => {
         if (firstUpdate.current) {
             firstUpdate.current = false;
@@ -81,15 +83,14 @@ export default function ExploreScreen() {
     // });
     return (
         <div className="background">
-            <div className="button" style={{ float: 'left' }}>
-                <ArrowBackRoundedIcon />
-            </div>
-            <div className="image">
-                <img src={WhiteLogo} alt="GeoPicK Logo" className="WhiteLogo" />
-            </div>
+
+        
+            
+            
             <div id="titleDiv">
-                <Card background="#202020" title="Explore" split={2}>
-                    <Typography color="inherit">Find the latest posts around the world!</Typography> 
+            <Typography variant="h3" color="inherit">Search</Typography> 
+                {/* <Card background="#202020" title="Explore" split={2}> */}
+                    <Typography color="inherit" variant="h4">Find the latest posts around the world!</Typography> 
                     <ReactMapGL
                         ref={mapRef}
                         {...viewport}
@@ -111,7 +112,6 @@ export default function ExploreScreen() {
                             </Marker>
                         ))}
                     </ReactMapGL>
-                </Card>
             </div>
             <br />
         </div>

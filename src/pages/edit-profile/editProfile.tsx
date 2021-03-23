@@ -7,8 +7,15 @@ import OccupationSelect from '../../components/Inputs/occupation';
 import { Link, useHistory } from 'react-router-dom';
 import { auth } from '../../firebase';
 import ReactDOM from 'react-dom';
+import BadgeAvatar from '../../components/Display/AddAvatarBadge';
+import firebase from 'firebase';
+import Compress from 'react-image-file-resizer';
+import { storage } from '../../firebase/firebase';
 
-export interface EditProfileProps {}
+export interface EditProfileProps {
+    uid?: string;
+    user?: any;
+}
 
 export interface EditProfileState {}
 
@@ -26,6 +33,59 @@ class EditProfile extends Component<EditProfileProps, EditProfileState> {
     handleonclickChangePassword() {
         console.log('Go to change password screen!');
         // push('/ReSet-password'); CHECK
+    }
+
+    changeAvatar = async (event: React.ChangeEvent<HTMLInputElement>) => {
+        if (!event.target.files || !event.target.files[0]) return;
+        const file = await event.target.files[0];
+        const image = new Image();
+        let fr = new FileReader();
+
+        fr.onload = async function () {
+            if (fr !== null && typeof fr.result == 'string') {
+                image.src = fr.result;
+                console.log('in frload');
+                console.log('frwidg', image.width);
+                console.log('frhigg', image.height);
+            }
+        };
+        fr.readAsDataURL(file);
+
+        var width = 0;
+        var height = 0;
+
+        image.onload = function () {
+            height = image.height;
+            width = image.width;
+        };
+
+        setTimeout(() => {
+            Compress.imageFileResizer(
+                file,
+                width,
+                height,
+                'JPEG',
+                50,
+                0,
+                async (uri) => {
+                    if (typeof uri === 'string') {
+                        const urinew = uri.split('base64,')[1];
+                        storage
+                            .ref(`/Images/${this.props.uid}/Avatar/${file.name}`)
+                            .putString(urinew, 'base64')
+                            .then((data) => {
+                                data.ref.getDownloadURL().then((url) => {
+                                    this.setState({ imgurl: url });
+                                    firebase.firestore().collection('users/').doc(`${this.props.uid}/`).update({
+                                        Avatar: url,
+                                    });
+                                });
+                            });
+                    }
+                },
+                'base64',
+            );
+        }, 2500);
     }
 
     render() {
@@ -49,7 +109,8 @@ class EditProfile extends Component<EditProfileProps, EditProfileState> {
                         paddingBottom: '1em',
                     }}
                 >
-                    <Avatar
+                    <BadgeAvatar src={this.props.user.Avatar} onChange={this.changeAvatar} />
+                    {/* <Avatar
                         style={{
                             float: 'right',
                             width: '120px',
@@ -57,7 +118,7 @@ class EditProfile extends Component<EditProfileProps, EditProfileState> {
                             marginRight: '20px',
                             marginTop: '20px',
                         }}
-                    ></Avatar>
+                    ></Avatar> */}
                     <CardContent style={{ textAlign: 'left', padding: '50px 10px 50px 10px' }}>
                         {/* <Grid container direction="column">
                     <Grid item> */}
@@ -67,7 +128,7 @@ class EditProfile extends Component<EditProfileProps, EditProfileState> {
                             </Typography><br></br>
                             {
                                 <Typography variant="h4" style={{ color: '#f56920' }}>
-                                    'mo.kvs_'
+                                    {this.props.user.User_name}
                                 </Typography>
                             }
                             {/* The username comes here */}

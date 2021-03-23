@@ -25,11 +25,12 @@ import Compress from 'react-image-file-resizer';
 import { storage } from '../../firebase/firebase';
 import Places from '../../components/Inputs/Places';
 import { Redirect } from 'react-router-dom';
-export interface UploadImageProps {}
+export interface UploadImageProps {
+    user?: any;
+    uid?: string;
+}
 
 export interface UploadImageState {
-    user: any;
-    isAuthenticated: boolean;
     imgurl: string;
     img: any;
     caption: string;
@@ -42,7 +43,6 @@ export interface UploadImageState {
     coordinates: any;
     setLocation: boolean;
     posted: boolean;
-    uid: string;
 }
 
 export class UploadImage extends Component<UploadImageProps, UploadImageState> {
@@ -52,8 +52,6 @@ export class UploadImage extends Component<UploadImageProps, UploadImageState> {
         //     this.setState({ user: user });
         // });
         this.state = {
-            user: {},
-            isAuthenticated: false,
             imgurl: '',
             img: {},
             caption: '',
@@ -66,7 +64,6 @@ export class UploadImage extends Component<UploadImageProps, UploadImageState> {
             coordinates: {},
             setLocation: false,
             posted: false,
-            uid: '',
         };
     }
 
@@ -74,43 +71,7 @@ export class UploadImage extends Component<UploadImageProps, UploadImageState> {
         this.setState({ tags: tagses });
     };
 
-    componentDidMount() {
-        this.getUser().then(
-            (user) => {
-                this.setState({ isAuthenticated: true, user: user });
-            },
-            (error) => {
-                this.setState({ isAuthenticated: true });
-            },
-        );
-    }
-    signOut = () => {
-        auth.doSignOut();
-    };
-    getUser = () => {
-        const auth = checkUserLoggedIn();
-        if(auth !== undefined)
-        this.setState({ uid: auth.uid });
-        return new Promise(function (resolve, reject) {
-            if (auth === undefined) {
-            } else {
-                
-                firebase
-                    .firestore()
-                    .collection('users')
-                    .doc(auth.uid)
-                    .get()
-                    .then((querySnapshot) => {
-                        const data = querySnapshot.data();
-                        if (data) {
-                            resolve(data);
-                        } else {
-                            reject('User not authenticated');
-                        }
-                    });
-            }
-        });
-    };
+
 
     onSubmit = () => {
         const file = this.state.img;
@@ -174,7 +135,7 @@ export class UploadImage extends Component<UploadImageProps, UploadImageState> {
                                             comment_count: 0,
                                             likes_count: 0,
                                             uid: user.uid,
-                                            username: this.state.user.User_name,
+                                            username: this.props.user.User_name,
                                             post_time: new Date(),
                                             tags: this.state.tags,
                                             location: this.state.location,
@@ -248,24 +209,6 @@ export class UploadImage extends Component<UploadImageProps, UploadImageState> {
         return <Redirect to='/home' />;
         return (
             <div style={{ background: '#1b1b1b', padding: '10px' }}>
-                <AppBar position="fixed" style={{ background: '#1b1b1b' }}>
-                    <Toolbar style={{ position: 'relative' }}>
-                        <Link to="/welcome">
-                            <IconButton edge="end" onClick={this.signOut}>
-                                <ExitToAppIcon style={{ color: 'white' }} />
-                            </IconButton>
-                        </Link>
-
-                        <img src={WhiteLogo} alt="GeoPicK" className="WhiteLogo" />
-                        <AvatarSmall
-                            User={this.state.user}
-                            uid={this.state.uid}
-                            User_name={this.state.user.User_name}
-                            Avatar={this.state.user.Avatar}
-                            Size="small"
-                        />
-                    </Toolbar>
-                </AppBar>
                 <Typography style={{ color: '#fafafa', fontWeight: 'normal' }} variant="h2">
                     <span style={{ color: '#f56920' }}>Upload</span> Image
                 </Typography>
@@ -285,19 +228,19 @@ export class UploadImage extends Component<UploadImageProps, UploadImageState> {
                         avatar={
                             <Avatar
                                 aria-label="recipe"
-                                alt={this.state.user.User_name}
-                                src={this.state.user.Avatar}
+                                alt={this.props.user.User_name}
+                                src={this.props.user.Avatar}
                                 style={{ backgroundColor: 'auto' }}
                             >
-                                {this.state.user.User_name}
+                                {this.props.user.User_name}
                             </Avatar>
                         }
-                        title={<Typography variant="h6">{this.state.user.User_name}</Typography>}
+                        title={<Typography variant="h6">{this.props.user.User_name}</Typography>}
                         style={{ textAlign: 'left', color: '#fafafa' }}
                     />
                     <CardMedia
                         image={this.state.rawurl}
-                        title={`A Photo by ${this.state.user.User_name}`}
+                        title={`A Photo by ${this.props.user.User_name}`}
                         style={{
                             borderRadius: '20px 20px 20px 20px',
                             height: 0,

@@ -114,12 +114,7 @@ export default class SettingsMenuScreen extends Component<SettingsMenuProps, Set
     render() {
         return (
             <div style={{ background: '#1b1b1b' }} className="bgg">
-                <Toolbar>
-                    <img src={WhiteLogo} alt="GeoPicK" className="WhiteLogo" />
-                    <IconButton edge="end">
-                        <Avatar alt={this.state.user.User_name} src={this.state.user.Avatar} />
-                    </IconButton>
-                </Toolbar>
+
                 <div style={{ color: '#fafafa' }}>
                     <Card background="#fafafa" title="Settings" split={1}>
                         <div style={{ color: 'black' }}>

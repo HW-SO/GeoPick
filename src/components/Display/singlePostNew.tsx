@@ -34,6 +34,7 @@ export interface SinglePostNewProps {
     comments_count?: number;
     location?: any;
     otherLocs?: any;
+    nogame?: boolean;
 }
 
 export interface SinglePostNewState {
@@ -290,7 +291,8 @@ class SinglePostNew extends Component<SinglePostNewProps, SinglePostNewState> {
                     {/* <IconButton aria-label="share"> */}
                         <SharePost sharedURL={`${root}${this.state.path_name}`} />
                     {/* </IconButton> */}
-                    <div
+                    {!this.props.nogame &&
+                        <div
                         style={{ float: 'right', marginRight: '10px', marginLeft: 'auto' }}
                         onClick={this.handleClickRandomizer}
                     >
@@ -302,6 +304,8 @@ class SinglePostNew extends Component<SinglePostNewProps, SinglePostNewState> {
                             uid={this.props.uid}
                         />
                     </div>
+                    }
+                    
 
                     {/* {this.state.displayQuestions &&
                         this.state.questions.map( 
