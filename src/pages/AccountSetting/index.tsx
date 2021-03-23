@@ -87,6 +87,14 @@ const SettingsMenu = () => {
                       });
                 }
                     )
+
+            var Posts = firebase.firestore().collection('Posts').where('uid', '==',user.uid);
+            Posts.get().then(function(querySnapshot) {
+                querySnapshot.forEach(function(doc) {
+                  doc.ref.delete();
+                });
+              });
+
             }
         
 
