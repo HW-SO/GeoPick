@@ -2,6 +2,11 @@ import { Card, Typography } from '@material-ui/core';
 import * as React from 'react';
 import { Component } from 'react';
 import './Styles.scss';
+import { Toolbar, AppBar } from '@material-ui/core';
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+import WhiteLogo from '../welcome screen/WhiteLogo.svg';
+import { Link } from 'react-router-dom';
+import AvatarSmall from '../../components/Display/avatarSmall';
 import CardHeader from '@material-ui/core/CardHeader';
 import CardMedia from '@material-ui/core/CardMedia';
 import CardContent from '@material-ui/core/CardContent';
@@ -19,6 +24,7 @@ import { auth } from '../../firebase';
 import Compress from 'react-image-file-resizer';
 import { storage } from '../../firebase/firebase';
 import Places from '../../components/Inputs/Places';
+import { Redirect } from 'react-router-dom';
 export interface UploadImageProps {}
 
 export interface UploadImageState {
@@ -34,6 +40,9 @@ export interface UploadImageState {
     location: any;
     check: boolean;
     coordinates: any;
+    setLocation: boolean;
+    posted: boolean;
+    uid: string;
 }
 
 export class UploadImage extends Component<UploadImageProps, UploadImageState> {
@@ -55,6 +64,9 @@ export class UploadImage extends Component<UploadImageProps, UploadImageState> {
             location: {},
             check: false,
             coordinates: {},
+            setLocation: false,
+            posted: false,
+            uid: '',
         };
     }
 
@@ -72,12 +84,17 @@ export class UploadImage extends Component<UploadImageProps, UploadImageState> {
             },
         );
     }
-
+    signOut = () => {
+        auth.doSignOut();
+    };
     getUser = () => {
         const auth = checkUserLoggedIn();
+        if(auth !== undefined)
+        this.setState({ uid: auth.uid });
         return new Promise(function (resolve, reject) {
             if (auth === undefined) {
             } else {
+                
                 firebase
                     .firestore()
                     .collection('users')
@@ -100,8 +117,13 @@ export class UploadImage extends Component<UploadImageProps, UploadImageState> {
         const user = auth.checkUserLoggedIn();
         const image = new Image();
         let fr = new FileReader();
-
+        // const history = useHistory();
         if (!user) return;
+
+        if(!this.state.setLocation){
+            alert("Please select a location before submitting");
+            return;
+        }
 
         if (!this.state.check) {
             alert('You must check the condition');
@@ -157,15 +179,23 @@ export class UploadImage extends Component<UploadImageProps, UploadImageState> {
                                             tags: this.state.tags,
                                             location: this.state.location,
                                             coordinates: this.state.coordinates,
+                                            
                                         })
                                         .then(function (docRef) {
                                             console.log('Document written with ID: ', docRef.id);
+                                            firebase
+                                                .firestore()
+                                                .collection('Posts')
+                                                .doc(docRef.id)
+                                                .collection('Likes')
+                                                .add({});
+                                            
                                         })
                                         .catch(function (error) {
                                             console.error('Error adding document: ', error);
                                         });
                                 });
-
+                                this.setState({ posted: true});
                                 // console.log(this.state.imgurl);
                             });
                     }
@@ -173,7 +203,9 @@ export class UploadImage extends Component<UploadImageProps, UploadImageState> {
                 'base64',
             );
         }, 2500);
-
+        
+        
+        // this.props.history.push('/home');
         // push('/home');
         // console.log(postRef.documentID);
     };
@@ -193,7 +225,8 @@ export class UploadImage extends Component<UploadImageProps, UploadImageState> {
     updateLocation = (address: string) => {
         this.setState({ location: address });
         // this.setState({ : event.target.value });
-        console.log(this.state.location);
+        this.setState({ setLocation: true});
+        // console.log(this.state.location);
     };
 
     updateCoordinates = (coordinates: any) => {
@@ -203,7 +236,7 @@ export class UploadImage extends Component<UploadImageProps, UploadImageState> {
         };
         this.setState({ coordinates: coordinates });
         // this.setState({ : event.target.value });
-        console.log(this.state.coordinates);
+        // console.log(this.state.coordinates);
     };
 
     toggleCheck = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -211,8 +244,28 @@ export class UploadImage extends Component<UploadImageProps, UploadImageState> {
     };
 
     render() {
+        if(this.state.posted)
+        return <Redirect to='/home' />;
         return (
             <div style={{ background: '#1b1b1b', padding: '10px' }}>
+                <AppBar position="fixed" style={{ background: '#1b1b1b' }}>
+                    <Toolbar style={{ position: 'relative' }}>
+                        <Link to="/welcome">
+                            <IconButton edge="end" onClick={this.signOut}>
+                                <ExitToAppIcon style={{ color: 'white' }} />
+                            </IconButton>
+                        </Link>
+
+                        <img src={WhiteLogo} alt="GeoPicK" className="WhiteLogo" />
+                        <AvatarSmall
+                            User={this.state.user}
+                            uid={this.state.uid}
+                            User_name={this.state.user.User_name}
+                            Avatar={this.state.user.Avatar}
+                            Size="small"
+                        />
+                    </Toolbar>
+                </AppBar>
                 <Typography style={{ color: '#fafafa', fontWeight: 'normal' }} variant="h2">
                     <span style={{ color: '#f56920' }}>Upload</span> Image
                 </Typography>

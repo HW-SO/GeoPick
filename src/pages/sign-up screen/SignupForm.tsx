@@ -93,6 +93,7 @@ const SignUpForm = () => {
                 .catch((err) => {
                     console.log('Error ' + err);
                     alert(err);
+                    push('/welcome');
                 });
         } else {
             alert('type the same password in confirmation password');

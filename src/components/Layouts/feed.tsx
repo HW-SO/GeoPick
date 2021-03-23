@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { useState, useEffect } from 'react';
 import firebase from 'firebase';
-import SinglePostNew from '../Display/singlePostNew';
+import SinglePostNew1 from '../Display/singlePostNew1';
 import Post from "./Posts";
 import { Typography } from '@material-ui/core';
 
@@ -59,7 +59,7 @@ export default function Feed() {
                   // console.log("feed id", post)
                   // const loc = getLocations(post.location);
                   return (
-                    <SinglePostNew
+                    <SinglePostNew1
                         key={post.id}
                         id={post.id}
                         // profileUrl={post.profileUrl}

@@ -34,6 +34,7 @@ export interface TabPanelState {
     query: string;
     value:any;
     ComList:JSX.Element[] | undefined;
+    uid: string;
 }
 
 function TabPanel(props: TabPanelProps) {
@@ -89,7 +90,12 @@ export default class FullWidthTabs extends Component<{}, TabPanelState>  {
             query: '',
             value:0,
             ComList: undefined,
+            uid: window.location.pathname.split('/')[window.location.pathname.split('/').length - 1],
         };
+
+        // const path = ;
+        // const u = path[path.length - 1];
+        // this.setState({uid: u});
     }
 
     toggleUserOne = () => {
@@ -101,7 +107,7 @@ export default class FullWidthTabs extends Component<{}, TabPanelState>  {
         firebase
             .firestore()
             .collection('users')
-            .doc(`${user.uid}/`).collection('following')
+            .doc(`${this.state.uid}/`).collection('following')
             .get()
             .then((snapshot) => {
                 let users = snapshot.docs.map((doc) => {
@@ -122,7 +128,7 @@ export default class FullWidthTabs extends Component<{}, TabPanelState>  {
         firebase
             .firestore()
             .collection('users')
-            .doc(`${user.uid}/`).collection('followers')
+            .doc(`${this.state.uid}/`).collection('followers')
             .get()
             .then((snapshot) => {
                 let users = snapshot.docs.map((doc) => {

@@ -4,6 +4,8 @@ import AvatarSmall from '../../components/Display/avatarSmall';
 import fb from 'firebase/app';
 import { auth } from '../../firebase';
 import { Component } from 'react';
+import { Link } from 'react-router-dom';
+
 
 export interface ProfileOverviewProps {
     uid?:any;
@@ -41,10 +43,10 @@ export default class ProfileOverview extends Component<ProfileOverviewProps, Pro
         if(!user) return;
        fb
         .firestore()
-        .collection('users/')
-        .doc(`${user.uid}/`)
+        .collection('users')
+        .doc(user.uid)
         .collection('following')
-        .doc(`${this.props.uid}/`)
+        .doc(this.props.uid)
         .get().then(snapshot => {
             const data = snapshot.data()
             if(data){
@@ -233,14 +235,15 @@ export default class ProfileOverview extends Component<ProfileOverviewProps, Pro
                         <br></br>
                         {/* <Card style={{ width: 'fit-content', height: 'fit-content', padding: '-5px' }}>
                                     <CardContent> */}
-                        <Button style={{ padding: '1px' }}>
+                        {/* <Button style={{ padding: '1px' }}>
                             <Typography variant="button" style={{ justifyContent: 'center' }}>
                                 <span style={{ color: '#fafafa' }}>2</span>
                                 <br></br>
                                 <span style={{ color: '#f56920' }}>posts</span>
                             </Typography>
                             {/* Number of posts by user */}
-                        </Button>
+                        {/* </Button> */} 
+                        <Link to={{ pathname: `/ViewPoints/${this.props.uid}` }}>
                         <Button style={{ padding: '1px' }}>
                             <Typography variant="button" style={{ justifyContent: 'center' }}>
                                 <span style={{ color: '#fafafa' }}>{this.props.User.GamePoint}</span>
@@ -249,6 +252,27 @@ export default class ProfileOverview extends Component<ProfileOverviewProps, Pro
                             </Typography>
                             {/* Number of posts by user */}
                         </Button>
+                        </Link>
+                        <Link to={{ pathname: `/ViewFollowers/${this.props.uid}` }}>
+                        <Button style={{ padding: '1px' }}>
+                            <Typography variant="button" style={{ justifyContent: 'center' }}>
+                                <span style={{ color: '#fafafa' }}>{this.props.User.Followers}</span>
+                                <br></br>
+                                <span style={{ color: '#f56920' }}>Followers</span>
+                            </Typography>
+                            {/* Number of posts by user */}
+                        </Button>
+                        </Link>
+                        <Link to={{ pathname: `/ViewFollowers/${this.props.uid}` }}>
+                        <Button style={{ padding: '1px' }}>
+                            <Typography variant="button" style={{ justifyContent: 'center' }}>
+                                <span style={{ color: '#fafafa' }}>{this.props.User.Following}</span>
+                                <br></br>
+                                <span style={{ color: '#f56920' }}>Following</span>
+                            </Typography>
+                            {/* Number of posts by user */}
+                        </Button>
+                        </Link>
                         <this.Followers />
                     </CardContent>
                 </Card>
@@ -285,22 +309,44 @@ export default class ProfileOverview extends Component<ProfileOverviewProps, Pro
             <br></br>
             {/* <Card style={{ width: 'fit-content', height: 'fit-content', padding: '-5px' }}>
                         <CardContent> */}
-            <Button style={{ padding: '1px' }}>
-                <Typography variant="button" style={{ justifyContent: 'center' }}>
-                    <span style={{ color: '#fafafa' }}>2</span>
-                    <br></br>
-                    <span style={{ color: '#f56920' }}>posts</span>
-                </Typography>
-                {/* Number of posts by user */}
-            </Button>
-            <Button style={{ padding: '1px' }}>
-                <Typography variant="button" style={{ justifyContent: 'center' }}>
-                    <span style={{ color: '#fafafa' }}>{this.props.User.GamePoint}</span>
-                    <br></br>
-                    <span style={{ color: '#f56920' }}>points</span>
-                </Typography>
-                {/* Number of posts by user */}
-            </Button>
+            {/* <Button style={{ padding: '1px' }}>
+                            <Typography variant="button" style={{ justifyContent: 'center' }}>
+                                <span style={{ color: '#fafafa' }}>2</span>
+                                <br></br>
+                                <span style={{ color: '#f56920' }}>posts</span>
+                            </Typography>
+                            {/* Number of posts by user */}
+                        {/* </Button> */} 
+                        <Link to={{ pathname: `/ViewPoints/${this.props.uid}` }}>
+                        <Button style={{ padding: '1px' }}>
+                            <Typography variant="button" style={{ justifyContent: 'center' }}>
+                                <span style={{ color: '#fafafa' }}>{this.props.User.GamePoint}</span>
+                                <br></br>
+                                <span style={{ color: '#f56920' }}>points</span>
+                            </Typography>
+                            {/* Number of posts by user */}
+                        </Button>
+                        </Link>
+                        <Link to={{ pathname: `/ViewFollowers/${this.props.uid}` }}>
+                        <Button style={{ padding: '1px' }}>
+                            <Typography variant="button" style={{ justifyContent: 'center' }}>
+                                <span style={{ color: '#fafafa' }}>{this.props.User.Followers}</span>
+                                <br></br>
+                                <span style={{ color: '#f56920' }}>Followers</span>
+                            </Typography>
+                            {/* Number of posts by user */}
+                        </Button>
+                        </Link>
+                        <Link to={{ pathname: `/ViewFollowers/${this.props.uid}` }}>
+                        <Button style={{ padding: '1px' }}>
+                            <Typography variant="button" style={{ justifyContent: 'center' }}>
+                                <span style={{ color: '#fafafa' }}>{this.props.User.Following}</span>
+                                <br></br>
+                                <span style={{ color: '#f56920' }}>Following</span>
+                            </Typography>
+                            {/* Number of posts by user */}
+                        </Button>
+                        </Link>
         </CardContent>
     </Card>
 );

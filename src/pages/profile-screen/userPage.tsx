@@ -28,7 +28,7 @@ class UserPage extends Component<UserPageProps, UserPageState> {
             posts: [],
             user: {},
             isAuthenticated: false,
-            uid: '',
+            uid: window.location.pathname.split('/')[window.location.pathname.split('/').length - 1],
             user_uid: '',
         };
     }
@@ -38,12 +38,18 @@ class UserPage extends Component<UserPageProps, UserPageState> {
         const uid = path[path.length - 1];
         const u = checkUserLoggedIn();
         if (u) this.setState({ user_uid: u.uid });
+        this.setState({ uid: uid});
 
         this.getUser().then(
             (user) => {
-                this.setState({ isAuthenticated: true, user: user, uid: uid });
-                console.log(this.state.user);
-                console.log(this.state.uid);
+                this.setState({ isAuthenticated: true, user: user});
+                // const path = window.location.pathname.split('/');
+                // const uid = path[path.length - 1];
+                // const u = checkUserLoggedIn();
+                // if (u) this.setState({ user_uid: u.uid });
+                // this.setState({ uid: uid});
+                // console.log(this.state.user);
+                // console.log(this.state.uid);
             },
             (error) => {
                 this.setState({ isAuthenticated: true });
@@ -51,39 +57,12 @@ class UserPage extends Component<UserPageProps, UserPageState> {
         );
     }
 
-    // getSelf = async () => {
-    //     const uuid = await checkUserLoggedIn();
-    //     if(uuid)
-    //         return uuid.uid;
-    // }
-    // componentDidUpdate() {
-
-    //     const auth = checkUserLoggedIn();
-    //     if(auth != undefined){
-
-    //     }
-
-    // }
-
-    // getData = () => {
-    //     firebase
-    //         .firestore()
-    //         .collection('Posts')
-    //         .orderBy('likes_count')
-    //         .get()
-    //         .then((querySnapshot) => {
-    //             querySnapshot.forEach(function () {
-    //                 // console.log(doc.id, ' => ', doc.data());
-    //             });
-    //         })
-    //         .catch((err) => {
-    //             console.log('Error getting documents: ', err);
-    //         });
-    // };
-
     getUser = () => {
         const path = window.location.pathname.split('/');
         const uid = path[path.length - 1];
+        // const u = checkUserLoggedIn();
+        // if (u) this.setState({ user_uid: u.uid });
+        // this.setState({ uid: uid});
 
         return new Promise(function (resolve, reject) {
             firebase
@@ -115,12 +94,23 @@ class UserPage extends Component<UserPageProps, UserPageState> {
                     alt="GeoPicK"
                     style={{ width: '200px', height: '66px', margin: 'auto', paddingBottom: '1em' }}
                 />
+                {this.state.user_uid === this.state.uid &&
                 <ProfileOverview
                     User={this.state.user}
                     User_name={<span style={{ fontSize: 'calc(12px + 2vw)' }}>{this.state.user.User_name}</span>}
                     Avatar={this.state.user.Avatar}
                     Size="large"
-                />
+                    uid={this.state.uid}
+                />}
+                {this.state.user_uid !== this.state.uid &&
+                <ProfileOverview
+                    User={this.state.user}
+                    User_name={<span style={{ fontSize: 'calc(12px + 2vw)' }}>{this.state.user.User_name}</span>}
+                    Avatar={this.state.user.Avatar}
+                    Size="large"
+                    uid={this.state.uid}
+                    followers
+                />}
                 <br></br>
                 <br></br>
                 {this.state.user_uid === this.state.uid && (

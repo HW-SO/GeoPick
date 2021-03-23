@@ -21,6 +21,7 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import EditOutlinedIcon from '@material-ui/icons/EditOutlined';
 import ThumbUpAltRoundedIcon from '@material-ui/icons/ThumbUpAltRounded';
 import HighlightOffOutlinedIcon from '@material-ui/icons/HighlightOffOutlined';
+import { storage } from '../../firebase/firebase';
 //import { Link} from 'react-router-dom';
 
 export interface AccountSettingProps {}
@@ -58,13 +59,36 @@ const SettingsMenu = () => {
         var user = checkUserLoggedIn();
         // console.log(user)
 
-        if (user)
+        if (user){
             firebase
                 .firestore()
                 .collection('users/')
                 .doc(`${user.uid}/`)
                 .delete()
                 .then(() => console.log('User Deleted'));
+
+                var refPosts = storage
+                .ref(`/Images/${user.uid}/Posts`);
+                
+                refPosts.listAll().then(dir =>{
+                    dir.items.forEach(fileRef => {
+                        firebase.storage().ref(refPosts.fullPath).child(fileRef.name).delete();
+                      });
+                }
+                    )
+            
+
+            var refAvatar = storage
+                .ref(`/Images/${user.uid}/Avatar`);
+                
+                refAvatar.listAll().then(dir =>{
+                    dir.items.forEach(fileRef => {
+                        firebase.storage().ref(refPosts.fullPath).child(fileRef.name).delete();
+                      });
+                }
+                    )
+            }
+        
 
         // const { push } = useHistory();
         history.push('/welcome');
