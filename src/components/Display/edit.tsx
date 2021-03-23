@@ -6,7 +6,6 @@ import { IconButton } from '@material-ui/core';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import { useHistory } from 'react-router-dom';
 
-
 export default function EditButton(props: any) {
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
     const open = Boolean(anchorEl);
@@ -48,8 +47,8 @@ export default function EditButton(props: any) {
                 onClose={handleClose}
                 TransitionComponent={Fade}
             >
-                <MenuItem onClick={editpost}>edit post</MenuItem>
-                <MenuItem onClick={deletepost}>delete post</MenuItem>
+                <MenuItem onClick={editpost}>Edit Post</MenuItem>
+                <MenuItem onClick={deletepost}>Delete Post</MenuItem>
             </Menu>
         </div>
     );

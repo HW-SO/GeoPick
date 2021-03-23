@@ -33,7 +33,9 @@ export const addOrRemoveLikeToPost = async (id: string) => {
         } else {
             post.update({ likes_count: increment }); // update like count
             like.set({}); // set like of user in post
-            userLikes.set({}); // set post uid in likes of user
+            userLikes.set({
+                Post_ID: id
+            }); // set post uid in likes of user
         }
     });
     // if like has that uid
