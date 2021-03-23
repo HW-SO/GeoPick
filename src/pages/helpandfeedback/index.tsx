@@ -9,7 +9,7 @@ import { Typography } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
 import emailjs from 'emailjs-com';
 import { useHistory } from 'react-router-dom';
-import HomeRoundedIcon from '@material-ui/icons/HomeRounded';
+import SettingsIcon from '@material-ui/icons/Settings';
 import ArrowForwardIosOutlinedIcon from '@material-ui/icons/ArrowForwardIosOutlined';
 
 export interface HelpandFeedbackProps {}
@@ -98,11 +98,11 @@ export default function HelpandFeedback() {
                         colorType="orange"
                         style={{ width: 'auto', borderRadius: '20px' }}
                         onClick={(e) => {
-                            history.push('/home');
+                            history.push('/settings');
                         }}
                     >
-                        Go to
-                        <HomeRoundedIcon />
+                        Back to
+                        <SettingsIcon />
                     </RegularBtn>
                 </Card>
             </div>

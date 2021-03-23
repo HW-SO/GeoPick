@@ -17,8 +17,8 @@ import NotificationImportantRoundedIcon from '@material-ui/icons/NotificationImp
 import AccessibilityNewRoundedIcon from '@material-ui/icons/AccessibilityNewRounded';
 import HelpRoundedIcon from '@material-ui/icons/HelpRounded';
 import GavelRoundedIcon from '@material-ui/icons/GavelRounded';
-import { useHistory } from "react-router-dom";
-export interface SettingsMenuProps { }
+import { useHistory } from 'react-router-dom';
+export interface SettingsMenuProps {}
 export interface SettingsMenuState {
     user: any;
 }
@@ -41,12 +41,10 @@ const SettingsMenu = () => {
     //     let history = useHistory();
 
     function onClick(e: any) {
-         e.preventDefault();
-        
-     }
+        e.preventDefault();
+    }
 
     const history = useHistory();
-
 
     return (
         <div style={{ width: '100%', height: '100%' }}>
@@ -57,7 +55,12 @@ const SettingsMenu = () => {
                             <AccountCircleRoundedIcon style={{ color: 'black' }} />
                         </Avatar>
                     </ListItemAvatar>
-                    <ListItemText primary="Account Settings" onClick={e => { history.push("/AccountSetting") }}/>
+                    <ListItemText
+                        primary="Account Settings"
+                        onClick={(e) => {
+                            history.push('/AccountSetting');
+                        }}
+                    />
                 </ListItem>
                 <Divider />
                 <ListItem button divider>
@@ -66,7 +69,12 @@ const SettingsMenu = () => {
                             <NotificationImportantRoundedIcon style={{ color: 'black' }} />
                         </Avatar>
                     </ListItemAvatar>
-                    <ListItemText primary="Notification Settings" onClick={e => { history.push("/notificationset") }}/>
+                    <ListItemText
+                        primary="Notification Settings"
+                        onClick={(e) => {
+                            history.push('/notificationset');
+                        }}
+                    />
                 </ListItem>
                 <ListItem button divider>
                     <ListItemAvatar>
@@ -74,7 +82,12 @@ const SettingsMenu = () => {
                             <AccessibilityNewRoundedIcon style={{ color: 'black' }} />
                         </Avatar>
                     </ListItemAvatar>
-                    <ListItemText primary="Accessibility Settings" onClick={e => { history.push("/accessibility") }}/>
+                    <ListItemText
+                        primary="Accessibility Settings"
+                        onClick={(e) => {
+                            history.push('/accessibility');
+                        }}
+                    />
                 </ListItem>
                 <ListItem button divider>
                     <ListItemAvatar>
@@ -82,7 +95,12 @@ const SettingsMenu = () => {
                             <HelpRoundedIcon style={{ color: 'black' }} />
                         </Avatar>
                     </ListItemAvatar>
-                    <ListItemText primary="Help and Feedback" onClick={e => { history.push("/helpnfeedback") }} />
+                    <ListItemText
+                        primary="Help and Feedback"
+                        onClick={(e) => {
+                            history.push('/helpnfeedback');
+                        }}
+                    />
                 </ListItem>
                 <ListItem button divider>
                     <ListItemAvatar>
@@ -90,7 +108,12 @@ const SettingsMenu = () => {
                             <GavelRoundedIcon style={{ color: 'black' }} />
                         </Avatar>
                     </ListItemAvatar>
-                    <ListItemText primary="Terms and Conditions" onClick={e => { history.push("/terms") }}/>
+                    <ListItemText
+                        primary="Terms and Conditions"
+                        onClick={(e) => {
+                            history.push('/terms');
+                        }}
+                    />
                 </ListItem>
             </List>
             <Box m={5} />

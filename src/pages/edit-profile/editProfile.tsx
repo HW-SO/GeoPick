@@ -64,14 +64,14 @@ class EditProfile extends Component<EditProfileProps, EditProfileState> {
 
                         <Typography variant="h3" style={{ color: '#fafafa' }}>
                             Hi
-                            </Typography><br></br>
-                            {
-                                <Typography variant="h4" style={{ color: '#f56920' }}>
-                                    'mo.kvs_'
-                                </Typography>
-                            }
-                            {/* The username comes here */}
-                        
+                        </Typography>
+                        <br></br>
+                        {
+                            <Typography variant="h4" style={{ color: '#f56920' }}>
+                                'mo.kvs_'
+                            </Typography>
+                        }
+                        {/* The username comes here */}
                     </CardContent>
                     <div style={{ margin: '20px', textAlign: 'center' }}>
                         <Box m={2}></Box>

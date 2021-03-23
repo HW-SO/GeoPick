@@ -16,7 +16,6 @@ import Places from '../../components/Inputs/Places';
 import { RegularBtn } from '../../components/Buttons/RegularBtn';
 import { Link } from 'react-router-dom';
 
-
 export interface EditPostViewState {
     newComment: string;
     user: any;
@@ -55,7 +54,7 @@ export default class PostViewScreen extends Component<EditPostViewProps, EditPos
             post_user: {},
             comments: [],
             tags: [],
-            coordinates:{},
+            coordinates: {},
         };
     }
 
@@ -64,8 +63,8 @@ export default class PostViewScreen extends Component<EditPostViewProps, EditPos
     };
 
     selectedTags = (tagses: any) => {
-        this.setState(prevState => ({
-            tags: prevState.tags.concat(tagses)
+        this.setState((prevState) => ({
+            tags: prevState.tags.concat(tagses),
         }));
     };
 
@@ -76,12 +75,10 @@ export default class PostViewScreen extends Component<EditPostViewProps, EditPos
     };
 
     updateCoordinates = (coordinates: any) => {
-        
         this.setState({ coordinates: coordinates });
         // console.log(this.state.coordinates);
     };
 
- 
     async componentDidMount() {
         const path = window.location.pathname.split('/');
         const pid = path[path.length - 1];
@@ -126,8 +123,6 @@ export default class PostViewScreen extends Component<EditPostViewProps, EditPos
                 }
             });
 
-             
-        
         console.log(this.state.post_uid);
         fb.firestore()
             .collection('users')
@@ -161,7 +156,7 @@ export default class PostViewScreen extends Component<EditPostViewProps, EditPos
     render() {
         const path = window.location.pathname.split('/');
         const pid = path[path.length - 1];
-        
+
         return (
             <Card
                 style={{
@@ -247,25 +242,28 @@ export default class PostViewScreen extends Component<EditPostViewProps, EditPos
                 <Divider variant="middle" style={{ background: '#fafafa', margin: '10px' }} />
 
                 <TextField
-                        name="caption"
-                        id="caption"
-                        label="Edit Caption"
-                        type="caption"
-                        onChange={this.updateCaption}
-                    />
-                    <br></br>
-              <Tags selectedTags={this.selectedTags} />
-<br></br>
-              <Places updateLocation={this.updateLocation} updateCoordinates={this.updateCoordinates} />
-             <br></br>
-             <Grid item xs={12} alignItems="center" justify="center" style={{ textAlign: 'center' }}>
-                <Link to={{ pathname: `/user/${this.state.post_uid}`, state: this.state.post_uid }}>
-                    <RegularBtn 
-                    onClick={this.handleSubmit}
-                     type="submit" colorType="orange" style={{ width: '40%', borderRadius: '15px' }}>
-                        Edit Post
-                    </RegularBtn>
-                </Link>
+                    name="caption"
+                    id="caption"
+                    label="Edit Caption"
+                    type="caption"
+                    onChange={this.updateCaption}
+                />
+                <br></br>
+                <Tags selectedTags={this.selectedTags} />
+                <br></br>
+                <Places updateLocation={this.updateLocation} updateCoordinates={this.updateCoordinates} />
+                <br></br>
+                <Grid item xs={12} alignItems="center" justify="center" style={{ textAlign: 'center' }}>
+                    <Link to={{ pathname: `/user/${this.state.post_uid}`, state: this.state.post_uid }}>
+                        <RegularBtn
+                            onClick={this.handleSubmit}
+                            type="submit"
+                            colorType="orange"
+                            style={{ width: '40%', borderRadius: '15px' }}
+                        >
+                            Edit Post
+                        </RegularBtn>
+                    </Link>
                 </Grid>
             </Card>
         );
