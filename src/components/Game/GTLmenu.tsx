@@ -165,7 +165,7 @@ export default function GTLmenus(props: {
                         severity="success"
                         style={{ borderRadius: '20px', minWidth: '250px' }}
                     >
-                        Woohoo! You guessed the right location!👏
+                        Woohoo! You guessed the right location!👏 +10!
                     </Alert>
                 </Snackbar>
                 <Snackbar
@@ -179,7 +179,7 @@ export default function GTLmenus(props: {
                         severity="error"
                         style={{ borderRadius: '20px', minWidth: '250px' }}
                     >
-                        sorry, you guessed it wrong!😞 Better luck next time👍
+                        sorry, you guessed it wrong! -5 😞 Better luck next time👍
                     </Alert>
                 </Snackbar>
             </>

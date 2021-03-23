@@ -18,7 +18,6 @@ import { Link } from 'react-router-dom';
 
 export interface EditPostViewState {
     newComment: string;
-    user: any;
     Image: string;
     caption: string;
     likes_count: number;
@@ -34,7 +33,7 @@ export interface EditPostViewState {
 }
 
 export interface EditPostViewProps {
-    state: string;
+    state?: string;
 }
 
 export default class PostViewScreen extends Component<EditPostViewProps, EditPostViewState> {
@@ -43,7 +42,6 @@ export default class PostViewScreen extends Component<EditPostViewProps, EditPos
         this.state = {
             favourited: false,
             location: {},
-            user: {},
             Image: '',
             caption: '',
             likes_count: 0,
@@ -82,22 +80,6 @@ export default class PostViewScreen extends Component<EditPostViewProps, EditPos
     async componentDidMount() {
         const path = window.location.pathname.split('/');
         const pid = path[path.length - 1];
-        const auth = checkUserLoggedIn();
-        // console.log(pid);
-        if (auth === undefined) {
-        } else {
-            fb.firestore()
-                .collection('users')
-                .doc(auth.uid)
-                .get()
-                .then((querySnapshot) => {
-                    const data = querySnapshot.data();
-                    // console.log(data);
-                    this.setState({
-                        user: data,
-                    });
-                });
-        }
 
         await fb
             .firestore()

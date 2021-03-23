@@ -1,0 +1,47 @@
+.img-grid {
+    margin: 20px auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-gap: 5vh;
+}
+.img-wrap {
+    overflow: hidden;
+    height: 0;
+    padding: 50% 0;
+    /* padding controls height, will always be perfectly square regardless of width */
+    position: relative;
+    opacity: 0.8;
+}
+.img-wrap img {
+    min-width: 100%;
+    min-height: 100%;
+    max-width: 150%;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+/* Responsive layout - makes a two column-layout instead of four columns */
+@media screen and (max-width: 800px) {
+    .img-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .img-wrap {
+        margin-left: 4%;
+        margin-right: 4%;
+    }
+
+    .img-wrap img {
+        min-width: 80%;
+        min-height: 80%;
+        max-width: 150%;
+    }
+}
+
+/* Responsive layout - makes the two columns stack on top of each other instead of next to each other */
+@media screen and (max-width: 600px) {
+    .img-grid {
+        grid-template-columns: 1fr;
+    }
+}

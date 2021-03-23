@@ -23,10 +23,11 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import ListItemText from '@material-ui/core/ListItemText';
 import { db } from '../../firebase';
+// import AvatarSmall from '.,/avatarSmall';
+
 
 export interface PostViewState {
     newComment: string;
-    user: any;
     Image: string;
     caption: string;
     likes_count: number;
@@ -36,11 +37,12 @@ export interface PostViewState {
     post_uid: string;
     post_user: any;
     comments: any;
-    uid: string;
 }
 
 export interface PostViewProps {
-    state: string;
+    state?: string;
+    uid?: string;
+    user?: any;
 }
 
 export default class PostViewScreen extends Component<PostViewProps, PostViewState> {
@@ -48,8 +50,6 @@ export default class PostViewScreen extends Component<PostViewProps, PostViewSta
         super(PostViewProps);
         this.state = {
             favourited: false,
-            user: {},
-            uid: '',
             Image: '',
             caption: '',
             likes_count: 0,
@@ -66,23 +66,6 @@ export default class PostViewScreen extends Component<PostViewProps, PostViewSta
     async componentDidMount() {
         const path = window.location.pathname.split('/');
         const pid = path[path.length - 1];
-        const auth = checkUserLoggedIn();
-        // console.log(pid);
-        if (auth === undefined) {
-        } else {
-            fb.firestore()
-                .collection('users')
-                .doc(auth['uid'])
-                .get()
-                .then((querySnapshot) => {
-                    const data = querySnapshot.data();
-                    // console.log(data);
-                    this.setState({
-                        user: data,
-                        uid: auth.uid,
-                    });
-                });
-        }
 
         await fb
             .firestore()
@@ -169,10 +152,10 @@ export default class PostViewScreen extends Component<PostViewProps, PostViewSta
 
         const handleClick = (event: any) => {
             const FieldValue = fb.firestore.FieldValue;
-            const comment = `${this.state.user.User_name} : ${this.state.newComment}`;
+            const comment = `${this.props.user.User_name} : ${this.state.newComment}`;
             let newC = {
-                id: this.state.uid,
-                name: this.state.user.User_name,
+                id: this.props.uid,
+                name: this.props.user.User_name,
                 comment: this.state.newComment,
             };
             // newC[this.state.uid] =  this.state.newComment;
@@ -217,14 +200,14 @@ export default class PostViewScreen extends Component<PostViewProps, PostViewSta
                     <CardHeader
                         color="#fafafa"
                         avatar={
-                            <Avatar
+                            <AvatarSmall
                                 aria-label="recipe"
-                                alt={this.state.post_user.User_name}
-                                src={this.state.post_user.Avatar}
+                                User_name={this.state.post_user.User_name}
+                                Avatar={this.state.post_user.Avatar}
                                 style={{ backgroundColor: 'auto' }}
-                            >
-                                {this.state.post_user.User_name}
-                            </Avatar>
+                                uid={this.state.post_uid}
+                                Size="small"
+                            />
                         }
                         action={
                             <IconButton aria-label="settings" style={{ color: '#fafafa' }}>
@@ -282,15 +265,15 @@ export default class PostViewScreen extends Component<PostViewProps, PostViewSta
                                     <ListItem key = {index}>
                                         <ListItemAvatar>
                                             <AvatarSmall
-                                                User={this.state.user}
-                                                uid={this.state.uid}
-                                                User_name={this.state.user.User_name}
-                                                Avatar={this.state.user.Avatar}
+                                                User={this.props.user}
+                                                uid={this.props.uid}
+                                                User_name={this.props.user.User_name}
+                                                Avatar={this.props.user.Avatar}
                                                 Size="small"
                                             />
                                         </ListItemAvatar>
                                         <ListItemText primary={val.comment} />
-                                        {val.id == this.state.uid && (
+                                        {val.id == this.props.uid && (
                                             <ListItemSecondaryAction>
                                                 <IconButton
                                                     edge="end"

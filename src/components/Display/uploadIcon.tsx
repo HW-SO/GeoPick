@@ -74,7 +74,8 @@ export default function UploadIcon(props: any) {
                 // </Fab>
             }
             onClose={handleClose}
-            onOpen={handleOpen}
+            // onOpen={handleOpen}
+            onClick={handleOpen}
             open={open}
             direction={direction}
         >

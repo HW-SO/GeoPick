@@ -16,7 +16,7 @@ import { Link } from 'react-router-dom';
 
 export interface DeletePostViewState {
     newComment: string;
-    user: any;
+    
     Image: string;
     caption: string;
     likes_count: number;
@@ -29,7 +29,7 @@ export interface DeletePostViewState {
 }
 
 export interface DeletePostViewProps {
-    state: string;
+    state?: string;
 }
 
 export default class DeletePostViewScreen extends Component<DeletePostViewProps, DeletePostViewState> {
@@ -37,7 +37,6 @@ export default class DeletePostViewScreen extends Component<DeletePostViewProps,
         super(PostViewProps);
         this.state = {
             favourited: false,
-            user: {},
             Image: '',
             caption: '',
             likes_count: 0,
@@ -54,22 +53,6 @@ export default class DeletePostViewScreen extends Component<DeletePostViewProps,
     async componentDidMount() {
         const path = window.location.pathname.split('/');
         const pid = path[path.length - 1];
-        const auth = checkUserLoggedIn();
-        // console.log(pid);
-        if (auth === undefined) {
-        } else {
-            fb.firestore()
-                .collection('users')
-                .doc(auth.uid)
-                .get()
-                .then((querySnapshot) => {
-                    const data = querySnapshot.data();
-                    // console.log(data);
-                    this.setState({
-                        user: data,
-                    });
-                });
-        }
 
         await fb
             .firestore()
