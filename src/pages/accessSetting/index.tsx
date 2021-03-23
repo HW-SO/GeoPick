@@ -9,6 +9,8 @@ import { withStyles } from '@material-ui/core/styles';
 import FormGroup from '@material-ui/core/FormGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Switch from '@material-ui/core/Switch';
+import DarkModeToggle from 'react-dark-mode-toggle';
+import useDarkMode from 'use-dark-mode';
 export interface AccessibilityProps {}
 
 const OrangeSwitch = withStyles({
@@ -42,7 +44,8 @@ export default function Accessibility() {
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setState({ ...state, [event.target.name]: event.target.checked });
     };
-
+    const [isDarkMode, setIsDarkMode] = React.useState(() => false);
+    const darkMode = useDarkMode(false);
     return (
         <div style={{ background: '#1b1b1b' }} className="bgg">
             <Toolbar>
@@ -58,15 +61,27 @@ export default function Accessibility() {
                                 <FormControlLabel
                                     control={
                                         <OrangeSwitch
-                                            checked={state.checkedA}
-                                            onChange={handleChange}
+                                            checked={darkMode.value}
+                                            onChange={darkMode.toggle}
                                             name="checkedA"
                                         />
+                                        // <DarkModeToggle checked={darkMode.value} onChange={darkMode.toggle} size={60} />
                                     }
                                     label=""
                                     style={{ float: 'right' }}
                                 />
                             </WhiteTypography>
+                            {/* <DarkModeToggle onChange={setIsDarkMode} checked={isDarkMode} size={80} /> */}
+
+                            <div>
+                                {/* <button type="button" onClick={darkMode.disable}>
+                                    ☀
+                                </button> */}
+
+                                {/* <button type="button" onClick={darkMode.enable}>
+                                    ☾
+                                </button> */}
+                            </div>
                         </FormGroup>
                         <br></br>
                         <FormGroup>

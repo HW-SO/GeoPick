@@ -11,9 +11,22 @@ import firebase from 'firebase';
 import Compress from 'react-image-file-resizer';
 import OccupationSelect from '../../components/Inputs/occupation';
 import { useForm } from 'react-hook-form';
-import { Link, useHistory } from 'react-router-dom';
+import { Link, useHistory, useRouteMatch } from 'react-router-dom';
 import { auth } from '../../firebase';
+import { makeStyles } from '@material-ui/core/styles';
 export interface CreateProfileProps {}
+
+const helperTextStyles = makeStyles((theme) => ({
+    root: {
+        margin: 4,
+        color: 'black',
+    },
+    error: {
+        '&.MuiFormHelperText-root.Mui-error': {
+            color: theme.palette.common.white,
+        },
+    },
+}));
 
 export default class CreateProfileScreen extends React.Component<CreateProfileProps> {
     state: { img: {}; height: number | null; width: number | null; imgurl: string; usernameExists: boolean } = {
@@ -84,26 +97,23 @@ export default class CreateProfileScreen extends React.Component<CreateProfilePr
 
     public render(): JSX.Element {
         return (
-            <html>
-                <body>
-                    <div className="Create-Profile-Page">
-                        <Card title="Create Profile" split={1}>
-                            <Grid container spacing={4} direction="row" alignItems="center" justify="center">
-                                <Grid item>
-                                    <BadgeAvatar src={this.state.imgurl} onChange={this.changeAvatar} />
-                                </Grid>
-                                <CreateProfileForm img={this.state.imgurl} />
-                            </Grid>
-                        </Card>
-                    </div>
-                </body>
-            </html>
+            <div className="Create-Profile-Page">
+                <Card title="Create Profile" split={1}>
+                    <Grid container spacing={4} direction="row" alignItems="center" justify="center">
+                        <Grid item>
+                            <BadgeAvatar src={this.state.imgurl} onChange={this.changeAvatar} />
+                        </Grid>
+                        <CreateProfileForm img={this.state.imgurl} />
+                    </Grid>
+                </Card>
+            </div>
         );
     }
 }
 
 const CreateProfileFields = ({ register, errors, control }: { register: any; errors: any; control: any }) => {
     let usernameExists = false;
+    const helperTestClasses = helperTextStyles();
     const handleChange = (event: any) => {
         console.log(event.target.value);
         console.log(usernameExists);
@@ -147,6 +157,7 @@ const CreateProfileFields = ({ register, errors, control }: { register: any; err
                             : null
                     }
                     onChange={handleChange}
+                    FormHelperTextProps={{ classes: helperTestClasses }}
                 />
             </Grid>
             <Grid item style={{ width: '100%' }}>
@@ -173,17 +184,21 @@ const CreateProfileForm = ({ img }: { img: string }) => {
                         GamePoint: 0,
                         Occupation: data.Occupation,
                         User_name: data.username,
+                        Followers: 0,
+                        Following: 0,
                     })
                     .catch((err) => {
                         console.log('Error ' + err);
                         alert(err);
                     });
+
                 push('/home');
             }
         }
     };
 
     const history = useHistory();
+
     return (
         <>
             <form onSubmit={handleSubmit(onSubmit)}>

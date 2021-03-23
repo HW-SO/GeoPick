@@ -69,12 +69,13 @@ export default function UploadIcon(props: any) {
             ariaLabel="SpeedDial example"
             hidden={hidden}
             icon={
-                <Fab color="secondary" aria-label="add" >
+                // <Fab color="secondary" aria-label="add" >
                     <CameraAltRoundedIcon />
-                </Fab>
+                // </Fab>
             }
             onClose={handleClose}
-            onOpen={handleOpen}
+            // onOpen={handleOpen}
+            onClick={handleOpen}
             open={open}
             direction={direction}
         >

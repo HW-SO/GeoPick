@@ -47,15 +47,15 @@ export class HomeScreen extends Component<HomeScreenProps, HomeScreenState> {
         }
     }
 
-    componentDidUpdate() {
-        firebase
-            .firestore()
-            .collection('Posts')
-            .onSnapshot((snapshot: any) => {
-                this.setState(snapshot.docs.map((doc: any) => ({ id: doc.id, post: doc.data() })));
-            });
-        // console.log(this.state);
-    }
+    // componentDidUpdate() {
+    //     // firebase
+    //     //     .firestore()
+    //     //     .collection('Posts')
+    //     //     .onSnapshot((snapshot: any) => {
+    //     //         this.setState(snapshot.docs.map((doc: any) => ({ id: doc.id, post: doc.data() })));
+    //     //     });
+    //     // console.log(this.state);
+    // }
 
     // getData = () => {
     //     firebase
@@ -123,8 +123,7 @@ export class HomeScreen extends Component<HomeScreenProps, HomeScreenState> {
                         />
                     </Toolbar>
                 </AppBar>
-                {/* <SinglePostNew /> */}
-                {/* <Feed /> */}
+                
                 <HomeFeed uid = {this.state.uid}/>
 
                 <div style={{ padding: '30px' }}></div>

@@ -1,9 +1,9 @@
 import * as React from 'react';
-import { useState, useEffect, useRef, useLayoutEffect } from 'react';
+import { useState, useRef, useLayoutEffect } from 'react';
 import firebase from 'firebase';
-import SinglePostNew from '../Display/singlePostNew';
+import SinglePostNew1 from '../Display/singlePostNew1';
 
-export default function UserFeed(props: any) {
+export default function UserFeed1(props: any) {
     const [posts, setPosts] = useState<any[]>([]);
     const firstUpdate = useRef(true);
     
@@ -33,7 +33,7 @@ export default function UserFeed(props: any) {
         <div>
             {posts.map(({ id, post }) => {
                 return (
-                    <SinglePostNew
+                    <SinglePostNew1
                         key={id}
                         id={id}
                         // profileUrl={post.profileUrl}

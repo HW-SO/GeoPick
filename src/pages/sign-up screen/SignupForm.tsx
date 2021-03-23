@@ -93,6 +93,7 @@ const SignUpForm = () => {
                 .catch((err) => {
                     console.log('Error ' + err);
                     alert(err);
+                    push('/welcome');
                 });
         } else {
             alert('type the same password in confirmation password');
@@ -110,9 +111,9 @@ const SignUpForm = () => {
 
     function handleChange() {
         if (verified) {
-            alert('Verified');
+            alert('Captcha Verified, Please check your email for Verification Link');
         } else {
-            alert('Please Verify to Carry On');
+            alert('Do the Captcha');
         }
     }
 

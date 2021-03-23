@@ -7,7 +7,7 @@ import SignUpScreen from './pages/sign-up screen/SignupForm';
 import CreateProfileScreen from './pages/create-profile-screen';
 import SetNewPasswordScreen from './pages/sign-in screen/setnewpass';
 import ReSetNewPasswordScreen from './pages/sign-in screen/resetpass';
-import { Terms } from './pages/terms/index';
+import Terms from './pages/terms/index';
 import { HomeScreen } from './pages/home-screen/home';
 import PostViewScreen from './pages/post-view';
 import EditPostViewScreen from './pages/edit-post';
@@ -84,9 +84,8 @@ function App(): JSX.Element {
                     <Route exact path="/search">
                         <SearchScreen />
                     </Route>
-                    <Route exact path="/ViewPoints">
-                        <ViewPoints />
-                    </Route>
+                    <Route path="/ViewPoints/:catId" component={ViewPoints}></Route>
+                    <Route path="/ViewFollowers/:catId" component={ViewFollowers}></Route>
                     <Route exact path="/EditProfile">
                         <EditProfile />
                     </Route>
@@ -99,9 +98,7 @@ function App(): JSX.Element {
                     <Route exact path="/Camera">
                         <Camera />
                     </Route>
-                    <Route exact path="/ViewFollowers">
-                        <ViewFollowers />
-                    </Route>
+                  
                     <Route exact path="/AccountSetting">
                         <AccountSetting />
                     </Route>

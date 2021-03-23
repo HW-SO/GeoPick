@@ -18,6 +18,7 @@ import fb from 'firebase/app';
 import { Box } from '@material-ui/core';
 import ReportButton from './report';
 import GTLmenu from '../Game/GTLmenu';
+import { db } from '../../firebase';
 
 export interface SinglePostNewProps {
     username?: string;
@@ -27,7 +28,7 @@ export interface SinglePostNewProps {
     uid?: string;
     likes_count?: number;
     caption?: string;
-    id?: string;
+    id: string;
     sharedURL?: string;
     hidden?: boolean;
     comments_count?: number;
@@ -102,31 +103,20 @@ class SinglePostNew extends Component<SinglePostNewProps, SinglePostNewState> {
         this.setState({ loc1: this.state.locations[rand1], loc2: this.state.locations[rand2] });
     };
     handleColorChange = () => {
-        this.setState({
-            favourited: !this.state.favourited,
-        });
+        db.addOrRemoveLikeToPost(this.props.id); // changes values in db
 
-        const increment = fb.firestore.FieldValue.increment(1);
-        const decrement = fb.firestore.FieldValue.increment(-1);
-
-        if (this.state.favourited === false) {
-            console.log(this.props.id); //undefined
-            fb.firestore().collection('Posts').doc(this.props.id).update({
-                likes_count: increment,
-            });
-            let like = this.state.likes ? this.state.likes + 1 : 0;
-            this.setState({ likes: like });
+        // visual changes for quick response done differently
+        if (!this.state.favourited) {
+            let like = this.state.likes ? this.state.likes + 1 : 1;
+            this.setState({ likes: like, favourited: true });
         } else {
-            fb.firestore().collection('Posts').doc(this.props.id).update({
-                likes_count: decrement,
-            });
             let like = this.state.likes ? this.state.likes - 1 : 0;
-            this.setState({ likes: like });
+            this.setState({ likes: like, favourited: false });
         }
     };
     share_area = React.createRef();
 
-    componentDidMount() {
+    async componentDidMount() {
         this.getUser().then(
             (user) => {
                 this.setState({ isAuthenticated: true, post_user: user });
@@ -145,6 +135,9 @@ class SinglePostNew extends Component<SinglePostNewProps, SinglePostNewState> {
                 this.setState({ gotLocs: false });
             },
         );
+        if (await db.checkLikedPost(this.props.id)) {
+            this.setState({ favourited: true });
+        }
     }
 
     getLocations = (loc: string) => {
@@ -244,12 +237,9 @@ class SinglePostNew extends Component<SinglePostNewProps, SinglePostNewState> {
                         // </AvatarSmall>
                     }
                     action={
-                        <>
-                            {/* <IconButton aria-label="settings" style={{ color: '#fafafa' }}>
-                                <MoreVertIcon />
-                            </IconButton> */}
+                        // <>
                             <ReportButton />
-                        </>
+                        //</>
                     }
                     title={<Typography variant="h6">{this.state.post_user.User_name}</Typography>}
                     subheader={
@@ -297,9 +287,9 @@ class SinglePostNew extends Component<SinglePostNewProps, SinglePostNewState> {
                         </IconButton>
                     </Link>
                     <Box m={1} />
-                    <IconButton aria-label="share">
+                    {/* <IconButton aria-label="share"> */}
                         <SharePost sharedURL={`${root}${this.state.path_name}`} />
-                    </IconButton>
+                    {/* </IconButton> */}
                     <div
                         style={{ float: 'right', marginRight: '10px', marginLeft: 'auto' }}
                         onClick={this.handleClickRandomizer}

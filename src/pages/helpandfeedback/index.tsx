@@ -21,24 +21,25 @@ const WhiteTypography = withStyles({
     },
 })(Typography);
 
-function sendEmail(e: any) {
-    e.preventDefault();
-
-    emailjs.sendForm('service_7um7ypw', 'template_my7a0ii', e.target, 'user_pKzNS4ftM2sSAMAFNjGVw').then(
-        (result) => {
-            console.log(result.text);
-            alert('Thank You For Your Feedback ✅ ');
-            // push('/home'); MAKE USER MOVE TO HOME SCREEN. ASK SOMEONE.
-        },
-        (error) => {
-            console.log(error.text);
-        },
-    );
-    e.target.reset();
-}
-
 export default function HelpandFeedback() {
     const history = useHistory();
+
+    function sendEmail(e: any) {
+        e.preventDefault();
+
+        emailjs.sendForm('service_7um7ypw', 'template_my7a0ii', e.target, 'user_pKzNS4ftM2sSAMAFNjGVw').then(
+            (result) => {
+                console.log(result.text);
+                alert('Thank You For Your Feedback ✅ ');
+                history.push('/home');
+            },
+            (error) => {
+                console.log(error.text);
+            },
+        );
+        e.target.reset();
+    }
+
     return (
         <div className="background">
             <div className="image">

@@ -22,7 +22,7 @@ import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import ListItemText from '@material-ui/core/ListItemText';
-
+import { db } from '../../firebase';
 
 export interface PostViewState {
     newComment: string;
@@ -117,36 +117,27 @@ export default class PostViewScreen extends Component<PostViewProps, PostViewSta
                     post_user: data,
                 });
             });
-
-        this.setState({
-            favourited: false,
+        db.checkLikedPost(pid).then((e) => {
+            console.log('e ', e);
+            this.setState({
+                favourited: e as boolean,
+            });
         });
     }
 
     handleColorChange = () => {
         const path = window.location.pathname.split('/');
         const pid = path[path.length - 1];
-        this.setState({
-            favourited: !this.state.favourited,
-        });
 
-        const increment = fb.firestore.FieldValue.increment(1);
-        const decrement = fb.firestore.FieldValue.increment(-1);
+        db.addOrRemoveLikeToPost(pid); // changes values in db
 
-        if (this.state.favourited === false) {
-            fb.firestore().collection('Posts').doc(pid).update({
-                likes_count: increment,
-            });
-            this.setState({
-                likes_count: this.state.likes_count + 1,
-            });
+        // visual changes for quick response done differently
+        if (!this.state.favourited) {
+            let like = this.state.likes_count ? this.state.likes_count + 1 : 1;
+            this.setState({ likes_count: like, favourited: true });
         } else {
-            fb.firestore().collection('Posts').doc(pid).update({
-                likes_count: decrement,
-            });
-            this.setState({
-                likes_count: this.state.likes_count - 1,
-            });
+            let like = this.state.likes_count ? this.state.likes_count - 1 : 0;
+            this.setState({ likes_count: like, favourited: false });
         }
     };
 
@@ -163,7 +154,7 @@ export default class PostViewScreen extends Component<PostViewProps, PostViewSta
         };
 
         const handleDelete = (val: any) => {
-            const newC = this.state.comments.filter((item : any) => item !== val);
+            const newC = this.state.comments.filter((item: any) => item !== val);
             this.setState({
                 comments: newC,
             });
@@ -174,7 +165,6 @@ export default class PostViewScreen extends Component<PostViewProps, PostViewSta
                     comments: fb.firestore.FieldValue.arrayRemove(val),
                     comment_count: fb.firestore.FieldValue.increment(-1),
                 });
-                
         };
 
         const handleClick = (event: any) => {
@@ -186,7 +176,7 @@ export default class PostViewScreen extends Component<PostViewProps, PostViewSta
                 comment: this.state.newComment,
             };
             // newC[this.state.uid] =  this.state.newComment;
-           
+
             // setOptions(prev => {...prev, newC});
             fb.firestore()
                 .collection('Posts')
@@ -274,9 +264,9 @@ export default class PostViewScreen extends Component<PostViewProps, PostViewSta
                             <FavoriteIcon />
                             {<Typography style={{ color: '#fafafa' }}>{this.state.likes_count}</Typography>}
                         </IconButton>
-                        <IconButton aria-label="share">
-                            <SharePost sharedURL={window.location.href} />
-                        </IconButton>
+                        {/* <IconButton aria-label="share"> */}
+                        <SharePost sharedURL={window.location.href} />
+                        {/* </IconButton> */}
                         
                     </CardActions>
                 </Card>
@@ -289,7 +279,7 @@ export default class PostViewScreen extends Component<PostViewProps, PostViewSta
                         <List>
                             {this.state.comments.map((val: any, index: any) => {
                                 return (
-                                    <ListItem>
+                                    <ListItem key = {index}>
                                         <ListItemAvatar>
                                             <AvatarSmall
                                                 User={this.state.user}
@@ -299,17 +289,19 @@ export default class PostViewScreen extends Component<PostViewProps, PostViewSta
                                                 Size="small"
                                             />
                                         </ListItemAvatar>
-                                        <ListItemText
-                                                primary={val.comment}
-                                        />
-                                        {val.id == this.state.uid &&
+                                        <ListItemText primary={val.comment} />
+                                        {val.id == this.state.uid && (
                                             <ListItemSecondaryAction>
-                                            <IconButton edge="end" aria-label="delete" color="inherit" onClick={() => handleDelete(val)}>
-                                                <DeleteIcon />
-                                            </IconButton>
+                                                <IconButton
+                                                    edge="end"
+                                                    aria-label="delete"
+                                                    color="inherit"
+                                                    onClick={() => handleDelete(val)}
+                                                >
+                                                    <DeleteIcon />
+                                                </IconButton>
                                             </ListItemSecondaryAction>
-                                        }
-                                        
+                                        )}
                                     </ListItem>
                                 );
                             })}
