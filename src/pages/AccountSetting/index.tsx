@@ -67,7 +67,10 @@ const SettingsMenu = () => {
                 .collection('users/')
                 .doc(`${user.uid}/`)
                 .delete()
-                .then(() => console.log('User Deleted'));
+                .then(() => {
+                    console.log('User Deleted');
+                    localStorage.clear();
+                });
 
             var refPosts = storage.ref(`/Images/${user.uid}/Posts`);
 

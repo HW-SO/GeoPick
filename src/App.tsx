@@ -36,6 +36,7 @@ import AccountSetting from './pages/AccountSetting/index';
 import { useState, useEffect } from 'react';
 import { checkUserLoggedIn } from './firebase/auth';
 import { auth } from './firebase';
+// import { auth } from './firebase';
 import firebase from 'firebase';
 
 function App(): JSX.Element {
@@ -45,31 +46,56 @@ function App(): JSX.Element {
     const [set, setSet] = useState(false);
 
     useEffect(() => {
+        console.log("calling effect");
+        let isMounted = true; // note this flag denote mount status
         if(!set){
-            const auth = checkUserLoggedIn();
-            console.log("in app");
-            if(auth !== undefined) {
-                getUser().then(
-                    (user : any) => {
-                        setUser(user);
-                        setUID(auth.uid);
+            firebase.auth().onAuthStateChanged(function(user) {
+                if (user) {
+                    if(isMounted) {
+                        console.log("current user " + user.uid);
+                        getUser(user).then(
+                            (u : any) => {
+                                setUser(u);
+                            }
+                        );
+                    
+                        // setUser(u);
+                        setUID(user.uid);
                         setSet(true);
-                    }
-                );
-            } 
+                    } 
+                }
+              });
         }
+        
+        
+        return () => { isMounted = false }; // use effect cleanup to set flag false, if unmounted
     });
+    // useEffect(() => {
+    //     // if(!set){
+            
+
+    //         // const u = auth.currentUser;
+    //         // console.log("in app");
+    //         // if(u !== null) {
+    //         //     getUser().then(
+    //         //         (user : any) => {
+                        
+    //         //         }
+    //         //     );
+    //         // } 
+    //     // }
+    // });
 
 
-    const getUser = () => {
-        const auth = checkUserLoggedIn();
+    const getUser = (user: any) => {
+        // const auth = checkUserLoggedIn();
         return new Promise(function (resolve, reject) {
-            if (auth === undefined) {
-            } else {
+            // if (auth === undefined) {
+            // } else {
                 firebase
                     .firestore()
                     .collection('users')
-                    .doc(auth['uid'])
+                    .doc(user.uid)
                     .get()
                     .then((querySnapshot) => {
                         const data = querySnapshot.data();
@@ -80,15 +106,16 @@ function App(): JSX.Element {
                             reject('User not authenticated');
                         }
                     });
-            }
+            // }
         });
     };
 
     const signOut = () => {
         auth.doSignOut();
+        setSet(false);
     };
     
-    function Navbar() {
+    const Navbar = () => {
         return (<><AppBar position="fixed" style={{ background: '#1b1b1b' }}>
                         <Toolbar style={{ position: 'relative' }}>
                             <Link to="/welcome">
