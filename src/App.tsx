@@ -52,9 +52,10 @@ function App(): JSX.Element {
             firebase.auth().onAuthStateChanged(function(user) {
                 if (user) {
                     if(isMounted) {
-                        console.log("current user " + user.uid);
+                        
                         getUser(user).then(
                             (u : any) => {
+                                console.log("current user " + u);
                                 setUser(u);
                             }
                         );
@@ -69,7 +70,7 @@ function App(): JSX.Element {
         
         
         return () => { isMounted = false }; // use effect cleanup to set flag false, if unmounted
-    });
+    }, [set]);
     // useEffect(() => {
     //     // if(!set){
             
@@ -113,6 +114,7 @@ function App(): JSX.Element {
     const signOut = () => {
         auth.doSignOut();
         setSet(false);
+        // console.log
     };
     
     const Navbar = () => {
