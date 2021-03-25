@@ -68,13 +68,7 @@ const SettingsMenu = () => {
                 .firestore()
                 .collection('users/')
                 .doc(`${user.uid}/`)
-                .delete()
-                .then(() => {
-                    user!!.delete().then(() => {
-                        console.log("user deleted from auth");
-                    });
-                    window.location.reload();
-                });
+                .delete();
 
             var refPosts = storage.ref(`/Images/${user.uid}/Posts`);
 
@@ -98,10 +92,16 @@ const SettingsMenu = () => {
                     doc.ref.delete();
                 });
             });
+
+            user!!.delete().then(() => {
+                console.log("user deleted from auth");
+            });
+            window.location.reload();
+            history.push('/welcome');
         }
 
         // const { push } = useHistory();
-        history.push('/welcome');
+        
     };
 
     return (
