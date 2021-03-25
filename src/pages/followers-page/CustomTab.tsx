@@ -172,7 +172,7 @@ export default class FullWidthTabs extends Component<{}, TabPanelState>  {
             await firebase.firestore().collection('users').doc(`${d.UserId}/`).get().then(snapshot => {
                 var data = snapshot.data();
                 if(data)
-                    return data
+                    return {data,id:d.UserId}
             })
         )
         const user = await Promise.all(pArray);
@@ -184,15 +184,15 @@ export default class FullWidthTabs extends Component<{}, TabPanelState>  {
                 <Button style={{width:170,marginTop:20,}} >
                     <ListItemAvatar >
                         <AvatarSmall uid={u.id}
-                                User_name={u.User_name}
-                                Avatar={u.Avatar}
+                                User_name={u.data.User_name}
+                                Avatar={u.data.Avatar}
                                 Size='small'/>
                     </ListItemAvatar>
-                    <ListItemText primary={u.User_name}  style={{color:'white'}}/>
+                    <ListItemText primary={u.data.User_name}  style={{color:'white'}}/>
                     </Button>
                 </li>
             }
-            else return <li>hello</li>
+            else return <li></li>
         })
         console.log("list ", list)
         this.setState({ComList:list});

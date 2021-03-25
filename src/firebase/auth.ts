@@ -34,6 +34,14 @@ export const doEmailVerification = async (email: string) => {
     } 
 };
 
+export const doDeleteUser = () => {
+    var user = auth.currentUser;
+    user!!.delete().then(() => {
+        console.log('User Deleted');
+        window.localStorage.clear();
+    });
+    // Prompt the user to re-provide their sign-in credentials
+}
 export const checkUserLoggedIn = () => {
     // let user = await auth.currentUser;
     // if(user) return user;

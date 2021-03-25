@@ -55,3 +55,21 @@ export const checkLikedPost = async (id: string) => {
     if (likeExists) return true;
     else return false;
 };
+
+export const getUserLikedPost = async () => {
+    const currentUser = auth.currentUser;
+    if (!currentUser) {
+        alert("not logged in")
+        return []
+    }
+
+    const posts = await firestore.collection("users").doc(currentUser.uid).collection("Likes").get();
+    return posts.docs;
+}
+
+export const getPostByID = async (id:string) => {
+    const post = await firestore.collection("Posts").doc(id).get();
+
+    if (!post.data()) return undefined;
+    else return post.data();
+}

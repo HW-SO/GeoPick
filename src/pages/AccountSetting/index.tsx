@@ -22,6 +22,8 @@ import EditOutlinedIcon from '@material-ui/icons/EditOutlined';
 import ThumbUpAltRoundedIcon from '@material-ui/icons/ThumbUpAltRounded';
 import HighlightOffOutlinedIcon from '@material-ui/icons/HighlightOffOutlined';
 import { storage } from '../../firebase/firebase';
+import { auth } from '../../firebase';
+
 import { RegularBtn } from '../../components/Buttons/RegularBtn';
 import SettingsIcon from '@material-ui/icons/Settings';
 //import { Link} from 'react-router-dom';
@@ -68,8 +70,10 @@ const SettingsMenu = () => {
                 .doc(`${user.uid}/`)
                 .delete()
                 .then(() => {
-                    console.log('User Deleted');
-                    localStorage.clear();
+                    user!!.delete().then(() => {
+                        console.log("user deleted from auth");
+                    });
+                    window.location.reload();
                 });
 
             var refPosts = storage.ref(`/Images/${user.uid}/Posts`);

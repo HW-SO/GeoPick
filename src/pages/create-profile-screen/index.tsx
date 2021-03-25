@@ -194,7 +194,7 @@ const CreateProfileForm = ({ img }: { img: string }) => {
                 firebase.firestore()
                     .collection('users/')
                     .doc(user.uid)
-                    .collection('followers')
+                    .collection('following')
                     .doc('h1BtLg7hmTcSMRv4pVHMOcvutqz1')
                     .set({
                         UserId: 'h1BtLg7hmTcSMRv4pVHMOcvutqz1',

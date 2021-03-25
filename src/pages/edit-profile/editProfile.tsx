@@ -17,9 +17,28 @@ export interface EditProfileProps {
     user?: any;
 }
 
-export interface EditProfileState {}
+export interface EditProfileState {
+    username:any;
+    imgurl:any;
+    bio:any;
+}
 
 class EditProfile extends Component<EditProfileProps, EditProfileState> {
+
+    constructor(EditProfileState) {
+        super(EditProfileState);
+        this.state = {
+            username:'',
+            imgurl:'',
+            bio:'',
+        }
+        this.handleonchange = this.handleonchange.bind(this)
+        this.handleonclickSubmit = this.handleonclickSubmit.bind(this)
+        this.handleonchangebio = this.handleonchangebio.bind(this)
+        
+
+    };
+    
     signOut = () => {
         auth.doSignOut();
     };
@@ -30,6 +49,12 @@ class EditProfile extends Component<EditProfileProps, EditProfileState> {
 
     handleonclickSubmit() {
         console.log('Profile edit changes!');
+        console.log(this.state.username)
+        firebase.firestore().collection('users/').doc(`${this.props.uid}/`).update({
+            User_name: this.state.username,
+            Bio: this.state.bio,
+        });
+
         //     .then(() => {
         //     push('/welcome');
         // });
@@ -37,6 +62,20 @@ class EditProfile extends Component<EditProfileProps, EditProfileState> {
     handleonclickChangePassword() {
         console.log('Go to change password screen!');
         // push('/ReSet-password'); CHECK
+    }
+
+    handleonchange(event: any)
+    {
+        
+        this.setState({username:event.target.value})
+        console.log(this.state.username)
+    }
+
+    handleonchangebio(event: any)
+    {
+        
+        this.setState({bio:event.target.value})
+        console.log(this.state.bio)
     }
 
     changeAvatar = async (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -154,7 +193,7 @@ class EditProfile extends Component<EditProfileProps, EditProfileState> {
 
                     <div style={{ margin: '20px', textAlign: 'center' }}>
                         <Box m={2}></Box>
-                        <TextField label="Name" color="primary"></TextField>
+                        <TextField label="Name" color="primary" onChange={this.handleonchange}></TextField>
                         <Box m={2}></Box>
                         <TextField
                             label="Something about yourself..."
@@ -162,8 +201,12 @@ class EditProfile extends Component<EditProfileProps, EditProfileState> {
                             multiline
                             rows={1}
                             rowsMax={4}
+                            onChange={this.handleonchangebio}
+                            
                         ></TextField>
+                        
                     </div>
+                    
                     <Box m={3}></Box>
                     <Button
                         onClick={this.handleonclickSubmit}
