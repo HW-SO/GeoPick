@@ -15,22 +15,14 @@ import AvatarSmall from '../../components/Display/avatarSmall';
 import { FormatListNumberedRtl } from '@material-ui/icons';
 
 export interface HomeScreenProps {
-    uid?: string;
+    uid: string;
 }
-export interface HomeScreenState {}
-export class HomeScreen extends Component<HomeScreenProps, HomeScreenState> {
-    constructor(HomeScreenProps: any) {
-        super(HomeScreenProps);
-    }
-
+export class HomeScreen extends Component<HomeScreenProps> {
     render() {
-        // console.log("hello");
-
         return (
             <div style={{ background: '#1b1b1b' }}>
                 {!this.props.uid && <p style={{ color: 'white' }}>Please log in first!</p>}
                 {this.props.uid && <HomeFeed uid={this.props.uid} />}
-                <div style={{ padding: '30px' }}></div>
             </div>
         );
     }

@@ -18,7 +18,7 @@ import UserPage from './pages/profile-screen/userPage';
 import SearchScreen from './pages/search-page/index';
 import ExploreScreen from './pages/explore-page/index';
 import AvatarSmall from './components/Display/avatarSmall';
-import { IconButton, Toolbar, AppBar} from '@material-ui/core';
+import { IconButton, Toolbar, AppBar } from '@material-ui/core';
 import WhiteLogo from './pages/welcome screen/WhiteLogo.svg';
 import BottomNavigation from './components/NavBar/navbar';
 
@@ -40,73 +40,68 @@ import { auth } from './firebase';
 import firebase from 'firebase';
 
 function App(): JSX.Element {
-
     const [user, setUser] = useState({});
-    const [uid, setUID] = useState('')
+    const [uid, setUID] = useState('');
     const [set, setSet] = useState(false);
 
     useEffect(() => {
-        console.log("calling effect");
+        console.log('calling effect');
         let isMounted = true; // note this flag denote mount status
-        if(!set){
-            firebase.auth().onAuthStateChanged(function(user) {
+        if (!set) {
+            firebase.auth().onAuthStateChanged(function (user) {
                 if (user) {
-                    if(isMounted) {
-                        
-                        getUser(user).then(
-                            (u : any) => {
-                                console.log("current user " + u);
-                                setUser(u);
-                            }
-                        );
-                    
+                    if (isMounted) {
+                        getUser(user).then((u: any) => {
+                            console.log('current user ' + u);
+                            setUser(u);
+                        });
+
                         // setUser(u);
                         setUID(user.uid);
                         setSet(true);
-                    } 
+                    }
                 }
-              });
+            });
         }
-        
-        
-        return () => { isMounted = false }; // use effect cleanup to set flag false, if unmounted
+
+        return () => {
+            isMounted = false;
+        }; // use effect cleanup to set flag false, if unmounted
     }, [set]);
     // useEffect(() => {
     //     // if(!set){
-            
 
     //         // const u = auth.currentUser;
     //         // console.log("in app");
     //         // if(u !== null) {
     //         //     getUser().then(
     //         //         (user : any) => {
-                        
+
     //         //         }
     //         //     );
-    //         // } 
+    //         // }
     //     // }
     // });
-
 
     const getUser = (user: any) => {
         // const auth = checkUserLoggedIn();
         return new Promise(function (resolve, reject) {
             // if (auth === undefined) {
             // } else {
-                firebase
-                    .firestore()
-                    .collection('users')
-                    .doc(user.uid)
-                    .get()
-                    .then((querySnapshot) => {
-                        const data = querySnapshot.data();
-                        // this.se
-                        if (querySnapshot.data()) {
-                            resolve(data);
-                        } else {
-                            reject('User not authenticated');
-                        }
-                    });
+            firebase
+                .firestore()
+                .collection('users')
+                .doc(user.uid)
+                .get()
+                .then((querySnapshot) => {
+                    const data = querySnapshot.data();
+                    // this.se
+                    if (querySnapshot.data()) {
+                        resolve(data);
+                    } else {
+                        reject('User not authenticated');
+                    }
+                });
             // }
         });
     };
@@ -116,31 +111,33 @@ function App(): JSX.Element {
         setSet(false);
         // console.log
     };
-    
-    const Navbar = () => {
-        return (<><AppBar position="fixed" style={{ background: '#1b1b1b' }}>
-                        <Toolbar style={{ position: 'relative' }}>
-                            <Link to="/welcome">
-                                <IconButton edge="end" onClick={signOut}>
-                                    <ExitToAppIcon style={{ color: 'white' }} />
-                                </IconButton>
-                            </Link>
 
-                            <img src={WhiteLogo} alt="GeoPicK" className="WhiteLogo" />
-                            <AvatarSmall
-                                User={user}
-                                uid={uid}
-                                User_name={user['User_name']}
-                                Avatar={user['Avatar']}
-                                Size="small"
-                            />
-                        </Toolbar>
-        </AppBar>
-        <BottomNavigation/>
-        </>);
-    }
+    const Navbar = () => {
+        return (
+            <>
+                <AppBar position="fixed" style={{ background: '#1b1b1b' }}>
+                    <Toolbar style={{ position: 'relative' }}>
+                        <Link to="/welcome">
+                            <IconButton edge="end" onClick={signOut}>
+                                <ExitToAppIcon style={{ color: 'white' }} />
+                            </IconButton>
+                        </Link>
+
+                        <img src={WhiteLogo} alt="GeoPicK" className="WhiteLogo" />
+                        <AvatarSmall
+                            User={user}
+                            uid={uid}
+                            User_name={user['User_name']}
+                            Avatar={user['Avatar']}
+                            Size="small"
+                        />
+                    </Toolbar>
+                </AppBar>
+                <BottomNavigation />
+            </>
+        );
+    };
     return (
-        
         <div className="App">
             <Router>
                 <Nav />
@@ -166,37 +163,37 @@ function App(): JSX.Element {
 
                     <Route exact path="/home">
                         <Navbar />
-                        <HomeScreen uid={uid}/>
+                        <HomeScreen uid={uid} />
                     </Route>
                     <Route exact path="/helpnfeedback">
-                    <Navbar />
+                        <Navbar />
                         <HelpandFeedback />
                     </Route>
                     <Route exact path="/accessibility">
-                    <Navbar />
+                        <Navbar />
                         <AccessibilitySettings />
                     </Route>
                     <Route exact path="/notificationset">
-                    <Navbar />
+                        <Navbar />
                         <Notification />
                     </Route>
                     <Route exact path="/notification">
-                    <Navbar />
+                        <Navbar />
                         <Notificationpg />
                     </Route>
                     <Route exact path="/terms">
-                    <Navbar />
+                        <Navbar />
                         <Terms />
                     </Route>
                     <Route exact path="/settings">
-                    <Navbar />
+                        <Navbar />
                         <SettingsScreen />
                     </Route>
                     {/* <Navbar> */}
                     <Route path="/post/:catId">
                         <Navbar />
-                        <PostViewScreen uid={uid} user={user}/>
-                    </Route> 
+                        <PostViewScreen uid={uid} user={user} />
+                    </Route>
                     <Route path="/editpost/:catId">
                         <Navbar />
                         <EditPostViewScreen />
@@ -205,48 +202,47 @@ function App(): JSX.Element {
                         <Navbar />
                         <DeletePostViewScreen />
                     </Route>
-                    <Route path="/user/:catId" >
+                    <Route path="/user/:catId">
                         <Navbar />
-                        <UserPage user_uid={uid}/>
+                        <UserPage user_uid={uid} />
                     </Route>
-                     {/* </Navbar> */}
+                    {/* </Navbar> */}
                     <Route exact path="/upload-image">
-                    <Navbar />
-                        <UploadImage uid={uid} user={user}/>
+                        <Navbar />
+                        <UploadImage uid={uid} user={user} />
                     </Route>
                     <Route exact path="/search">
-                    <Navbar />
+                        <Navbar />
                         <SearchScreen />
                     </Route>
-          
+
                     <Route path="/ViewPoints/:catId">
                         <Navbar />
-                        <ViewPoints uid={uid} user={user}/>
+                        <ViewPoints uid={uid} user={user} />
                     </Route>
-                    <Route path="/ViewFollowers/:catId" >
+                    <Route path="/ViewFollowers/:catId">
                         <Navbar />
                         <ViewFollowers />
-                    </Route> 
+                    </Route>
                     {/* </Navbar> */}
                     <Route exact path="/EditProfile">
-                    <Navbar />
-                        <EditProfile user={user} uid={uid}/>
+                        <Navbar />
+                        <EditProfile user={user} uid={uid} />
                     </Route>
                     <Route exact path="/webcam">
-        
                         <WebCamFun />
                     </Route>
                     <Route exact path="/explore">
-                    <Navbar />
+                        <Navbar />
                         <ExploreScreen />
                     </Route>
                     <Route exact path="/Camera">
-                    <Navbar />
+                        <Navbar />
                         <Camera />
                     </Route>
-                  
+
                     <Route exact path="/AccountSetting">
-                    <Navbar />
+                        <Navbar />
                         <AccountSetting />
                     </Route>
                 </Switch>

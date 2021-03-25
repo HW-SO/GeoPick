@@ -111,9 +111,9 @@ const SignUpForm = () => {
 
     function handleChange() {
         if (verified) {
-            alert('Captcha Verified, Please check your email for Verification Link');
+            alert('Captcha ✅, Please check your email for Verification Link');
         } else {
-            alert('Do the Captcha');
+            alert('Please the Captcha, before proceeding');
         }
     }
 

@@ -9,10 +9,12 @@ import { Typography } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
 import emailjs from 'emailjs-com';
 import { useHistory } from 'react-router-dom';
-import SettingsIcon from '@material-ui/icons/Settings';
 import ArrowForwardIosOutlinedIcon from '@material-ui/icons/ArrowForwardIosOutlined';
-
-export interface HelpandFeedbackProps {}
+import ReportButton from '../../components/Display/report';
+import { useLocation } from 'react-router-dom';
+export interface HelpandFeedbackProps {
+    postID?: string;
+}
 
 const WhiteTypography = withStyles({
     root: {
@@ -21,13 +23,25 @@ const WhiteTypography = withStyles({
     },
 })(Typography);
 
-export default function HelpandFeedback() {
-    const history = useHistory();
+const useQuery = () => {
+    return new URLSearchParams(useLocation().search);
+};
 
-    function sendEmail(e: any) {
+export default function HelpandFeedback(props: HelpandFeedbackProps) {
+    const history = useHistory();
+    const query = useQuery();
+
+    function sendEmail(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault();
 
-        emailjs.sendForm('service_7um7ypw', 'template_my7a0ii', e.target, 'user_pKzNS4ftM2sSAMAFNjGVw').then(
+        const postID = query.get('postID');
+        console.log(e.target[0]);
+        let myTemplate = {
+            username: e.target[0].value,
+            feedbacks: e.target[1].value,
+            postID: postID,
+        };
+        emailjs.send('service_7um7ypw', 'template_my7a0ii', myTemplate, 'user_pKzNS4ftM2sSAMAFNjGVw').then(
             (result) => {
                 console.log(result.text);
                 alert('Thank You For Your Feedback ✅ ');
@@ -37,7 +51,7 @@ export default function HelpandFeedback() {
                 console.log(error.text);
             },
         );
-        e.target.reset();
+        // e.target.reset();
     }
 
     return (
@@ -86,6 +100,7 @@ export default function HelpandFeedback() {
                             multiline
                             rowsMax={5}
                         />
+
                         <br></br>
                         <RegularBtn type="submit" colorType="orange" style={{ width: 'auto', borderRadius: '20px' }}>
                             Send Feedback
@@ -93,17 +108,6 @@ export default function HelpandFeedback() {
                         </RegularBtn>
                     </form>
                     <br></br>
-                    <RegularBtn
-                        type="submit"
-                        colorType="orange"
-                        style={{ width: 'auto', borderRadius: '20px' }}
-                        onClick={(e) => {
-                            history.push('/settings');
-                        }}
-                    >
-                        Back to
-                        <SettingsIcon />
-                    </RegularBtn>
                 </Card>
             </div>
             <br />
