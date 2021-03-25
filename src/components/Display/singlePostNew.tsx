@@ -239,7 +239,7 @@ class SinglePostNew extends Component<SinglePostNewProps, SinglePostNewState> {
                     }
                     action={
                         // <>
-                            <ReportButton />
+                        <ReportButton postID={this.props.id} />
                         //</>
                     }
                     title={<Typography variant="h6">{this.state.post_user.User_name}</Typography>}
@@ -289,23 +289,22 @@ class SinglePostNew extends Component<SinglePostNewProps, SinglePostNewState> {
                     </Link>
                     <Box m={1} />
                     {/* <IconButton aria-label="share"> */}
-                        <SharePost sharedURL={`${root}${this.state.path_name}`} />
+                    <SharePost sharedURL={`${root}${this.state.path_name}`} />
                     {/* </IconButton> */}
-                    {!this.props.nogame &&
+                    {!this.props.nogame && (
                         <div
-                        style={{ float: 'right', marginRight: '10px', marginLeft: 'auto' }}
-                        onClick={this.handleClickRandomizer}
-                    >
-                        <GTLmenu
-                            location2={this.state.loc1}
-                            correctLocation={this.props.location}
-                            location3={this.state.loc2}
-                            order={this.state.random}
-                            uid={this.props.uid}
-                        />
-                    </div>
-                    }
-                    
+                            style={{ float: 'right', marginRight: '10px', marginLeft: 'auto' }}
+                            onClick={this.handleClickRandomizer}
+                        >
+                            <GTLmenu
+                                location2={this.state.loc1}
+                                correctLocation={this.props.location}
+                                location3={this.state.loc2}
+                                order={this.state.random}
+                                uid={this.props.uid}
+                            />
+                        </div>
+                    )}
 
                     {/* {this.state.displayQuestions &&
                         this.state.questions.map( 
