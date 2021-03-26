@@ -1,5 +1,5 @@
 /* eslint-disable no-lone-blocks */
-import { Avatar, Grid, Card, Typography, IconButton, Container, Divider } from '@material-ui/core';
+import { Avatar, Grid, Card, Typography, IconButton, Container, Divider, Box } from '@material-ui/core';
 import * as React from 'react';
 import InputBase from '@material-ui/core/InputBase';
 import PublishRoundedIcon from '@material-ui/icons/PublishRounded';
@@ -318,6 +318,7 @@ export default class PostViewScreen extends Component<PostViewProps, PostViewSta
                         </IconButton>
                     }
                 />
+                <Box m={8} />
             </Card>
         );
     }

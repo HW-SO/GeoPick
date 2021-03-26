@@ -163,7 +163,7 @@ export class UploadImage extends Component<UploadImageProps, UploadImageState> {
                 },
                 'base64',
             );
-        }, 2500);
+        }, 2000);
         
         
         // this.props.history.push('/home');
@@ -176,7 +176,7 @@ export class UploadImage extends Component<UploadImageProps, UploadImageState> {
         const file = await event.target.files[0];
         this.setState({ img: file, rawurl: URL.createObjectURL(file) });
 
-        // console.log(this.state.img);
+        console.log(this.state.img);
     };
 
     updateCaption = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -303,6 +303,7 @@ export class UploadImage extends Component<UploadImageProps, UploadImageState> {
                     </RegularBtn>
                 </CardActions>
                 {/* <Places /> */}
+                <Box m={8} />
             </div>
         );
     }

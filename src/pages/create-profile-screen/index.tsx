@@ -195,9 +195,9 @@ const CreateProfileForm = ({ img }: { img: string }) => {
                     .collection('users/')
                     .doc(user.uid)
                     .collection('following')
-                    .doc('h1BtLg7hmTcSMRv4pVHMOcvutqz1')
+                    .doc('BkdgyB1G7RU0FYmdIBwBi7OiZBU2')
                     .set({
-                        UserId: 'h1BtLg7hmTcSMRv4pVHMOcvutqz1',
+                        UserId: 'BkdgyB1G7RU0FYmdIBwBi7OiZBU2',
                         
                     });
 

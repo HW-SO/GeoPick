@@ -23,6 +23,7 @@ export class HomeScreen extends Component<HomeScreenProps> {
             <div style={{ background: '#1b1b1b' }}>
                 {!this.props.uid && <p style={{ color: 'white' }}>Please log in first!</p>}
                 {this.props.uid && <HomeFeed uid={this.props.uid} />}
+                <Box m={2} />
             </div>
         );
     }

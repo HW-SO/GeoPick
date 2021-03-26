@@ -21,7 +21,7 @@ import AvatarSmall from './components/Display/avatarSmall';
 import { IconButton, Toolbar, AppBar } from '@material-ui/core';
 import WhiteLogo from './pages/welcome screen/WhiteLogo.svg';
 import BottomNavigation from './components/NavBar/navbar';
-
+import { Box } from '@material-ui/core';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import { UploadImage } from './pages/upload-image/index';
 import AccessibilitySettings from './pages/accessSetting/index';
@@ -133,6 +133,7 @@ function App(): JSX.Element {
                         />
                     </Toolbar>
                 </AppBar>
+                <Box m={2}/>
                 <BottomNavigation />
             </>
         );

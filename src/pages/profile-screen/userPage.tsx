@@ -1,4 +1,4 @@
-import { Avatar, Button, Card, CardContent, CardHeader, Grid, Typography } from '@material-ui/core';
+import { Avatar, Button, Card, CardContent, CardHeader, Grid, Typography, Box } from '@material-ui/core';
 import { Link } from 'react-router-dom';
 import * as React from 'react';
 import { Component } from 'react';
@@ -155,6 +155,7 @@ class UserPage extends Component<UserPageProps, UserPageState> {
                     </Typography>
                 </div>
                 <UserFeed1 uid={this.state.uid} />
+                <Box m={2} />
             </div>
         );
     }

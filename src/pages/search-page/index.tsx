@@ -193,6 +193,7 @@ export default class SearchScreen extends Component<SearchProps, SearchState>  {
                 {/* </Card> */}
             </div>
             <br />
+            <Box m={2} />
         </div>
     );
 }

@@ -73,7 +73,7 @@ export default function Feed() {
                         caption={post.caption}
                         sharedURL={window.location.href}
                         hidden={false}
-                        comments_count={post.comments_count}
+                        comments_count={post.comment_count}
                         location = {post.location}
                         // otherLocs = {getLocations(post.location)}
                         nogame

@@ -4,7 +4,7 @@ import Card from '../../components/Layouts/Card';
 //import { RegularBtn } from '../../components/Buttons/RegularBtn';
 //import TextField from '../../components/Inputs/TextField';
 import ArrowBackRoundedIcon from '@material-ui/icons/ArrowBackRounded';
-//import { Box } from '@material-ui/core';
+import { Box } from '@material-ui/core';
 import firebase from 'firebase';
 //import ProfileOverview from '../../components/Display/profileOverview';
 //import Button from '@material-ui/core/Button';
@@ -114,6 +114,7 @@ export default function ExploreScreen() {
                     </ReactMapGL>
             </div>
             <br />
+            <Box m={2} />
         </div>
     );
 }

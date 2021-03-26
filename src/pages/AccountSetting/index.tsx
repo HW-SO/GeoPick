@@ -95,9 +95,11 @@ const SettingsMenu = () => {
 
             user!!.delete().then(() => {
                 console.log("user deleted from auth");
+                window.location.reload();
             });
-            window.location.reload();
+            
             history.push('/welcome');
+            
         }
 
         // const { push } = useHistory();

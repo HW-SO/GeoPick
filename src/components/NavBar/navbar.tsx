@@ -6,7 +6,7 @@ import SearchRoundedIcon from '@material-ui/icons/SearchRounded';
 import ExploreRoundedIcon from '@material-ui/icons/ExploreRounded';
 import SettingsRoundedIcon from '@material-ui/icons/SettingsRounded';
 import UploadIcon from '../Display/uploadIcon';
-import { AppBar, IconButton, Toolbar } from '@material-ui/core';
+import { AppBar, IconButton, Toolbar, Box} from '@material-ui/core';
 import CameraAltRoundedIcon from '@material-ui/icons/CameraAltRounded';
 
 
@@ -44,10 +44,12 @@ const useStyles = makeStyles((theme) => ({
 
 export default function LabelBottomNavigation() {
 
-
+    const path = window.location.pathname.split('/');
+    const page = path[path.length - 1];
     
     const classes = useStyles();
     return (
+        <> <Box m={2} />
         <AppBar position="fixed" color="primary" className={classes.appBar}>
             <Toolbar>
                 <Link to='/home' color="inherit">
@@ -61,7 +63,8 @@ export default function LabelBottomNavigation() {
                 </IconButton>
                 </Link>
                 {/* <Link to='/upload-image'> */}
-                <UploadIcon />
+                {page !== 'upload-image' && <UploadIcon /> }
+                
                 {/* </Link> */}
                 <div className={classes.grow} />
                 <Link to='/explore' color="inherit">
@@ -75,6 +78,6 @@ export default function LabelBottomNavigation() {
                 </IconButton>
                 </Link>
             </Toolbar>
-        </AppBar>
+        </AppBar> </>
     );
 }
