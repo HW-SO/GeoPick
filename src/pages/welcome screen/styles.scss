@@ -13,8 +13,12 @@ hr {
 .welcomepg {
     color: white;
     font-family: montserrat;
+    background-color: #5b6467;
+    // background-image: linear-gradient(315deg, #5b6467 0%, #8b939a 74%);
+
     background-image: url('./welcome-pg.png');
     background-repeat: no-repeat;
+    background-blend-mode: hard-light;
     background-size: cover;
     background-position: center;
 }
