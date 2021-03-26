@@ -22,7 +22,7 @@ import { checkUserLoggedIn } from '../../firebase/auth';
 
 
 export interface SearchProps {
-    
+    uid?: string;
 }
 
 export interface SearchState {
@@ -182,6 +182,7 @@ export default class SearchScreen extends Component<SearchProps, SearchState>  {
                                         sharedURL={window.location.href}
                                         hidden={false}
                                         comments_count={data.comments_count}
+                                        owner={this.props.uid}
                                         nogame
                                     />
                                     <br />
@@ -189,7 +190,7 @@ export default class SearchScreen extends Component<SearchProps, SearchState>  {
                                 </div>
                             );
                         })}
-                    {(this.state.posts.length == 0 && this.state.users.length == 0) && <Feed />}
+                    {(this.state.posts.length == 0 && this.state.users.length == 0) && <Feed uid={this.props.uid}/>}
                 {/* </Card> */}
             </div>
             <br />

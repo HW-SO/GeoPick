@@ -6,7 +6,7 @@ import Post from "./Posts";
 import { Typography } from '@material-ui/core';
 
 
-export default function Feed() {
+export default function Feed(props: any) {
     const [posts, setPosts] = useState<any[]>([]);
     const [lastKey, setLastKey] = useState("" as unknown  as firebase.firestore.QueryDocumentSnapshot<firebase.firestore.DocumentData>);
     const [nextPosts_loading, setNextPostsLoading] = useState(false);
@@ -76,6 +76,7 @@ export default function Feed() {
                         comments_count={post.comment_count}
                         location = {post.location}
                         // otherLocs = {getLocations(post.location)}
+                        owner={props.uid}
                         nogame
                     />
                 );

@@ -18,6 +18,9 @@ import { Link } from 'react-router-dom';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import AvatarSmall from '../../components/Display/avatarSmall';
+import EditButton from '../../components/Display/edit';
+import ReportButton from '../../components/Display/report';
+
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
@@ -210,9 +213,8 @@ export default class PostViewScreen extends Component<PostViewProps, PostViewSta
                             />
                         }
                         action={
-                            <IconButton aria-label="settings" style={{ color: '#fafafa' }}>
-                                <MoreVertIcon />
-                            </IconButton>
+                            (this.props.uid === this.state.post_uid && <EditButton postURL={pid} />) ||
+                            (this.props.uid !== this.state.post_uid && <ReportButton postID={pid} />)
                         }
                         title={<Typography variant="h6">{this.state.post_user.User_name}</Typography>}
                         subheader={

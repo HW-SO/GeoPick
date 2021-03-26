@@ -214,7 +214,7 @@ function App(): JSX.Element {
                     </Route>
                     <Route exact path="/search">
                         <Navbar />
-                        <SearchScreen />
+                        <SearchScreen uid={uid}/>
                     </Route>
 
                     <Route path="/ViewPoints/:catId">

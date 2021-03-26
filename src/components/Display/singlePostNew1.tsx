@@ -34,6 +34,7 @@ export interface SinglePostNewProps {
     comments_count?: number;
     location?: any;
     otherLocs?: any;
+    owner?: string;
 }
 
 export interface SinglePostNewState {
