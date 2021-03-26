@@ -133,7 +133,7 @@ function App(): JSX.Element {
                         />
                     </Toolbar>
                 </AppBar>
-                <Box m={2}/>
+                <Box m={2} />
                 <BottomNavigation />
             </>
         );
@@ -141,7 +141,7 @@ function App(): JSX.Element {
     return (
         <div className="App">
             <Router>
-                <Nav />
+                {/* <Nav /> */}
                 <Switch>
                     <Route exact path="/welcome">
                         <WelcomeScreen />
@@ -164,43 +164,53 @@ function App(): JSX.Element {
 
                     <Route exact path="/home">
                         <Navbar />
+                        <Box style={{ padding: '20px' }} />
                         <HomeScreen uid={uid} />
                     </Route>
                     <Route exact path="/helpnfeedback">
                         <Navbar />
+                        <Box style={{ padding: '20px' }} />
                         <HelpandFeedback />
                     </Route>
                     <Route exact path="/accessibility">
                         <Navbar />
+                        <Box style={{ padding: '20px' }} />
                         <AccessibilitySettings />
                     </Route>
                     <Route exact path="/notificationset">
                         <Navbar />
+                        <Box style={{ padding: '20px' }} />
                         <Notification />
                     </Route>
                     <Route exact path="/notification">
                         <Navbar />
+                        <Box style={{ padding: '20px' }} />
                         <Notificationpg />
                     </Route>
                     <Route exact path="/terms">
                         <Navbar />
+                        <Box style={{ padding: '20px' }} />
                         <Terms />
                     </Route>
                     <Route exact path="/settings">
                         <Navbar />
+                        <Box style={{ padding: '20px' }} />
                         <SettingsScreen />
                     </Route>
                     {/* <Navbar> */}
                     <Route path="/post/:catId">
                         <Navbar />
+                        <Box style={{ padding: '20px' }} />
                         <PostViewScreen uid={uid} user={user} />
                     </Route>
                     <Route path="/editpost/:catId">
                         <Navbar />
+                        <Box style={{ padding: '20px' }} />
                         <EditPostViewScreen />
                     </Route>
                     <Route path="/deletepost/:catId">
                         <Navbar />
+                        <Box style={{ padding: '20px' }} />
                         <DeletePostViewScreen />
                     </Route>
                     <Route path="/user/:catId">
@@ -210,24 +220,29 @@ function App(): JSX.Element {
                     {/* </Navbar> */}
                     <Route exact path="/upload-image">
                         <Navbar />
+                        <Box style={{ padding: '20px' }} />
                         <UploadImage uid={uid} user={user} />
                     </Route>
                     <Route exact path="/search">
                         <Navbar />
+                        <Box style={{ padding: '20px' }} />
                         <SearchScreen />
                     </Route>
 
                     <Route path="/ViewPoints/:catId">
                         <Navbar />
+                        <Box style={{ padding: '20px' }} />
                         <ViewPoints uid={uid} user={user} />
                     </Route>
                     <Route path="/ViewFollowers/:catId">
                         <Navbar />
+                        <Box style={{ padding: '20px' }} />
                         <ViewFollowers />
                     </Route>
                     {/* </Navbar> */}
                     <Route exact path="/EditProfile">
                         <Navbar />
+                        <Box style={{ padding: '20px' }} />
                         <EditProfile user={user} uid={uid} />
                     </Route>
                     <Route exact path="/webcam">
@@ -235,15 +250,18 @@ function App(): JSX.Element {
                     </Route>
                     <Route exact path="/explore">
                         <Navbar />
+                        <Box style={{ padding: '34px' }} />
                         <ExploreScreen />
                     </Route>
                     <Route exact path="/Camera">
                         <Navbar />
+                        <Box style={{ padding: '20px' }} />
                         <Camera />
                     </Route>
 
                     <Route exact path="/AccountSetting">
                         <Navbar />
+                        <Box style={{ padding: '20px' }} />
                         <AccountSetting />
                     </Route>
                 </Switch>

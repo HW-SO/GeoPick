@@ -6,9 +6,8 @@ import SearchRoundedIcon from '@material-ui/icons/SearchRounded';
 import ExploreRoundedIcon from '@material-ui/icons/ExploreRounded';
 import SettingsRoundedIcon from '@material-ui/icons/SettingsRounded';
 import UploadIcon from '../Display/uploadIcon';
-import { AppBar, IconButton, Toolbar, Box} from '@material-ui/core';
+import { AppBar, IconButton, Toolbar, Box } from '@material-ui/core';
 import CameraAltRoundedIcon from '@material-ui/icons/CameraAltRounded';
-
 
 const useStyles = makeStyles((theme) => ({
     text: {
@@ -43,41 +42,43 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function LabelBottomNavigation() {
-
     const path = window.location.pathname.split('/');
     const page = path[path.length - 1];
-    
+
     const classes = useStyles();
     return (
-        <> <Box m={2} />
-        <AppBar position="fixed" color="primary" className={classes.appBar}>
-            <Toolbar>
-                <Link to='/home' color="inherit">
-                <IconButton aria-label="open drawer">
-                    <HomeRoundedIcon />
-                </IconButton>
-                </Link>
-                <Link to='/search' color="inherit">
-                <IconButton aria-label="open drawer">
-                    <SearchRoundedIcon />
-                </IconButton>
-                </Link>
-                {/* <Link to='/upload-image'> */}
-                {page !== 'upload-image' && <UploadIcon /> }
-                
-                {/* </Link> */}
-                <div className={classes.grow} />
-                <Link to='/explore' color="inherit">
-                <IconButton>
-                    <ExploreRoundedIcon/>
-                </IconButton>
-                </Link>
-                <Link to='/settings' color="inherit">
-                <IconButton>
-                    <SettingsRoundedIcon />
-                </IconButton>
-                </Link>
-            </Toolbar>
-        </AppBar> </>
+        <>
+            {' '}
+            <div style={{ marginTop: '20px' }} />
+            <AppBar position="fixed" color="primary" className={classes.appBar}>
+                <Toolbar>
+                    <Link to="/home" color="inherit">
+                        <IconButton aria-label="open drawer">
+                            <HomeRoundedIcon />
+                        </IconButton>
+                    </Link>
+                    <Link to="/search" color="inherit">
+                        <IconButton aria-label="open drawer">
+                            <SearchRoundedIcon />
+                        </IconButton>
+                    </Link>
+                    {/* <Link to='/upload-image'> */}
+                    {page !== 'upload-image' && <UploadIcon />}
+
+                    {/* </Link> */}
+                    <div className={classes.grow} />
+                    <Link to="/explore" color="inherit">
+                        <IconButton>
+                            <ExploreRoundedIcon />
+                        </IconButton>
+                    </Link>
+                    <Link to="/settings" color="inherit">
+                        <IconButton>
+                            <SettingsRoundedIcon />
+                        </IconButton>
+                    </Link>
+                </Toolbar>
+            </AppBar>{' '}
+        </>
     );
 }

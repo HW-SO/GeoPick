@@ -13,11 +13,10 @@ import firebase from 'firebase';
 import { Typography } from '@material-ui/core';
 import BottomNavigation from '../../components/NavBar/navbar';
 
-
-
-import ReactMapGL, { Marker
-     //Popup 
-    } from 'react-map-gl';
+import ReactMapGL, {
+    Marker,
+    //Popup
+} from 'react-map-gl';
 
 //import { Typography } from '@material-ui/core';
 import Avatar from '@material-ui/core/Avatar';
@@ -42,7 +41,7 @@ export default function ExploreScreen() {
         height: '100vh',
         zoom: 4,
     });
-    
+
     useLayoutEffect(() => {
         if (firstUpdate.current) {
             firstUpdate.current = false;
@@ -83,35 +82,35 @@ export default function ExploreScreen() {
     // });
     return (
         <div className="background">
-
-        
-            
-            
             <div id="titleDiv">
-            <Typography variant="h3" color="inherit">Search</Typography> 
+                <Typography variant="h3" color="inherit">
+                    Search
+                </Typography>
                 {/* <Card background="#202020" title="Explore" split={2}> */}
-                    <Typography color="inherit" variant="h4">Find the latest posts around the world!</Typography> 
-                    <ReactMapGL
-                        ref={mapRef}
-                        {...viewport}
-                        width="100%"
-                        onViewportChange={handleViewportChange}
+                <Typography color="inherit" variant="body1">
+                    Find the latest posts around the world!
+                </Typography>
+                <ReactMapGL
+                    ref={mapRef}
+                    {...viewport}
+                    width="100%"
+                    onViewportChange={handleViewportChange}
+                    mapboxApiAccessToken={process.env.REACT_APP_MAPBOX_TOKEN}
+                >
+                    <Geocoder
+                        mapRef={mapRef}
+                        onViewportChange={handleGeocoderViewportChange}
                         mapboxApiAccessToken={process.env.REACT_APP_MAPBOX_TOKEN}
-                    >
-                        <Geocoder
-                            mapRef={mapRef}
-                            onViewportChange={handleGeocoderViewportChange}
-                            mapboxApiAccessToken={process.env.REACT_APP_MAPBOX_TOKEN}
-                            position="top-left"
-                        />
-                        {posts.map(({ id, post }) => (
-                            <Marker key={id} latitude={post.coordinates.lat} longitude={post.coordinates.lng}>
-                                <Link to={{ pathname: `/post/${id}`, state: post.uid }}>
-                                    <Avatar alt={post.user_name} src={post.Image} />
-                                </Link>
-                            </Marker>
-                        ))}
-                    </ReactMapGL>
+                        position="top-left"
+                    />
+                    {posts.map(({ id, post }) => (
+                        <Marker key={id} latitude={post.coordinates.lat} longitude={post.coordinates.lng}>
+                            <Link to={{ pathname: `/post/${id}`, state: post.uid }}>
+                                <Avatar alt={post.user_name} src={post.Image} />
+                            </Link>
+                        </Marker>
+                    ))}
+                </ReactMapGL>
             </div>
             <br />
             <Box m={2} />
