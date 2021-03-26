@@ -12,7 +12,8 @@ class ViewFollowers extends React.Component<ViewFollowersProps, ViewFollowersSta
     render() {
         return (
             <Box style={{ background: '#1b1b1b' }}>
-                <img src={WhiteLogo} alt="GeoPicK" className="WhiteLogo" />
+                {/* <img src={WhiteLogo} alt="GeoPicK" className="WhiteLogo" /> */}
+                <div style={{ padding: '25px' }} />
                 <span style={{ color: '#fafafa' }}>
                     <Card background="#202020" title="Fellow GeoPicKers" split={1}>
                         <CustomTab />

@@ -43,9 +43,10 @@ export default function Notification() {
 
     return (
         <div style={{ background: '#1b1b1b' }} className="bgg">
-            <Toolbar>
+            {/* <Toolbar>
                 <img src={WhiteLogo} alt="GeoPicK" className="WhiteLogo" />
-            </Toolbar>
+            </Toolbar> */}
+
             <div style={{ color: '#fafafa' }}>
                 <Card background="#202020" title="Notification Settings" split={1}>
                     <div style={{ color: 'black' }}>

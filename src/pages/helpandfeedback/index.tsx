@@ -56,9 +56,9 @@ export default function HelpandFeedback(props: HelpandFeedbackProps) {
 
     return (
         <div className="background">
-            <div className="image">
+            {/* <div className="image">
                 <img src={WhiteLogo} alt="GeoPicK Logo" className="WhiteLogo" />
-            </div>
+            </div> */}
             <div id="titleDiv">
                 <Card background="#202020" title="Help & FeedBack" split={2}>
                     <WhiteTypography>Hi there👋,</WhiteTypography>

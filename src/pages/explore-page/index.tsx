@@ -84,7 +84,7 @@ export default function ExploreScreen() {
         <div className="background">
             <div id="titleDiv">
                 <Typography variant="h3" color="inherit">
-                    Search
+                    Explore!
                 </Typography>
                 {/* <Card background="#202020" title="Explore" split={2}> */}
                 <Typography color="inherit" variant="body1">

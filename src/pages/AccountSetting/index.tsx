@@ -64,11 +64,7 @@ const SettingsMenu = () => {
         // console.log(user)
 
         if (user) {
-            firebase
-                .firestore()
-                .collection('users/')
-                .doc(`${user.uid}/`)
-                .delete();
+            firebase.firestore().collection('users/').doc(`${user.uid}/`).delete();
 
             var refPosts = storage.ref(`/Images/${user.uid}/Posts`);
 
@@ -94,16 +90,14 @@ const SettingsMenu = () => {
             });
 
             user!!.delete().then(() => {
-                console.log("user deleted from auth");
+                console.log('user deleted from auth');
                 window.location.reload();
             });
-            
+
             history.push('/welcome');
-            
         }
 
         // const { push } = useHistory();
-        
     };
 
     return (
@@ -188,10 +182,10 @@ export default class AccountSetting extends Component<AccountSettingProps, Accou
         return (
             <div style={{ background: '#1b1b1b' }} className="bgg">
                 <Toolbar>
-                    <img src={WhiteLogo} alt="GeoPicK" className="WhiteLogo" />
-                    <IconButton edge="end">
+                    {/* <img src={WhiteLogo} alt="GeoPicK" className="WhiteLogo" /> */}
+                    {/* <IconButton edge="end">
                         <Avatar alt={this.state.user.User_name} src={this.state.user.Avatar} />
-                    </IconButton>
+                    </IconButton> */}
                 </Toolbar>
                 <div style={{ color: '#fafafa' }}>
                     <Card background="#fafafa" title="Account Settings" split={1}>

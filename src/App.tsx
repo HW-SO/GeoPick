@@ -169,17 +169,17 @@ function App(): JSX.Element {
                     </Route>
                     <Route exact path="/helpnfeedback">
                         <Navbar />
-                        <Box style={{ padding: '20px' }} />
+                        <Box style={{ padding: '30px' }} />
                         <HelpandFeedback />
                     </Route>
                     <Route exact path="/accessibility">
                         <Navbar />
-                        <Box style={{ padding: '20px' }} />
+                        <Box style={{ padding: '30px' }} />
                         <AccessibilitySettings />
                     </Route>
                     <Route exact path="/notificationset">
                         <Navbar />
-                        <Box style={{ padding: '20px' }} />
+                        <Box style={{ padding: '27px' }} />
                         <Notification />
                     </Route>
                     <Route exact path="/notification">
@@ -189,12 +189,12 @@ function App(): JSX.Element {
                     </Route>
                     <Route exact path="/terms">
                         <Navbar />
-                        <Box style={{ padding: '20px' }} />
+                        <Box style={{ padding: '28px' }} />
                         <Terms />
                     </Route>
                     <Route exact path="/settings">
                         <Navbar />
-                        <Box style={{ padding: '20px' }} />
+                        <Box style={{ padding: '25px' }} />
                         <SettingsScreen />
                     </Route>
                     {/* <Navbar> */}
@@ -225,7 +225,9 @@ function App(): JSX.Element {
                     </Route>
                     <Route exact path="/search">
                         <Navbar />
-                        <SearchScreen uid={uid}/>
+                        <Box style={{ padding: '30px' }} />
+                        <SearchScreen uid={uid} />
+                        {/* <SearchScreen /> */}
                     </Route>
 
                     <Route path="/ViewPoints/:catId">
