@@ -1,12 +1,12 @@
 import * as React from 'react';
 import { useState, useEffect } from 'react';
 import firebase from 'firebase';
-import SinglePostNew1 from '../Display/singlePostNew1';
+import SinglePostNew from '../Display/singlePostNew';
 import Post from "./Posts";
 import { Typography } from '@material-ui/core';
 
 
-export default function Feed() {
+export default function Feed(props: any) {
     const [posts, setPosts] = useState<any[]>([]);
     const [lastKey, setLastKey] = useState("" as unknown  as firebase.firestore.QueryDocumentSnapshot<firebase.firestore.DocumentData>);
     const [nextPosts_loading, setNextPostsLoading] = useState(false);
@@ -59,7 +59,7 @@ export default function Feed() {
                   // console.log("feed id", post)
                   // const loc = getLocations(post.location);
                   return (
-                    <SinglePostNew1
+                    <SinglePostNew
                         key={post.id}
                         id={post.id}
                         // profileUrl={post.profileUrl}
@@ -73,9 +73,11 @@ export default function Feed() {
                         caption={post.caption}
                         sharedURL={window.location.href}
                         hidden={false}
-                        comments_count={post.comments_count}
+                        comments_count={post.comment_count}
                         location = {post.location}
                         // otherLocs = {getLocations(post.location)}
+                        owner={props.uid}
+                        nogame
                     />
                 );
                 } else return (<Typography>No posts to show!</Typography>);

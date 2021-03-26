@@ -1,4 +1,4 @@
-import { Avatar, Button, Card, CardContent, CardHeader, Grid, Typography } from '@material-ui/core';
+import { Avatar, Button, Card, CardContent, CardHeader, Grid, Typography, Box } from '@material-ui/core';
 import { Link } from 'react-router-dom';
 import * as React from 'react';
 import { Component } from 'react';
@@ -11,14 +11,15 @@ import firebase from 'firebase';
 import UserFeed1 from '../../components/Layouts/userFeed1';
 
 import { auth } from '../../firebase';
-export interface UserPageProps {}
+export interface UserPageProps {
+    user_uid: string;
+}
 
 export interface UserPageState {
     posts: any;
     user: any;
     isAuthenticated: boolean;
     uid: string;
-    user_uid: string;
 }
 
 class UserPage extends Component<UserPageProps, UserPageState> {
@@ -29,15 +30,13 @@ class UserPage extends Component<UserPageProps, UserPageState> {
             user: {},
             isAuthenticated: false,
             uid: window.location.pathname.split('/')[window.location.pathname.split('/').length - 1],
-            user_uid: '',
         };
     }
 
     componentDidMount() {
         const path = window.location.pathname.split('/');
         const uid = path[path.length - 1];
-        const u = checkUserLoggedIn();
-        if (u) this.setState({ user_uid: u.uid });
+
         this.setState({ uid: uid});
 
         this.getUser().then(
@@ -94,7 +93,7 @@ class UserPage extends Component<UserPageProps, UserPageState> {
                     alt="GeoPicK"
                     style={{ width: '200px', height: '66px', margin: 'auto', paddingBottom: '1em' }}
                 />
-                {this.state.user_uid === this.state.uid &&
+                {this.props.user_uid === this.state.uid &&
                 <ProfileOverview
                     User={this.state.user}
                     User_name={<span style={{ fontSize: 'calc(12px + 2vw)' }}>{this.state.user.User_name}</span>}
@@ -102,7 +101,7 @@ class UserPage extends Component<UserPageProps, UserPageState> {
                     Size="large"
                     uid={this.state.uid}
                 />}
-                {this.state.user_uid !== this.state.uid &&
+                {this.props.user_uid !== this.state.uid &&
                 <ProfileOverview
                     User={this.state.user}
                     User_name={<span style={{ fontSize: 'calc(12px + 2vw)' }}>{this.state.user.User_name}</span>}
@@ -113,8 +112,9 @@ class UserPage extends Component<UserPageProps, UserPageState> {
                 />}
                 <br></br>
                 <br></br>
-                {this.state.user_uid === this.state.uid && (
+                {this.props.user_uid === this.state.uid && (
                     <>
+                        <Link to="/EditProfile">
                         <Button
                             style={{
                                 paddingLeft: '15%',
@@ -128,6 +128,7 @@ class UserPage extends Component<UserPageProps, UserPageState> {
                                 Edit Profile
                             </Typography>
                         </Button>
+                        </Link>
                         <Button
                             style={{
                                 background: '#1b1b1b',
@@ -154,6 +155,7 @@ class UserPage extends Component<UserPageProps, UserPageState> {
                     </Typography>
                 </div>
                 <UserFeed1 uid={this.state.uid} />
+                <Box m={2} />
             </div>
         );
     }

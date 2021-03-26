@@ -48,9 +48,9 @@ export default function Accessibility() {
     const darkMode = useDarkMode(false);
     return (
         <div style={{ background: '#1b1b1b' }} className="bgg">
-            <Toolbar>
+            {/* <Toolbar>
                 <img src={WhiteLogo} alt="GeoPicK" className="WhiteLogo" />
-            </Toolbar>
+            </Toolbar> */}
             <div style={{ color: '#fafafa' }}>
                 <Card background="#202020" title="Accessibility Settings" split={1}>
                     <div style={{ color: 'black' }}>

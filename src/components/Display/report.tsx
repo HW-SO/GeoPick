@@ -6,7 +6,7 @@ import { IconButton } from '@material-ui/core';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import { useHistory } from 'react-router-dom';
 
-export default function ReportButton() {
+export default function ReportButton(props: { postID: string }) {
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
     const open = Boolean(anchorEl);
 
@@ -18,7 +18,11 @@ export default function ReportButton() {
 
     const handleReport = () => {
         console.log('post reported!');
-        history.push('/helpnfeedback'); // how do i take the posit id and add it here??
+        // console.log(props.postID);   to check if the postID is being updated
+        history.push({
+            pathname: '/helpnfeedback',
+            search: `?postID=${props.postID}`,
+        });
     };
     const handleClose = () => {
         setAnchorEl(null);

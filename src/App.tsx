@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.css';
-import { BrowserRouter as Router, Link, Route, Switch } from 'react-router-dom';
+import { BrowserRouter as Router, Link, Route, Switch, Redirect } from 'react-router-dom';
 import WelcomeScreen from './pages/welcome screen';
 import SignInScreen from './pages/sign-in screen/SignInForm';
 import SignUpScreen from './pages/sign-up screen/SignupForm';
@@ -17,7 +17,12 @@ import SettingsScreen from './pages/settings-screen/SettingsMenu';
 import UserPage from './pages/profile-screen/userPage';
 import SearchScreen from './pages/search-page/index';
 import ExploreScreen from './pages/explore-page/index';
-
+import AvatarSmall from './components/Display/avatarSmall';
+import { IconButton, Toolbar, AppBar } from '@material-ui/core';
+import WhiteLogo from './pages/welcome screen/WhiteLogo.svg';
+import BottomNavigation from './components/NavBar/navbar';
+import { Box } from '@material-ui/core';
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import { UploadImage } from './pages/upload-image/index';
 import AccessibilitySettings from './pages/accessSetting/index';
 import Notification from './pages/notificationset';
@@ -28,12 +33,115 @@ import Camera from './components/Inputs/Camera';
 import ViewFollowers from './pages/followers-page/ViewFollowers';
 import WebCamFun from './pages/camera/index';
 import AccountSetting from './pages/AccountSetting/index';
+import { useState, useEffect } from 'react';
+import { checkUserLoggedIn } from './firebase/auth';
+import { auth } from './firebase';
+// import { auth } from './firebase';
+import firebase from 'firebase';
 
 function App(): JSX.Element {
+    const [user, setUser] = useState({});
+    const [uid, setUID] = useState('');
+    const [set, setSet] = useState(false);
+
+    useEffect(() => {
+        console.log('calling effect');
+        let isMounted = true; // note this flag denote mount status
+        if (!set) {
+            firebase.auth().onAuthStateChanged(function (user) {
+                if (user) {
+                    if (isMounted) {
+                        getUser(user).then((u: any) => {
+                            console.log('current user ' + u);
+                            setUser(u);
+                        });
+
+                        // setUser(u);
+                        setUID(user.uid);
+                        setSet(true);
+                    }
+                }
+            });
+        }
+
+        return () => {
+            isMounted = false;
+        }; // use effect cleanup to set flag false, if unmounted
+    }, [set]);
+    // useEffect(() => {
+    //     // if(!set){
+
+    //         // const u = auth.currentUser;
+    //         // console.log("in app");
+    //         // if(u !== null) {
+    //         //     getUser().then(
+    //         //         (user : any) => {
+
+    //         //         }
+    //         //     );
+    //         // }
+    //     // }
+    // });
+
+    const getUser = (user: any) => {
+        // const auth = checkUserLoggedIn();
+        return new Promise(function (resolve, reject) {
+            // if (auth === undefined) {
+            // } else {
+            firebase
+                .firestore()
+                .collection('users')
+                .doc(user.uid)
+                .get()
+                .then((querySnapshot) => {
+                    const data = querySnapshot.data();
+                    // this.se
+                    if (querySnapshot.data()) {
+                        resolve(data);
+                    } else {
+                        reject('User not authenticated');
+                    }
+                });
+            // }
+        });
+    };
+
+    const signOut = () => {
+        auth.doSignOut();
+        setSet(false);
+        // console.log
+    };
+
+    const Navbar = () => {
+        return (
+            <>
+                <AppBar position="fixed" style={{ background: '#1b1b1b' }}>
+                    <Toolbar style={{ position: 'relative' }}>
+                        <Link to="/welcome">
+                            <IconButton edge="end" onClick={signOut}>
+                                <ExitToAppIcon style={{ color: 'white' }} />
+                            </IconButton>
+                        </Link>
+
+                        <img src={WhiteLogo} alt="GeoPicK" className="WhiteLogo" />
+                        <AvatarSmall
+                            User={user}
+                            uid={uid}
+                            User_name={user['User_name']}
+                            Avatar={user['Avatar']}
+                            Size="small"
+                        />
+                    </Toolbar>
+                </AppBar>
+                <Box m={2} />
+                <BottomNavigation />
+            </>
+        );
+    };
     return (
         <div className="App">
             <Router>
-                <Nav />
+                {/* <Nav /> */}
                 <Switch>
                     <Route exact path="/welcome">
                         <WelcomeScreen />
@@ -53,53 +161,108 @@ function App(): JSX.Element {
                     <Route exact path="/ReSet-password">
                         <ReSetNewPasswordScreen />
                     </Route>
+
                     <Route exact path="/home">
-                        <HomeScreen />
+                        <Navbar />
+                        <Box style={{ padding: '20px' }} />
+                        <HomeScreen uid={uid} />
                     </Route>
                     <Route exact path="/helpnfeedback">
+                        <Navbar />
+                        <Box style={{ padding: '30px' }} />
                         <HelpandFeedback />
                     </Route>
                     <Route exact path="/accessibility">
+                        <Navbar />
+                        <Box style={{ padding: '30px' }} />
                         <AccessibilitySettings />
                     </Route>
                     <Route exact path="/notificationset">
+                        <Navbar />
+                        <Box style={{ padding: '27px' }} />
                         <Notification />
                     </Route>
                     <Route exact path="/notification">
+                        <Navbar />
+                        <Box style={{ padding: '20px' }} />
                         <Notificationpg />
                     </Route>
                     <Route exact path="/terms">
+                        <Navbar />
+                        <Box style={{ padding: '28px' }} />
                         <Terms />
                     </Route>
                     <Route exact path="/settings">
+                        <Navbar />
+                        <Box style={{ padding: '25px' }} />
                         <SettingsScreen />
                     </Route>
-                    <Route path="/post/:catId" component={PostViewScreen}></Route>
-                    <Route path="/editpost/:catId" component={EditPostViewScreen}></Route>
-                    <Route path="/deletepost/:catId" component={DeletePostViewScreen}></Route>
-                    <Route path="/user/:catId" component={UserPage}></Route>
+                    {/* <Navbar> */}
+                    <Route path="/post/:catId">
+                        <Navbar />
+                        <Box style={{ padding: '20px' }} />
+                        <PostViewScreen uid={uid} user={user} />
+                    </Route>
+                    <Route path="/editpost/:catId">
+                        <Navbar />
+                        <Box style={{ padding: '20px' }} />
+                        <EditPostViewScreen />
+                    </Route>
+                    <Route path="/deletepost/:catId">
+                        <Navbar />
+                        <Box style={{ padding: '20px' }} />
+                        <DeletePostViewScreen />
+                    </Route>
+                    <Route path="/user/:catId">
+                        <Navbar />
+                        <UserPage user_uid={uid} />
+                    </Route>
+                    {/* </Navbar> */}
                     <Route exact path="/upload-image">
-                        <UploadImage />
+                        <Navbar />
+                        <Box style={{ padding: '20px' }} />
+                        <UploadImage uid={uid} user={user} />
                     </Route>
                     <Route exact path="/search">
-                        <SearchScreen />
+                        <Navbar />
+                        <Box style={{ padding: '30px' }} />
+                        <SearchScreen uid={uid} />
+                        {/* <SearchScreen /> */}
                     </Route>
-                    <Route path="/ViewPoints/:catId" component={ViewPoints}></Route>
-                    <Route path="/ViewFollowers/:catId" component={ViewFollowers}></Route>
+
+                    <Route path="/ViewPoints/:catId">
+                        <Navbar />
+                        <Box style={{ padding: '20px' }} />
+                        <ViewPoints uid={uid} user={user} />
+                    </Route>
+                    <Route path="/ViewFollowers/:catId">
+                        <Navbar />
+                        <Box style={{ padding: '20px' }} />
+                        <ViewFollowers />
+                    </Route>
+                    {/* </Navbar> */}
                     <Route exact path="/EditProfile">
-                        <EditProfile />
+                        <Navbar />
+                        <Box style={{ padding: '20px' }} />
+                        <EditProfile user={user} uid={uid} />
                     </Route>
                     <Route exact path="/webcam">
                         <WebCamFun />
                     </Route>
                     <Route exact path="/explore">
+                        <Navbar />
+                        <Box style={{ padding: '34px' }} />
                         <ExploreScreen />
                     </Route>
                     <Route exact path="/Camera">
+                        <Navbar />
+                        <Box style={{ padding: '20px' }} />
                         <Camera />
                     </Route>
-                  
+
                     <Route exact path="/AccountSetting">
+                        <Navbar />
+                        <Box style={{ padding: '20px' }} />
                         <AccountSetting />
                     </Route>
                 </Switch>

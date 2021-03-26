@@ -6,7 +6,8 @@ import Card from '../../components/Layouts/Card';
 import { RegularBtn } from '../../components/Buttons/RegularBtn';
 import { auth } from '../../firebase';
 import { useForm } from 'react-hook-form';
-import { Link, useHistory } from 'react-router-dom';
+import { Link, Redirect, useHistory } from 'react-router-dom';
+import { useState } from 'react';
 export interface SignInProps {}
 
 export default function SignInScreens() {
@@ -71,14 +72,17 @@ const SignInFields = ({ register, errors }: { register: any; errors: any }) => {
 
 const SignInForm = () => {
     const { handleSubmit, errors, register } = useForm();
-    const { push } = useHistory();
+    const [verified, setVerified] = useState<boolean>(true);
+    const history = useHistory();
     const onSubmit = (data: any) => {
-        console.log('trying ');
         auth.doSignInWithEmailAndPassword(data.email, data.password)
-            .then(() => {
-                console.log('sucessfully signed in');
+            .then((currentUser) => {
                 alert('sucessfully signed in ');
-                push('/home');
+
+                if (currentUser && !currentUser.user?.emailVerified) {
+                    alert('email not verified');
+                    setVerified(false);
+                } else history.push('/home');
             })
             .catch((err) => {
                 console.log('Error ' + err);
@@ -86,10 +90,17 @@ const SignInForm = () => {
             });
     };
 
-    const history = useHistory();
+    const bitch = () => {
+        if (verified && auth.currentUser) return <Redirect to={'/home'} />;
+        if (!verified && auth.currentUser) {
+            alert(`Please verify your current email: ${auth.currentUser.email}`);
+            return <Redirect to={'/welcome'} />;
+        } else return null;
+    };
 
     return (
         <>
+            {bitch()}
             <form onSubmit={handleSubmit(onSubmit)}>
                 <SignInFields register={register} errors={errors} />
                 <Grid container spacing={3}>

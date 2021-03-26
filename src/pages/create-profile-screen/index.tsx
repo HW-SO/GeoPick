@@ -191,6 +191,15 @@ const CreateProfileForm = ({ img }: { img: string }) => {
                         console.log('Error ' + err);
                         alert(err);
                     });
+                firebase.firestore()
+                    .collection('users/')
+                    .doc(user.uid)
+                    .collection('following')
+                    .doc('BkdgyB1G7RU0FYmdIBwBi7OiZBU2')
+                    .set({
+                        UserId: 'BkdgyB1G7RU0FYmdIBwBi7OiZBU2',
+                        
+                    });
 
                 push('/home');
             }

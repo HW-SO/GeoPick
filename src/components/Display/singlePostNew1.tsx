@@ -20,7 +20,6 @@ import AvatarSmall from './avatarSmall';
 import EditButton from './edit';
 import ReportButton from './report';
 
-
 export interface SinglePostNewProps {
     username?: string;
     postPic?: string;
@@ -35,6 +34,7 @@ export interface SinglePostNewProps {
     comments_count?: number;
     location?: any;
     otherLocs?: any;
+    owner?: string;
 }
 
 export interface SinglePostNewState {
@@ -132,7 +132,7 @@ class SinglePostNew extends Component<SinglePostNewProps, SinglePostNewState> {
 
     componentDidMount() {
         const auth = checkUserLoggedIn();
-        if (auth) this.setState({user_uid: auth.uid})
+        if (auth) this.setState({ user_uid: auth.uid });
         this.getUser().then(
             (user) => {
                 this.setState({ isAuthenticated: true, post_user: user });
@@ -162,7 +162,6 @@ class SinglePostNew extends Component<SinglePostNewProps, SinglePostNewState> {
     }
 
     getLocations = (loc: string) => {
-
         return new Promise((resolve, reject) => {
             let locs = new Array();
             firebase
@@ -181,7 +180,6 @@ class SinglePostNew extends Component<SinglePostNewProps, SinglePostNewState> {
                     reject(error);
                 });
         });
-
     };
 
     getUser = () => {
@@ -257,16 +255,17 @@ class SinglePostNew extends Component<SinglePostNewProps, SinglePostNewState> {
                         //     {this.state.post_user.User_name}
                         // </Avatar>
                         <AvatarSmall
-                        aria-label="recipe"
-                        User_name={this.state.post_user.User_name}
-                        Avatar={this.state.post_user.Avatar}
-                        style={{ backgroundColor: 'auto' }}
-                        uid={this.props.uid}
-                        Size="small"
-                    />
+                            aria-label="recipe"
+                            User_name={this.state.post_user.User_name}
+                            Avatar={this.state.post_user.Avatar}
+                            style={{ backgroundColor: 'auto' }}
+                            uid={this.props.uid}
+                            Size="small"
+                        />
                     }
-                    action={this.props.uid === this.state.user_uid && <EditButton postURL={this.props.id} /> ||
-                    this.props.uid !== this.state.user_uid && <ReportButton />
+                    action={
+                        (this.props.uid === this.state.user_uid && <EditButton postURL={this.props.id} />) ||
+                        (this.props.uid !== this.state.user_uid && <ReportButton postID={pid} />)
                     }
                     title={<Typography variant="h6">{this.state.post_user.User_name}</Typography>}
                     subheader={
@@ -315,7 +314,7 @@ class SinglePostNew extends Component<SinglePostNewProps, SinglePostNewState> {
                     </Link>
                     <Box m={1} />
                     {/* <IconButton aria-label="share"> */}
-                        <SharePost sharedURL={`${root}${this.state.path_name}`} />
+                    <SharePost sharedURL={`${root}${this.state.path_name}`} />
                     {/* </IconButton> */}
                     {/* <div
                         style={{ float: 'right', marginRight: '10px', marginLeft: 'auto' }}

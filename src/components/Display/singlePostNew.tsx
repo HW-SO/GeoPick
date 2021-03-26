@@ -10,6 +10,7 @@ import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import SharePost from './sharePost';
+import EditButton from './edit';
 import AddCommentRoundedIcon from '@material-ui/icons/AddCommentRounded';
 import './singlePostStyles.scss';
 import { checkUserLoggedIn } from '../../firebase/auth';
@@ -34,6 +35,8 @@ export interface SinglePostNewProps {
     comments_count?: number;
     location?: any;
     otherLocs?: any;
+    nogame?: boolean;
+    owner?: string;
 }
 
 export interface SinglePostNewState {
@@ -125,6 +128,8 @@ class SinglePostNew extends Component<SinglePostNewProps, SinglePostNewState> {
                 this.setState({ isAuthenticated: true });
             },
         );
+
+        console.log("uid " + this.props.uid + " " + this.props.owner); 
 
         this.getLocations(this.props.location).then(
             (locs) => {
@@ -237,9 +242,8 @@ class SinglePostNew extends Component<SinglePostNewProps, SinglePostNewState> {
                         // </AvatarSmall>
                     }
                     action={
-                        // <>
-                            <ReportButton />
-                        //</>
+                        (this.props.uid === this.props.owner && <EditButton postURL={this.props.id} />) ||
+                        (this.props.uid !== this.props.owner && <ReportButton postID={this.props.id} />)
                     }
                     title={<Typography variant="h6">{this.state.post_user.User_name}</Typography>}
                     subheader={
@@ -288,75 +292,23 @@ class SinglePostNew extends Component<SinglePostNewProps, SinglePostNewState> {
                     </Link>
                     <Box m={1} />
                     {/* <IconButton aria-label="share"> */}
-                        <SharePost sharedURL={`${root}${this.state.path_name}`} />
+                    <SharePost sharedURL={`${root}${this.state.path_name}`} />
                     {/* </IconButton> */}
-                    <div
-                        style={{ float: 'right', marginRight: '10px', marginLeft: 'auto' }}
-                        onClick={this.handleClickRandomizer}
-                    >
-                        <GTLmenu
-                            location2={this.state.loc1}
-                            correctLocation={this.props.location}
-                            location3={this.state.loc2}
-                            order={this.state.random}
-                            uid={this.props.uid}
-                        />
-                    </div>
+                    {!this.props.nogame && (
+                        <div
+                            style={{ float: 'right', marginRight: '10px', marginLeft: 'auto' }}
+                            onClick={this.handleClickRandomizer}
+                        >
+                            <GTLmenu
+                                location2={this.state.loc1}
+                                correctLocation={this.props.location}
+                                location3={this.state.loc2}
+                                order={this.state.random}
+                                uid={this.props.uid}
+                            />
+                        </div>
+                    )}
 
-                    {/* {this.state.displayQuestions &&
-                        this.state.questions.map( 
-                            (item: any) => (location1: String, location2: String, location3: String) => {
-                                console.log('Entered GTL');
-                                return (
-                                    <div key={item}>
-                                        <GTLexpanded
-                                            location1={location1}
-                                            location2={location2}
-                                            location3={location3}
-                                        />
-                                    </div>
-                                );
-                            },
-                        )}
-                    {!this.state.displayQuestions && (
-                    <Button
-                        style={{
-                            padding: '5px 20px 5px 20px',
-                            // position: 'static',
-                            // // float: 'right',
-                            // right: '200px',
-                            marginLeft: 'auto',
-                            marginRight: '3px',
-                            background: '#202020',
-                            color: '#F56920',
-                            borderRadius: '20px',
-                            fontSize: '10px',
-                        }}
-                        onClick={this.GTLexpanded} ////////BUGGY LINE: do not uncomment until debugged/////////
-                        variant="contained"
-                        endIcon={<img src={GTLicon} alt="GeoPin"></img>}
-                    >
-                        Guess The
-                        <br></br>
-                        Location
-                    </Button>
-                    )} */}
-
-                    {/* <div>{questions}</div> */}
-                    {/* <div>
-                        <GuessTheLocationPlay city1="Dubai" city2="Paris" city3="Tokyo" />
-                    </div> */}
-
-                    {/* <IconButton
-                        className={clsx(classes.expand, {
-                            [classes.expandOpen]: expanded,
-                        })}
-                        onClick={handleExpandClick}
-                        aria-expanded={expanded}
-                        aria-label="show more"
-                    >
-                        <ExpandMoreIcon />
-                    </IconButton> */}
                 </CardActions>
             </Card>
         );

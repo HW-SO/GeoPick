@@ -7,7 +7,7 @@ import { Theme, createStyles, makeStyles } from '@material-ui/core/styles';
 import firebase from 'firebase';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
-import { useHistory } from 'react-router-dom';
+import { Redirect, useHistory } from 'react-router-dom';
 import ListItemText from '@material-ui/core/ListItemText';
 import Divider from '@material-ui/core/Divider';
 import { Component } from 'react';
@@ -22,6 +22,10 @@ import EditOutlinedIcon from '@material-ui/icons/EditOutlined';
 import ThumbUpAltRoundedIcon from '@material-ui/icons/ThumbUpAltRounded';
 import HighlightOffOutlinedIcon from '@material-ui/icons/HighlightOffOutlined';
 import { storage } from '../../firebase/firebase';
+import { auth } from '../../firebase';
+
+import { RegularBtn } from '../../components/Buttons/RegularBtn';
+import SettingsIcon from '@material-ui/icons/Settings';
 //import { Link} from 'react-router-dom';
 
 export interface AccountSettingProps {}
@@ -59,47 +63,41 @@ const SettingsMenu = () => {
         var user = checkUserLoggedIn();
         // console.log(user)
 
-        if (user){
-            firebase
-                .firestore()
-                .collection('users/')
-                .doc(`${user.uid}/`)
-                .delete()
-                .then(() => console.log('User Deleted'));
+        if (user) {
+            firebase.firestore().collection('users/').doc(`${user.uid}/`).delete();
 
-                var refPosts = storage
-                .ref(`/Images/${user.uid}/Posts`);
-                
-                refPosts.listAll().then(dir =>{
-                    dir.items.forEach(fileRef => {
-                        firebase.storage().ref(refPosts.fullPath).child(fileRef.name).delete();
-                      });
-                }
-                    )
-            
+            var refPosts = storage.ref(`/Images/${user.uid}/Posts`);
 
-            var refAvatar = storage
-                .ref(`/Images/${user.uid}/Avatar`);
-                
-                refAvatar.listAll().then(dir =>{
-                    dir.items.forEach(fileRef => {
-                        firebase.storage().ref(refPosts.fullPath).child(fileRef.name).delete();
-                      });
-                }
-                    )
-
-            var Posts = firebase.firestore().collection('Posts').where('uid', '==',user.uid);
-            Posts.get().then(function(querySnapshot) {
-                querySnapshot.forEach(function(doc) {
-                  doc.ref.delete();
+            refPosts.listAll().then((dir) => {
+                dir.items.forEach((fileRef) => {
+                    firebase.storage().ref(refPosts.fullPath).child(fileRef.name).delete();
                 });
-              });
+            });
 
-            }
-        
+            var refAvatar = storage.ref(`/Images/${user.uid}/Avatar`);
+
+            refAvatar.listAll().then((dir) => {
+                dir.items.forEach((fileRef) => {
+                    firebase.storage().ref(refPosts.fullPath).child(fileRef.name).delete();
+                });
+            });
+
+            var Posts = firebase.firestore().collection('Posts').where('uid', '==', user.uid);
+            Posts.get().then(function (querySnapshot) {
+                querySnapshot.forEach(function (doc) {
+                    doc.ref.delete();
+                });
+            });
+
+            user!!.delete().then(() => {
+                console.log('user deleted from auth');
+                window.location.reload();
+            });
+
+            history.push('/welcome');
+        }
 
         // const { push } = useHistory();
-        history.push('/welcome');
     };
 
     return (
@@ -151,6 +149,23 @@ const SettingsMenu = () => {
                     Designed <span style={{ color: '#f56920' }}>& </span> Developed by<br></br>The Geo
                     <span style={{ color: '#f56920' }}>Pic</span>K team.
                 </Typography>
+                <br></br>
+                <br></br>
+                <br></br>
+                <br></br>
+                <br></br>
+                <br></br>
+                <br></br>
+
+                <RegularBtn
+                    colorType="orange"
+                    style={{ width: 'auto', borderRadius: '20px' }}
+                    onClick={(e) => {
+                        history.push('/settings');
+                    }}
+                >
+                    Back to <span></span> <SettingsIcon />
+                </RegularBtn>
             </div>
         </div>
     );
@@ -167,10 +182,10 @@ export default class AccountSetting extends Component<AccountSettingProps, Accou
         return (
             <div style={{ background: '#1b1b1b' }} className="bgg">
                 <Toolbar>
-                    <img src={WhiteLogo} alt="GeoPicK" className="WhiteLogo" />
-                    <IconButton edge="end">
+                    {/* <img src={WhiteLogo} alt="GeoPicK" className="WhiteLogo" /> */}
+                    {/* <IconButton edge="end">
                         <Avatar alt={this.state.user.User_name} src={this.state.user.Avatar} />
-                    </IconButton>
+                    </IconButton> */}
                 </Toolbar>
                 <div style={{ color: '#fafafa' }}>
                     <Card background="#fafafa" title="Account Settings" split={1}>
