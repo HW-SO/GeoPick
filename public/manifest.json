@@ -1,11 +1,17 @@
 {
     "short_name": "GeoPicK",
-    "name": "GeoPicK - A tool for shutterbugs",
+    "name": "GeoPicK",
+    "description": "A tool for shutterbugs",
     "icons": [
         {
             "src": "favicon.ico",
-            "sizes": "256x256",
+            "sizes": "64x64 32x32 24x24 16x16",
             "type": "image/x-icon"
+        },
+        {
+            "src": "ICONs.png",
+            "type": "image/png",
+            "sizes": "122x128"
         },
         {
             "src": "Charcoal-logo.png",

@@ -13,12 +13,14 @@ export interface SignUpProps {}
 
 export default function SignUpScreen() {
     return (
-        <Card title="Sign Up!" split={1}>
-            <Grid container spacing={4} direction="row" alignItems="center" justify="center">
-                <SignUpHeader title="Enter some of your personal details" />
-                <SignUpForm />
-            </Grid>
-        </Card>
+        <div style={{ color: '#fafafa' }}>
+            <Card title="Sign Up!" split={1}>
+                <Grid container spacing={4} direction="row" alignItems="center" justify="center">
+                    <SignUpHeader title="Enter some of your personal details" />
+                    <SignUpForm />
+                </Grid>
+            </Card>
+        </div>
     );
 }
 
