@@ -1,9 +1,6 @@
-import React, { useState, useLayoutEffect, useRef, useCallback } from 'react';
-import WhiteLogo from '../welcome screen/WhiteLogo.svg';
-import Card from '../../components/Layouts/Card';
+import { useState, useLayoutEffect, useRef, useCallback } from 'react';
 //import { RegularBtn } from '../../components/Buttons/RegularBtn';
 //import TextField from '../../components/Inputs/TextField';
-import ArrowBackRoundedIcon from '@material-ui/icons/ArrowBackRounded';
 import { Box } from '@material-ui/core';
 import firebase from 'firebase';
 //import ProfileOverview from '../../components/Display/profileOverview';
@@ -11,7 +8,6 @@ import firebase from 'firebase';
 //import SinglePostNew from '../../components/Display/singlePostNew';
 //import Places from '../../components/Inputs/Places';
 import { Typography } from '@material-ui/core';
-import BottomNavigation from '../../components/NavBar/navbar';
 
 import ReactMapGL, {
     Marker,

@@ -1,13 +1,12 @@
 import * as React from 'react';
-import WhiteLogo from '../welcome screen/WhiteLogo.svg';
 import { Grid, Typography, Box } from '@material-ui/core';
 import Card from '../../components/Layouts/Card';
-import { Avatar, IconButton, Toolbar } from '@material-ui/core';
+import { Toolbar } from '@material-ui/core';
 import { Theme, createStyles, makeStyles } from '@material-ui/core/styles';
 import firebase from 'firebase';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
-import { Redirect, useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import ListItemText from '@material-ui/core/ListItemText';
 import Divider from '@material-ui/core/Divider';
 import { Component } from 'react';
@@ -22,7 +21,6 @@ import EditOutlinedIcon from '@material-ui/icons/EditOutlined';
 import ThumbUpAltRoundedIcon from '@material-ui/icons/ThumbUpAltRounded';
 import HighlightOffOutlinedIcon from '@material-ui/icons/HighlightOffOutlined';
 import { storage } from '../../firebase/firebase';
-import { auth } from '../../firebase';
 
 import { RegularBtn } from '../../components/Buttons/RegularBtn';
 import SettingsIcon from '@material-ui/icons/Settings';

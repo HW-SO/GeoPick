@@ -1,44 +1,39 @@
-import * as React from 'react';
 import { useState, useRef, useLayoutEffect } from 'react';
 import firebase from 'firebase';
-import { Theme, createStyles, makeStyles } from '@material-ui/core/styles';
-import SinglePostNew1 from '../Display/singlePostNew1';
-import Grid from '@material-ui/core/Grid';
-import GridListTile from '@material-ui/core/GridListTile';
+// import { Theme, createStyles, makeStyles } from '@material-ui/core/styles';
 import { Link } from 'react-router-dom';
-import CardMedia from '@material-ui/core/CardMedia';
 import './userGrid.css';
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    root: {
-      display: 'flex',
-      flexWrap: 'wrap',
-      justifyContent: 'space-around',
-    },
-    gridList: {
-      maxWidth: 250,
-      maxHeight: 200,
-    },
-  }),
-);
+// const useStyles = makeStyles((theme: Theme) =>
+//   createStyles({
+//     root: {
+//       display: 'flex',
+//       flexWrap: 'wrap',
+//       justifyContent: 'space-around',
+//     },
+//     gridList: {
+//       maxWidth: 250,
+//       maxHeight: 200,
+//     },
+//   }),
+// );
 
 export default function UserFeed1(props: any) {
-    const classes = useStyles();
+    // const classes = useStyles();
     const [posts, setPosts] = useState<any[]>([]);
     const firstUpdate = useRef(true);
-    
+
     // loadData = async () => {
     //     const res = await fetch("https://api.agify.io/?name=michael");
     //     setData(await res.json());
-      
+
     // };
     useLayoutEffect(() => {
         if (firstUpdate.current) {
-          firstUpdate.current = false;
-          return;
+            firstUpdate.current = false;
+            return;
         }
-    
+
         // console.log("componentDidUpdateFunction");
         firebase
             .firestore()
@@ -48,20 +43,21 @@ export default function UserFeed1(props: any) {
                 setPosts(snapshot.docs.map((doc: any) => ({ id: doc.id, post: doc.data().Image })));
             });
         // console.log(props.uid)
-      });
+    });
     //   console.log(props.uid)
     return (
         <div className="img-grid">
-        {posts && posts.map(({ id, post }) => (
-        <Link to={{ pathname: `/post/${id}`, state: id }}>
-          <div className="img-wrap" key={id}>
-            <img src={post} alt={post}/>
-          </div>
-          </Link>
-        ))}
-      </div>
+            {posts &&
+                posts.map(({ id, post }) => (
+                    <Link to={{ pathname: `/post/${id}`, state: id }}>
+                        <div className="img-wrap" key={id}>
+                            <img src={post} alt={post} />
+                        </div>
+                    </Link>
+                ))}
+        </div>
         // <div className={classes.root}>
-        //      <Grid container justify="center" spacing={4} style={{display: 'flex', flexWrap: 'wrap', padding: '0 4px'}}> 
+        //      <Grid container justify="center" spacing={4} style={{display: 'flex', flexWrap: 'wrap', padding: '0 4px'}}>
         //         {posts.map(({ id, post }) => (
         //              <Link to={{ pathname: `/post/${id}`, state: id }}>
         //         {/* <GridListTile  key={id} > */}
@@ -80,13 +76,13 @@ export default function UserFeed1(props: any) {
         //                 marginRight: '10px',
         //                 marginTop: '10px',
         //                 marginBottom: '10px',
-                        
+
         //             }}
         //         >
         //             <img src={post} alt={post} style={{objectFit: 'cover'}} />
         //         </Grid>
         //         {/* </GridListTile> */}
-                
+
         //         </Link>
         //         ))}
         //     </Grid>

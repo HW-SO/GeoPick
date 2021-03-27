@@ -1,11 +1,4 @@
-import * as React from 'react';
-import ArrowBackRoundedIcon from '@material-ui/icons/ArrowBackRounded';
-import WhiteLogo from '../welcome screen/WhiteLogo.svg';
-import { Grid, Typography, Box } from '@material-ui/core';
 import Card from '../../components/Layouts/Card';
-import { Avatar, IconButton, Toolbar } from '@material-ui/core';
-import { withStyles, Theme, createStyles } from '@material-ui/core/styles';
-import firebase from 'firebase';
 
 export interface NotificationpgProps {}
 

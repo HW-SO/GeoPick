@@ -2,18 +2,11 @@ import { Card, Typography } from '@material-ui/core';
 import * as React from 'react';
 import { Component } from 'react';
 import './Styles.scss';
-import { Toolbar, AppBar } from '@material-ui/core';
-import ExitToAppIcon from '@material-ui/icons/ExitToApp';
-import WhiteLogo from '../welcome screen/WhiteLogo.svg';
-import { Link } from 'react-router-dom';
-import AvatarSmall from '../../components/Display/avatarSmall';
 import CardHeader from '@material-ui/core/CardHeader';
 import CardMedia from '@material-ui/core/CardMedia';
 import CardContent from '@material-ui/core/CardContent';
 import CardActions from '@material-ui/core/CardActions';
 import Avatar from '@material-ui/core/Avatar';
-import IconButton from '@material-ui/core/IconButton';
-import { checkUserLoggedIn } from '../../firebase/auth';
 import firebase from 'firebase';
 import { RegularBtn } from '../../components/Buttons/RegularBtn';
 import { Box } from '@material-ui/core';
@@ -71,8 +64,6 @@ export class UploadImage extends Component<UploadImageProps, UploadImageState> {
         this.setState({ tags: tagses });
     };
 
-
-
     onSubmit = () => {
         const file = this.state.img;
         const user = auth.checkUserLoggedIn();
@@ -81,8 +72,8 @@ export class UploadImage extends Component<UploadImageProps, UploadImageState> {
         // const history = useHistory();
         if (!user) return;
 
-        if(!this.state.setLocation){
-            alert("Please select a location before submitting");
+        if (!this.state.setLocation) {
+            alert('Please select a location before submitting');
             return;
         }
 
@@ -140,7 +131,6 @@ export class UploadImage extends Component<UploadImageProps, UploadImageState> {
                                             tags: this.state.tags,
                                             location: this.state.location,
                                             coordinates: this.state.coordinates,
-                                            
                                         })
                                         .then(function (docRef) {
                                             console.log('Document written with ID: ', docRef.id);
@@ -150,13 +140,12 @@ export class UploadImage extends Component<UploadImageProps, UploadImageState> {
                                                 .doc(docRef.id)
                                                 .collection('Likes')
                                                 .add({});
-                                            
                                         })
                                         .catch(function (error) {
                                             console.error('Error adding document: ', error);
                                         });
                                 });
-                                this.setState({ posted: true});
+                                this.setState({ posted: true });
                                 // console.log(this.state.imgurl);
                             });
                     }
@@ -164,8 +153,7 @@ export class UploadImage extends Component<UploadImageProps, UploadImageState> {
                 'base64',
             );
         }, 2000);
-        
-        
+
         // this.props.history.push('/home');
         // push('/home');
         // console.log(postRef.documentID);
@@ -186,15 +174,15 @@ export class UploadImage extends Component<UploadImageProps, UploadImageState> {
     updateLocation = (address: string) => {
         this.setState({ location: address });
         // this.setState({ : event.target.value });
-        this.setState({ setLocation: true});
+        this.setState({ setLocation: true });
         // console.log(this.state.location);
     };
 
     updateCoordinates = (coordinates: any) => {
-        const coord = {
-            latitude: coordinates.lat,
-            longtitude: coordinates.lng,
-        };
+        // const coord = {
+        //     latitude: coordinates.lat,
+        //     longtitude: coordinates.lng,
+        // };
         this.setState({ coordinates: coordinates });
         // this.setState({ : event.target.value });
         // console.log(this.state.coordinates);
@@ -205,8 +193,7 @@ export class UploadImage extends Component<UploadImageProps, UploadImageState> {
     };
 
     render() {
-        if(this.state.posted)
-        return <Redirect to='/home' />;
+        if (this.state.posted) return <Redirect to="/home" />;
         return (
             <div style={{ background: '#1b1b1b', padding: '10px' }}>
                 <Typography style={{ color: '#fafafa', fontWeight: 'normal' }} variant="h2">

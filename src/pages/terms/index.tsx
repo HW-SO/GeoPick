@@ -1,9 +1,6 @@
 import { Card, Typography } from '@material-ui/core';
-import * as React from 'react';
-import { Component } from 'react';
 import './Styles.scss';
 import GavelOutlinedIcon from '@material-ui/icons/GavelOutlined';
-import HomeRoundedIcon from '@material-ui/icons/HomeRounded';
 import { RegularBtn } from '../../components/Buttons/RegularBtn';
 import { useHistory } from 'react-router-dom';
 import SettingsIcon from '@material-ui/icons/Settings';

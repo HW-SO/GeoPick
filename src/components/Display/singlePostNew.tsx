@@ -15,7 +15,6 @@ import AddCommentRoundedIcon from '@material-ui/icons/AddCommentRounded';
 import './singlePostStyles.scss';
 import { checkUserLoggedIn } from '../../firebase/auth';
 import firebase from 'firebase';
-import fb from 'firebase/app';
 import { Box } from '@material-ui/core';
 import ReportButton from './report';
 import GTLmenu from '../Game/GTLmenu';
@@ -129,7 +128,7 @@ class SinglePostNew extends Component<SinglePostNewProps, SinglePostNewState> {
             },
         );
 
-        console.log("uid " + this.props.uid + " " + this.props.owner); 
+        console.log('uid ' + this.props.uid + ' ' + this.props.owner);
 
         this.getLocations(this.props.location).then(
             (locs) => {
@@ -147,7 +146,7 @@ class SinglePostNew extends Component<SinglePostNewProps, SinglePostNewState> {
 
     getLocations = (loc: string) => {
         return new Promise((resolve, reject) => {
-            let locs = new Array();
+            let locs = new Array([]);
             firebase
                 .firestore()
                 .collection('Posts')
@@ -308,7 +307,6 @@ class SinglePostNew extends Component<SinglePostNewProps, SinglePostNewState> {
                             />
                         </div>
                     )}
-
                 </CardActions>
             </Card>
         );

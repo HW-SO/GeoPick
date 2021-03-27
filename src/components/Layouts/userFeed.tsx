@@ -1,23 +1,22 @@
-import * as React from 'react';
-import { useState, useEffect, useRef, useLayoutEffect } from 'react';
+import { useState, useRef, useLayoutEffect } from 'react';
 import firebase from 'firebase';
 import SinglePostNew from '../Display/singlePostNew';
 
 export default function UserFeed(props: any) {
     const [posts, setPosts] = useState<any[]>([]);
     const firstUpdate = useRef(true);
-    
+
     // loadData = async () => {
     //     const res = await fetch("https://api.agify.io/?name=michael");
     //     setData(await res.json());
-      
+
     // };
     useLayoutEffect(() => {
         if (firstUpdate.current) {
-          firstUpdate.current = false;
-          return;
+            firstUpdate.current = false;
+            return;
         }
-    
+
         // console.log("componentDidUpdateFunction");
         firebase
             .firestore()
@@ -27,7 +26,7 @@ export default function UserFeed(props: any) {
                 setPosts(snapshot.docs.map((doc: any) => ({ id: doc.id, post: doc.data() })));
             });
         // console.log(props.uid)
-      });
+    });
     //   console.log(props.uid)
     return (
         <div>

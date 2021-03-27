@@ -1,16 +1,13 @@
 import * as React from 'react';
-import WhiteLogo from '../welcome screen/WhiteLogo.svg';
 import './styles.scss';
 import Card from '../../components/Layouts/Card';
 import { RegularBtn } from '../../components/Buttons/RegularBtn';
 import TextField from '../../components/Inputs/TextField';
-import ArrowBackRoundedIcon from '@material-ui/icons/ArrowBackRounded';
 import { Typography } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
 import emailjs from 'emailjs-com';
 import { useHistory } from 'react-router-dom';
 import ArrowForwardIosOutlinedIcon from '@material-ui/icons/ArrowForwardIosOutlined';
-import ReportButton from '../../components/Display/report';
 import { useLocation } from 'react-router-dom';
 export interface HelpandFeedbackProps {
     postID?: string;

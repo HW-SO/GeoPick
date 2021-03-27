@@ -2,10 +2,9 @@ import React from 'react';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import SpeedDial, { SpeedDialProps } from '@material-ui/lab/SpeedDial';
 import SpeedDialAction from '@material-ui/lab/SpeedDialAction';
-import { Fab, IconButton } from '@material-ui/core';
+import { IconButton } from '@material-ui/core';
 import CameraAltRoundedIcon from '@material-ui/icons/CameraAltRounded';
 import { useHistory } from 'react-router-dom';
-
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -29,17 +28,16 @@ const useStyles = makeStyles((theme: Theme) =>
             borderRadius: '0%',
         },
         fabButton: {
-        position: 'absolute',
-        zIndex: 1,
-        left: 0,
-        right: 0,
-        margin: '0 auto',
-        transform: 'translate(0em, -6em)',
-
+            position: 'absolute',
+            zIndex: 1,
+            left: 0,
+            right: 0,
+            margin: '0 auto',
+            transform: 'translate(0em, -6em)',
         },
-         input: {
-        display: 'none',
-    },
+        input: {
+            display: 'none',
+        },
     }),
 );
 
@@ -58,11 +56,9 @@ export default function UploadIcon(props: any) {
         setOpen(true);
         const path = window.location.pathname.split('/');
         const page = path[path.length - 1];
-        if(page !== "upload-image")
-        history.push('/upload-image');
+        if (page !== 'upload-image') history.push('/upload-image');
     };
 
-    
     return (
         <SpeedDial
             className={classes.fabButton}
@@ -70,7 +66,7 @@ export default function UploadIcon(props: any) {
             hidden={hidden}
             icon={
                 // <Fab color="secondary" aria-label="add" >
-                    <CameraAltRoundedIcon />
+                <CameraAltRoundedIcon />
                 // </Fab>
             }
             onClose={handleClose}
@@ -82,32 +78,56 @@ export default function UploadIcon(props: any) {
             <SpeedDialAction
                 key="gallery"
                 className={classes.options}
-                icon={<div>
-                        <input accept="image/*" className={classes.input} id="icon-button-file" type="file" onChange={props.onChange}/>
+                icon={
+                    <div>
+                        <input
+                            accept="image/*"
+                            className={classes.input}
+                            id="icon-button-file"
+                            type="file"
+                            onChange={props.onChange}
+                        />
                         <label htmlFor="icon-button-file">
-                            <IconButton className={classes.options} color="inherit" aria-label="upload picture" component="span" > Select From Gallery </IconButton>
+                            <IconButton
+                                className={classes.options}
+                                color="inherit"
+                                aria-label="upload picture"
+                                component="span"
+                            >
+                                {' '}
+                                Select From Gallery{' '}
+                            </IconButton>
                         </label>
-                        </div>}
+                    </div>
+                }
                 tooltipTitle="gallery"
                 onClick={handleClose}
             />
             <SpeedDialAction
                 key="camera"
                 className={classes.options}
-                icon={<div>
-                        <input accept="image/*" className={classes.input} id="direct-button-file" type="file" capture="environment" onChange={props.onChange}/>
+                icon={
+                    <div>
+                        <input
+                            accept="image/*"
+                            className={classes.input}
+                            id="direct-button-file"
+                            type="file"
+                            capture="environment"
+                            onChange={props.onChange}
+                        />
                         <label htmlFor="icon-button-file">
                             <IconButton
-                            color="inherit"
-                            aria-label="upload camera"
-                            component="span"
-                            className={classes.options}
+                                color="inherit"
+                                aria-label="upload camera"
+                                component="span"
+                                className={classes.options}
                             >
-                            Take A Photo
+                                Take A Photo
                             </IconButton>
                         </label>
                     </div>
-                  }
+                }
                 tooltipTitle="camera"
                 onClick={handleClose}
             />

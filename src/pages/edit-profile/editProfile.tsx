@@ -1,12 +1,11 @@
-import { Avatar, Box, Button, Card, CardContent, Divider, Typography } from '@material-ui/core';
+import { Box, Button, Card, Divider, Typography } from '@material-ui/core';
 import * as React from 'react';
 import { Component } from 'react';
 import TextField from '../../components/Inputs/TextField';
 import WhiteLogo from '../welcome screen/WhiteLogo.svg';
-import OccupationSelect from '../../components/Inputs/occupation';
-import { Link, useHistory } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { auth } from '../../firebase';
-import ReactDOM from 'react-dom';
+// import ReactDOM from 'react-dom';
 import BadgeAvatar from '../../components/Display/AddAvatarBadge';
 import firebase from 'firebase';
 import Compress from 'react-image-file-resizer';
@@ -18,27 +17,24 @@ export interface EditProfileProps {
 }
 
 export interface EditProfileState {
-    username:any;
-    imgurl:any;
-    bio:any;
+    username: any;
+    imgurl: any;
+    bio: any;
 }
 
 class EditProfile extends Component<EditProfileProps, EditProfileState> {
-
     constructor(EditProfileState) {
         super(EditProfileState);
         this.state = {
-            username:'',
-            imgurl:'',
-            bio:'',
-        }
-        this.handleonchange = this.handleonchange.bind(this)
-        this.handleonclickSubmit = this.handleonclickSubmit.bind(this)
-        this.handleonchangebio = this.handleonchangebio.bind(this)
-        
+            username: '',
+            imgurl: '',
+            bio: '',
+        };
+        this.handleonchange = this.handleonchange.bind(this);
+        this.handleonclickSubmit = this.handleonclickSubmit.bind(this);
+        this.handleonchangebio = this.handleonchangebio.bind(this);
+    }
 
-    };
-    
     signOut = () => {
         auth.doSignOut();
     };
@@ -49,7 +45,7 @@ class EditProfile extends Component<EditProfileProps, EditProfileState> {
 
     handleonclickSubmit() {
         console.log('Profile edit changes!');
-        console.log(this.state.username)
+        console.log(this.state.username);
         firebase.firestore().collection('users/').doc(`${this.props.uid}/`).update({
             User_name: this.state.username,
             Bio: this.state.bio,
@@ -64,18 +60,14 @@ class EditProfile extends Component<EditProfileProps, EditProfileState> {
         // push('/ReSet-password'); CHECK
     }
 
-    handleonchange(event: any)
-    {
-        
-        this.setState({username:event.target.value})
-        console.log(this.state.username)
+    handleonchange(event: any) {
+        this.setState({ username: event.target.value });
+        console.log(this.state.username);
     }
 
-    handleonchangebio(event: any)
-    {
-        
-        this.setState({bio:event.target.value})
-        console.log(this.state.bio)
+    handleonchangebio(event: any) {
+        this.setState({ bio: event.target.value });
+        console.log(this.state.bio);
     }
 
     changeAvatar = async (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -202,11 +194,9 @@ class EditProfile extends Component<EditProfileProps, EditProfileState> {
                             rows={1}
                             rowsMax={4}
                             onChange={this.handleonchangebio}
-                            
                         ></TextField>
-                        
                     </div>
-                    
+
                     <Box m={3}></Box>
                     <Button
                         onClick={this.handleonclickSubmit}
@@ -272,66 +262,66 @@ class EditProfile extends Component<EditProfileProps, EditProfileState> {
 
 export default EditProfile;
 
-class Username extends React.Component {
-    state = { value: '' };
+// class Username extends React.Component {
+//     state = { value: '' };
 
-    changeValue(value) {
-        this.setState({ value });
-    }
+//     changeValue(value) {
+//         this.setState({ value });
+//     }
 
-    render() {
-        const { value } = this.state;
-        return <h1>{value}</h1>;
-    }
-}
+//     render() {
+//         const { value } = this.state;
+//         return <h1>{value}</h1>;
+//     }
+// }
 
-function App() {
-    function clickHandler() {}
+// function App() {
+//     function clickHandler() {}
 
-    return (
-        <div>
-            <button onClick={clickHandler}>Change Username</button>
-            <input type="text" />
-            <Username />
-        </div>
-    );
-}
+//     return (
+//         <div>
+//             <button onClick={clickHandler}>Change Username</button>
+//             <input type="text" />
+//             <Username />
+//         </div>
+//     );
+// }
 
-document.body.innerHTML = "<div id='root'></div>";
-const rootElement = document.getElementById('root');
-ReactDOM.render(<App />, rootElement);
+// document.body.innerHTML = "<div id='root'></div>";
+// const rootElement = document.getElementById('root');
+// ReactDOM.render(<App />, rootElement);
 
-class editAvatar extends React.Component {
-    constructor(props) {
-        super(props);
-        const src = './example/einshtein.jpg';
-        this.state = {
-            preview: null,
-            src,
-        };
-        this.onCrop = this.onCrop.bind(this);
-        this.onClose = this.onClose.bind(this);
-        this.onBeforeFileLoad = this.onBeforeFileLoad.bind(this);
-    }
+// class editAvatar extends React.Component {
+//     constructor(props) {
+//         super(props);
+//         const src = './example/einshtein.jpg';
+//         this.state = {
+//             preview: null,
+//             src,
+//         };
+//         this.onCrop = this.onCrop.bind(this);
+//         this.onClose = this.onClose.bind(this);
+//         this.onBeforeFileLoad = this.onBeforeFileLoad.bind(this);
+//     }
 
-    onClose() {
-        this.setState({ preview: null });
-    }
+//     onClose() {
+//         this.setState({ preview: null });
+//     }
 
-    onCrop(preview) {
-        this.setState({ preview });
-    }
+//     onCrop(preview) {
+//         this.setState({ preview });
+//     }
 
-    onBeforeFileLoad(elem) {
-        if (elem.target.files[0].size > 71680) {
-            alert('File is too big!');
-            elem.target.value = '';
-        }
-    }
+//     onBeforeFileLoad(elem) {
+//         if (elem.target.files[0].size > 71680) {
+//             alert('File is too big!');
+//             elem.target.value = '';
+//         }
+//     }
 
-    render() {
-        return <div></div>;
-    }
-}
+//     render() {
+//         return <div></div>;
+//     }
+// }
 
-ReactDOM.render(<App />, document.getElementById('root'));
+// ReactDOM.render(<App />, document.getElementById('root'));

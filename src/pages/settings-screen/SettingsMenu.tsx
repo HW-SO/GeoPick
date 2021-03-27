@@ -1,4 +1,3 @@
-import * as React from 'react';
 import Card from '../../components/Layouts/Card';
 import { Component } from 'react';
 import { createStyles, Theme, makeStyles } from '@material-ui/core/styles';
@@ -8,10 +7,9 @@ import ListItemText from '@material-ui/core/ListItemText';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import Divider from '@material-ui/core/Divider';
 import { Grid, Typography, Box } from '@material-ui/core';
-import WhiteLogo from '../welcome screen/WhiteLogo.svg';
 import './styles.scss';
 import { checkUserLoggedIn } from '../../firebase/auth';
-import { Avatar, IconButton, Toolbar } from '@material-ui/core';
+import { Avatar } from '@material-ui/core';
 import AccountCircleRoundedIcon from '@material-ui/icons/AccountCircleRounded';
 import NotificationImportantRoundedIcon from '@material-ui/icons/NotificationImportantRounded';
 import AccessibilityNewRoundedIcon from '@material-ui/icons/AccessibilityNewRounded';
@@ -40,9 +38,9 @@ const SettingsMenu = () => {
     // function HomeButton() {
     //     let history = useHistory();
 
-    function onClick(e: any) {
-        e.preventDefault();
-    }
+    // function onClick(e: any) {
+    //     e.preventDefault();
+    // }
 
     const history = useHistory();
 
@@ -137,7 +135,6 @@ export default class SettingsMenuScreen extends Component<SettingsMenuProps, Set
     render() {
         return (
             <div style={{ background: '#1b1b1b' }} className="bgg">
-
                 <div style={{ color: '#fafafa' }}>
                     <Card background="#fafafa" title="Settings" split={1}>
                         <div style={{ color: 'black' }}>

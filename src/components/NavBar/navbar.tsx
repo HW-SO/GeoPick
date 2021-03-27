@@ -1,4 +1,3 @@
-import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Link } from 'react-router-dom';
 import HomeRoundedIcon from '@material-ui/icons/HomeRounded';
@@ -6,8 +5,7 @@ import SearchRoundedIcon from '@material-ui/icons/SearchRounded';
 import ExploreRoundedIcon from '@material-ui/icons/ExploreRounded';
 import SettingsRoundedIcon from '@material-ui/icons/SettingsRounded';
 import UploadIcon from '../Display/uploadIcon';
-import { AppBar, IconButton, Toolbar, Box } from '@material-ui/core';
-import CameraAltRoundedIcon from '@material-ui/icons/CameraAltRounded';
+import { AppBar, IconButton, Toolbar } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
     text: {

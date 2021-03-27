@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import React from 'react';
 import PlacesAutocomplete, { geocodeByAddress, getLatLng } from 'react-places-autocomplete';
 import TextField from './TextField';
@@ -5,6 +6,7 @@ import './Places.scss';
 
 export default function Places(props: any) {
     const [address, setAddress] = React.useState('');
+
     const [coordinates, setCoordinates] = React.useState({
         lat: null,
         lng: null,

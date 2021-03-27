@@ -3,7 +3,6 @@ import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import SpeedDial, { SpeedDialProps } from '@material-ui/lab/SpeedDial';
 import SpeedDialAction from '@material-ui/lab/SpeedDialAction';
 import GuessTheLocationButton from '../Display/guess-the-location.svg';
-import { IconButton } from '@material-ui/core';
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -32,7 +31,8 @@ export default function GuessTheLocationPlay({ city1, city2, city3 }: { city1: s
     const classes = useStyles();
     const [direction] = React.useState<SpeedDialProps['direction']>('up');
     const [open, setOpen] = React.useState(false);
-    const [hidden] = React.useState(false);
+
+    // const [hidden] = React.useState(false);
 
     const actions = [
         { icon: <p>{city1}</p>, name: '' },

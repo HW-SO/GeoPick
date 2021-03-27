@@ -11,7 +11,7 @@ import firebase from 'firebase';
 import Compress from 'react-image-file-resizer';
 import OccupationSelect from '../../components/Inputs/occupation';
 import { useForm } from 'react-hook-form';
-import { Link, useHistory, useRouteMatch } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import { auth } from '../../firebase';
 import { makeStyles } from '@material-ui/core/styles';
 export interface CreateProfileProps {}
@@ -191,14 +191,14 @@ const CreateProfileForm = ({ img }: { img: string }) => {
                         console.log('Error ' + err);
                         alert(err);
                     });
-                firebase.firestore()
+                firebase
+                    .firestore()
                     .collection('users/')
                     .doc(user.uid)
                     .collection('following')
                     .doc('BkdgyB1G7RU0FYmdIBwBi7OiZBU2')
                     .set({
                         UserId: 'BkdgyB1G7RU0FYmdIBwBi7OiZBU2',
-                        
                     });
 
                 push('/home');

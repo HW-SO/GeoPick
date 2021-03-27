@@ -2,12 +2,10 @@ import React from 'react';
 import './tags.scss';
 import Textfield from './TextField';
 
-import { TextField as 
-    //MatTextField
-     withStyles, Chip, Typography } from '@material-ui/core';
+import { Chip, Typography } from '@material-ui/core';
 
 const Tags = (props: any) => {
-    const [tags, setTags] = React.useState(Array());
+    const [tags, setTags] = React.useState(Array([]));
 
     const addTags = (event: any) => {
         if (event.key === 'Enter' && event.target.value !== '') {
@@ -21,10 +19,7 @@ const Tags = (props: any) => {
     };
     return (
         <>
-            <Textfield
-                label="Add tags"
-                onKeyUp={(event) => addTags(event)}
-            />
+            <Textfield label="Add tags" onKeyUp={(event) => addTags(event)} />
             <div className="tags-input">
                 <ul id="tags">
                     <Typography variant="h6" style={{ color: '#fafafa', marginRight: '5px', fontSize: '20px' }}>

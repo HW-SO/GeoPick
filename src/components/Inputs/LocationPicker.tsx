@@ -1,5 +1,4 @@
-import React from 'react';
-import { Box, TextField as MatTextField, TextFieldProps, withStyles } from '@material-ui/core';
+import { TextFieldProps } from '@material-ui/core';
 import { Autocomplete } from '@material-ui/lab';
 import TextField from './TextField';
 

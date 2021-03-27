@@ -1,14 +1,10 @@
 import * as React from 'react';
-import ArrowBackRoundedIcon from '@material-ui/icons/ArrowBackRounded';
-import WhiteLogo from '../welcome screen/WhiteLogo.svg';
-import { Grid, Typography, Box } from '@material-ui/core';
+import { Typography, Box } from '@material-ui/core';
 import Card from '../../components/Layouts/Card';
-import { Avatar, IconButton, Toolbar } from '@material-ui/core';
-import { withStyles, Theme, createStyles } from '@material-ui/core/styles';
-import { purple } from '@material-ui/core/colors';
+import { withStyles } from '@material-ui/core/styles';
 import FormGroup from '@material-ui/core/FormGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Switch, { SwitchClassKey, SwitchProps } from '@material-ui/core/Switch';
+import Switch from '@material-ui/core/Switch';
 export interface NotificationProps {}
 
 const OrangeSwitch = withStyles({

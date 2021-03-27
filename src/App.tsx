@@ -1,6 +1,5 @@
-import React from 'react';
 import './App.css';
-import { BrowserRouter as Router, Link, Route, Switch, Redirect } from 'react-router-dom';
+import { BrowserRouter as Router, Link, Route, Switch } from 'react-router-dom';
 import WelcomeScreen from './pages/welcome screen';
 import SignInScreen from './pages/sign-in screen/SignInForm';
 import SignUpScreen from './pages/sign-up screen/SignupForm';
@@ -34,7 +33,6 @@ import ViewFollowers from './pages/followers-page/ViewFollowers';
 import WebCamFun from './pages/camera/index';
 import AccountSetting from './pages/AccountSetting/index';
 import { useState, useEffect } from 'react';
-import { checkUserLoggedIn } from './firebase/auth';
 import { auth } from './firebase';
 // import { auth } from './firebase';
 import firebase from 'firebase';
@@ -272,84 +270,84 @@ function App(): JSX.Element {
     );
 }
 
-function Nav() {
-    return (
-        <div>
-            <nav>
-                <ul>
-                    <li>
-                        <Link to="/welcome">Welcome</Link>
-                    </li>
-                    <li>
-                        <Link to="/sign-in">Sign-In</Link>
-                    </li>
-                    <li>
-                        <Link to="/sign-up">Sign-Up</Link>
-                    </li>
-                    <li>
-                        <Link to="/create-profile">Create Profile</Link>
-                    </li>
-                    <li>
-                        <Link to="/Set-password">Set new password</Link>
-                    </li>
-                    <li>
-                        <Link to="/ReSet-password">reset password </Link>
-                    </li>
-                    <li>
-                        <Link to="/home">Home Screen</Link>
-                    </li>
-                    <li>
-                        <Link to="/post">Post View Screen</Link>
-                    </li>
-                    <li>
-                        <Link to="/terms">Terms and Conditions</Link>
-                    </li>
-                    <li>
-                        <Link to="/settings">Settings</Link>
-                    </li>
-                    <li>
-                        <Link to="/helpnfeedback">Help and Feedback</Link>
-                    </li>
-                    <li>
-                        <Link to="/ProfilePage">Profile Page</Link>
-                    </li>
-                    <li>
-                        <Link to="/upload-image">Upload Image</Link>
-                    </li>
-                    <li>
-                        <Link to="/accessibility">Accessibility</Link>
-                    </li>
-                    <li>
-                        <Link to="/search">Search</Link>
-                    </li>
-                    <li>
-                        <Link to="/notificationset">Notifications</Link>
-                    </li>
-                    <li>
-                        <Link to="/notification">NotificationsPage</Link>
-                    </li>
-                    <li>
-                        <Link to="/ViewPoints">View points</Link>
-                    </li>
-                    <li>
-                        <Link to="/EditProfile">Edit Profile</Link>
-                    </li>
-                    <li>
-                        <Link to="/Camera">camera</Link>
-                    </li>
-                    <li>
-                        <Link to="/explore">Explore</Link>
-                    </li>
-                    <li>
-                        <Link to="/ViewFollowers">ViewFollowers</Link>
-                    </li>
-                    <li>
-                        <Link to="/AccountSetting">AccountSetting</Link>
-                    </li>
-                </ul>
-            </nav>
-        </div>
-    );
-}
+// function Nav() {
+//     return (
+//         <div>
+//             <nav>
+//                 <ul>
+//                     <li>
+//                         <Link to="/welcome">Welcome</Link>
+//                     </li>
+//                     <li>
+//                         <Link to="/sign-in">Sign-In</Link>
+//                     </li>
+//                     <li>
+//                         <Link to="/sign-up">Sign-Up</Link>
+//                     </li>
+//                     <li>
+//                         <Link to="/create-profile">Create Profile</Link>
+//                     </li>
+//                     <li>
+//                         <Link to="/Set-password">Set new password</Link>
+//                     </li>
+//                     <li>
+//                         <Link to="/ReSet-password">reset password </Link>
+//                     </li>
+//                     <li>
+//                         <Link to="/home">Home Screen</Link>
+//                     </li>
+//                     <li>
+//                         <Link to="/post">Post View Screen</Link>
+//                     </li>
+//                     <li>
+//                         <Link to="/terms">Terms and Conditions</Link>
+//                     </li>
+//                     <li>
+//                         <Link to="/settings">Settings</Link>
+//                     </li>
+//                     <li>
+//                         <Link to="/helpnfeedback">Help and Feedback</Link>
+//                     </li>
+//                     <li>
+//                         <Link to="/ProfilePage">Profile Page</Link>
+//                     </li>
+//                     <li>
+//                         <Link to="/upload-image">Upload Image</Link>
+//                     </li>
+//                     <li>
+//                         <Link to="/accessibility">Accessibility</Link>
+//                     </li>
+//                     <li>
+//                         <Link to="/search">Search</Link>
+//                     </li>
+//                     <li>
+//                         <Link to="/notificationset">Notifications</Link>
+//                     </li>
+//                     <li>
+//                         <Link to="/notification">NotificationsPage</Link>
+//                     </li>
+//                     <li>
+//                         <Link to="/ViewPoints">View points</Link>
+//                     </li>
+//                     <li>
+//                         <Link to="/EditProfile">Edit Profile</Link>
+//                     </li>
+//                     <li>
+//                         <Link to="/Camera">camera</Link>
+//                     </li>
+//                     <li>
+//                         <Link to="/explore">Explore</Link>
+//                     </li>
+//                     <li>
+//                         <Link to="/ViewFollowers">ViewFollowers</Link>
+//                     </li>
+//                     <li>
+//                         <Link to="/AccountSetting">AccountSetting</Link>
+//                     </li>
+//                 </ul>
+//             </nav>
+//         </div>
+//     );
+// }
 
 export default App;

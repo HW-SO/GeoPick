@@ -3,7 +3,6 @@ import { Avatar, Grid, Card, Typography, IconButton, Divider } from '@material-u
 import * as React from 'react';
 import fb from 'firebase/app';
 import { Component } from 'react';
-import { checkUserLoggedIn } from '../../firebase/auth';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import CardHeader from '@material-ui/core/CardHeader';
 import CardMedia from '@material-ui/core/CardMedia';
@@ -136,8 +135,8 @@ export default class PostViewScreen extends Component<EditPostViewProps, EditPos
     };
 
     render() {
-        const path = window.location.pathname.split('/');
-        const pid = path[path.length - 1];
+        // const path = window.location.pathname.split('/');
+        // const pid = path[path.length - 1];
 
         return (
             <Card

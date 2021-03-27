@@ -1,8 +1,5 @@
 import React from 'react';
-import WhiteLogo from '../welcome screen/WhiteLogo.svg';
-import Card from '../../components/Layouts/Card';
 import TextField from '../../components/Inputs/TextField';
-import ArrowBackRoundedIcon from '@material-ui/icons/ArrowBackRounded';
 import { Box, Typography } from '@material-ui/core';
 import firebase from 'firebase';
 import ProfileOverview from '../../components/Display/profileOverview';
@@ -11,13 +8,6 @@ import SinglePostNew from '../../components/Display/singlePostNew';
 import Feed from '../../components/Layouts/feed';
 import './search.scss';
 import { Component } from 'react';
-import ExitToAppIcon from '@material-ui/icons/ExitToApp';
-import { auth } from '../../firebase';
-import { IconButton, Toolbar, AppBar } from '@material-ui/core';
-import BottomNavigation from '../../components/NavBar/navbar';
-import { Link } from 'react-router-dom';
-import AvatarSmall from '../../components/Display/avatarSmall';
-import { checkUserLoggedIn } from '../../firebase/auth';
 
 export interface SearchProps {
     uid?: string;

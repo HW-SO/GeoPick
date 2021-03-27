@@ -1,15 +1,11 @@
 import * as React from 'react';
 import './styles.scss';
-import ArrowBackRoundedIcon from '@material-ui/icons/ArrowBackRounded';
-import WhiteLogo from '../welcome screen/WhiteLogo.svg';
 import { Typography, Box } from '@material-ui/core';
 import Card from '../../components/Layouts/Card';
-import { Toolbar } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
 import FormGroup from '@material-ui/core/FormGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Switch from '@material-ui/core/Switch';
-import DarkModeToggle from 'react-dark-mode-toggle';
 import useDarkMode from 'use-dark-mode';
 export interface AccessibilityProps {}
 
@@ -44,8 +40,8 @@ export default function Accessibility() {
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setState({ ...state, [event.target.name]: event.target.checked });
     };
-    const [isDarkMode, setIsDarkMode] = React.useState(() => false);
-    const darkMode = useDarkMode(false);
+    // const [isDarkMode, setIsDarkMode] = React.useState(() => false);
+    const darkMode = useDarkMode(true);
     return (
         <div style={{ background: '#1b1b1b' }} className="bgg">
             {/* <Toolbar>

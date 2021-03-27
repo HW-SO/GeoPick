@@ -1,7 +1,5 @@
 import * as React from 'react';
-import { Component } from 'react';
-import { Avatar, Box, Button, Card, CardHeader, Grid, Typography } from '@material-ui/core';
-import WhiteLogo from '../welcome screen/WhiteLogo.svg';
+import { Avatar, Box, Card, Typography } from '@material-ui/core';
 export interface ViewPointsProps {
     uid?: string;
     user?: any;

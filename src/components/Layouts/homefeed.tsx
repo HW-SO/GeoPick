@@ -1,3 +1,4 @@
+/* eslint-disable array-callback-return */
 import * as React from 'react';
 import { useState, useEffect } from 'react';
 import firebase from 'firebase';
@@ -37,10 +38,11 @@ export default function HomeFeed(props: any) {
                 });
             setPostLoaded(true);
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [following.length]);
 
     const getFollowing = async () => {
-        const f = new Array();
+        const f = new Array([]);
         let doc;
         console.log('following in');
         const result = await firebase.firestore().collection('users').doc(props.uid).collection('following').get();

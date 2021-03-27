@@ -1,12 +1,8 @@
-import { Avatar, Button, Card, CardContent, CardHeader, Grid, Typography, Box } from '@material-ui/core';
+import { Button, Typography, Box } from '@material-ui/core';
 import { Link } from 'react-router-dom';
-import * as React from 'react';
 import { Component } from 'react';
 import WhiteLogo from '../welcome screen/WhiteLogo.svg';
-import BadgeAvatar from '../../components/Display/AddAvatarBadge';
-import SinglePostNew from '../../components/Display/singlePostNew';
 import ProfileOverview from '../../components/Display/profileOverview';
-import { checkUserLoggedIn } from '../../firebase/auth';
 import firebase from 'firebase';
 import UserFeed1 from '../../components/Layouts/userFeed1';
 
@@ -37,11 +33,11 @@ class UserPage extends Component<UserPageProps, UserPageState> {
         const path = window.location.pathname.split('/');
         const uid = path[path.length - 1];
 
-        this.setState({ uid: uid});
+        this.setState({ uid: uid });
 
         this.getUser().then(
             (user) => {
-                this.setState({ isAuthenticated: true, user: user});
+                this.setState({ isAuthenticated: true, user: user });
                 // const path = window.location.pathname.split('/');
                 // const uid = path[path.length - 1];
                 // const u = checkUserLoggedIn();
@@ -71,7 +67,7 @@ class UserPage extends Component<UserPageProps, UserPageState> {
                 .get()
                 .then((querySnapshot) => {
                     const data = querySnapshot.data();
-                    const id = querySnapshot.id;
+                    // const id = querySnapshot.id;
                     if (data) {
                         resolve(data);
                     } else {
@@ -93,41 +89,43 @@ class UserPage extends Component<UserPageProps, UserPageState> {
                     alt="GeoPicK"
                     style={{ width: '200px', height: '66px', margin: 'auto', paddingBottom: '1em' }}
                 />
-                {this.props.user_uid === this.state.uid &&
-                <ProfileOverview
-                    User={this.state.user}
-                    User_name={<span style={{ fontSize: 'calc(12px + 2vw)' }}>{this.state.user.User_name}</span>}
-                    Avatar={this.state.user.Avatar}
-                    Size="large"
-                    uid={this.state.uid}
-                />}
-                {this.props.user_uid !== this.state.uid &&
-                <ProfileOverview
-                    User={this.state.user}
-                    User_name={<span style={{ fontSize: 'calc(12px + 2vw)' }}>{this.state.user.User_name}</span>}
-                    Avatar={this.state.user.Avatar}
-                    Size="large"
-                    uid={this.state.uid}
-                    followers
-                />}
+                {this.props.user_uid === this.state.uid && (
+                    <ProfileOverview
+                        User={this.state.user}
+                        User_name={<span style={{ fontSize: 'calc(12px + 2vw)' }}>{this.state.user.User_name}</span>}
+                        Avatar={this.state.user.Avatar}
+                        Size="large"
+                        uid={this.state.uid}
+                    />
+                )}
+                {this.props.user_uid !== this.state.uid && (
+                    <ProfileOverview
+                        User={this.state.user}
+                        User_name={<span style={{ fontSize: 'calc(12px + 2vw)' }}>{this.state.user.User_name}</span>}
+                        Avatar={this.state.user.Avatar}
+                        Size="large"
+                        uid={this.state.uid}
+                        followers
+                    />
+                )}
                 <br></br>
                 <br></br>
                 {this.props.user_uid === this.state.uid && (
                     <>
                         <Link to="/EditProfile">
-                        <Button
-                            style={{
-                                paddingLeft: '15%',
-                                paddingRight: '15%',
-                                background: '#f56920',
-                                borderRadius: '20px',
-                                marginRight: '10%',
-                            }}
-                        >
-                            <Typography variant="button" style={{ color: '#fafafa' }}>
-                                Edit Profile
-                            </Typography>
-                        </Button>
+                            <Button
+                                style={{
+                                    paddingLeft: '15%',
+                                    paddingRight: '15%',
+                                    background: '#f56920',
+                                    borderRadius: '20px',
+                                    marginRight: '10%',
+                                }}
+                            >
+                                <Typography variant="button" style={{ color: '#fafafa' }}>
+                                    Edit Profile
+                                </Typography>
+                            </Button>
                         </Link>
                         <Button
                             style={{

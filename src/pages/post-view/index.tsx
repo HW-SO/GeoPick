@@ -1,20 +1,16 @@
 /* eslint-disable no-lone-blocks */
-import { Avatar, Grid, Card, Typography, IconButton, Container, Divider, Box } from '@material-ui/core';
-import * as React from 'react';
+import { Grid, Card, Typography, IconButton, Divider, Box } from '@material-ui/core';
 import InputBase from '@material-ui/core/InputBase';
 import PublishRoundedIcon from '@material-ui/icons/PublishRounded';
 import fb from 'firebase/app';
 import { Component } from 'react';
-import { checkUserLoggedIn } from '../../firebase/auth';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import SharePost from '../../components/Display/sharePost';
 import CardHeader from '@material-ui/core/CardHeader';
 import CardMedia from '@material-ui/core/CardMedia';
 import CardContent from '@material-ui/core/CardContent';
 import CardActions from '@material-ui/core/CardActions';
-import MoreVertIcon from '@material-ui/icons/MoreVert';
 import DeleteIcon from '@material-ui/icons/Delete';
-import { Link } from 'react-router-dom';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import AvatarSmall from '../../components/Display/avatarSmall';
@@ -22,12 +18,10 @@ import EditButton from '../../components/Display/edit';
 import ReportButton from '../../components/Display/report';
 
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import ListItemText from '@material-ui/core/ListItemText';
 import { db } from '../../firebase';
 // import AvatarSmall from '.,/avatarSmall';
-
 
 export interface PostViewState {
     newComment: string;
@@ -155,7 +149,7 @@ export default class PostViewScreen extends Component<PostViewProps, PostViewSta
 
         const handleClick = (event: any) => {
             const FieldValue = fb.firestore.FieldValue;
-            const comment = `${this.props.user.User_name} : ${this.state.newComment}`;
+            // const comment = `${this.props.user.User_name} : ${this.state.newComment}`;
             let newC = {
                 id: this.props.uid,
                 name: this.props.user.User_name,
@@ -252,7 +246,6 @@ export default class PostViewScreen extends Component<PostViewProps, PostViewSta
                         {/* <IconButton aria-label="share"> */}
                         <SharePost sharedURL={window.location.href} />
                         {/* </IconButton> */}
-                        
                     </CardActions>
                 </Card>
                 <Divider variant="middle" style={{ background: '#fafafa', margin: '10px' }} />
@@ -264,7 +257,7 @@ export default class PostViewScreen extends Component<PostViewProps, PostViewSta
                         <List>
                             {this.state.comments.map((val: any, index: any) => {
                                 return (
-                                    <ListItem key = {index}>
+                                    <ListItem key={index}>
                                         <ListItemAvatar>
                                             <AvatarSmall
                                                 User={this.props.user}
@@ -275,7 +268,7 @@ export default class PostViewScreen extends Component<PostViewProps, PostViewSta
                                             />
                                         </ListItemAvatar>
                                         <ListItemText primary={val.comment} />
-                                        {val.id == this.props.uid && (
+                                        {val.id === this.props.uid && (
                                             <ListItemSecondaryAction>
                                                 <IconButton
                                                     edge="end"

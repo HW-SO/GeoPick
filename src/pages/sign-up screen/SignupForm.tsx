@@ -1,12 +1,11 @@
 import { Grid, Typography } from '@material-ui/core';
-import * as React from 'react';
 import TextField from '../../components/Inputs/TextField';
 import PasswordField from '../../components/Inputs/PasswordField';
 import Card from '../../components/Layouts/Card';
 import { RegularBtn } from '../../components/Buttons/RegularBtn';
 import { auth } from '../../firebase';
 import { useForm } from 'react-hook-form';
-import { Link, useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import Recaptcha from 'react-recaptcha';
 import { useState } from 'react';
 
