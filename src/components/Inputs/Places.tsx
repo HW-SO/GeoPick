@@ -29,11 +29,18 @@ export default function Places(props: any) {
             <PlacesAutocomplete value={address} onChange={setAddress} onSelect={handleSelect}>
                 {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
                     <div>
-                        <TextField {...getInputProps({ placeholder: 'Add Location', className: 'search' })} />
+                        {/* @ts-ignore */}
+                        <TextField
+                            {...getInputProps({
+                                placeholder: 'Add Location',
+                                className: 'search',
+                                variant: 'outlined',
+                            })}
+                        />
 
                         <div>
                             {loading ? <div className="load">...loading</div> : null}
-
+                            {/* @ts-ignore */}
                             {suggestions.map((suggestion) => {
                                 const style = {
                                     backgroundColor: suggestion.active ? '#f56920' : '#F59158',

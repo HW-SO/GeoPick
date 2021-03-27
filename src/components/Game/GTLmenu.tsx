@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Menu, MenuItem, MenuHeader } from '@szhsin/react-menu';
 import '@szhsin/react-menu/dist/index.css';
 import { Button, Typography } from '@material-ui/core';
@@ -7,6 +7,7 @@ import fb from 'firebase/app';
 
 import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert, { AlertProps } from '@material-ui/lab/Alert';
+import { db } from '../../firebase';
 
 function Alert(props: AlertProps) {
     return <MuiAlert elevation={6} variant="filled" {...props} />;
@@ -17,15 +18,18 @@ export default function GTLmenus(props: {
     location3: String;
     order: Number;
     uid?: string;
-}) {
+    pid: string;
+}): JSX.Element {
     const [openCorrect, setOpenCorrect] = React.useState(false);
     const [openWrong, setOpenWrong] = React.useState(false);
+    const [played, setPlayed] = React.useState(true);
 
     const handleClickRightAns = () => {
-        const increment = fb.firestore.FieldValue.increment(10);
         if (props.uid !== undefined) {
-            fb.firestore().collection('users').doc(props.uid).update({
-                GamePoint: increment,
+            console.log('playing');
+            db.userPlay(props.pid, 10).then((p) => {
+                console.log(p);
+                setPlayed(p);
             });
         }
         setOpenCorrect(true);
@@ -38,15 +42,20 @@ export default function GTLmenus(props: {
         setOpenCorrect(false);
     };
 
-    const handleClickWrongAns = () => {
-        const decrement = fb.firestore.FieldValue.increment(-5);
-        if (props.uid !== undefined) {
-            fb.firestore().collection('users').doc(props.uid).update({
-                GamePoint: decrement,
-            });
-        }
+    useEffect(() => {
+        db.didUserPlay(props.pid).then((p) => {
+            console.log('setting', p);
+            setPlayed(p);
+        });
+    });
 
-        setOpenWrong(true);
+    const handleClickWrongAns = () => {
+        console.log('wrong');
+        if (props.uid !== undefined) {
+            db.userPlay(props.pid, -5).then((p) => setPlayed(p));
+
+            setOpenWrong(true);
+        }
     };
 
     const handleCloseWrongAns = (event?: React.SyntheticEvent, reason?: string) => {
@@ -56,6 +65,8 @@ export default function GTLmenus(props: {
 
         setOpenWrong(false);
     };
+    console.log(`${props.pid} ${played}`);
+    if (played) return <></>;
     if (props.order === 1) {
         return (
             <>
@@ -165,7 +176,7 @@ export default function GTLmenus(props: {
                         severity="success"
                         style={{ borderRadius: '20px', minWidth: '250px' }}
                     >
-                        Woohoo! +10! You guessed the right location!👏 
+                        Woohoo! +10! You guessed the right location!👏
                     </Alert>
                 </Snackbar>
                 <Snackbar
@@ -442,4 +453,5 @@ export default function GTLmenus(props: {
             </>
         );
     }
+    return <></>;
 }

@@ -18,7 +18,7 @@ import firebase from 'firebase';
 import { Box } from '@material-ui/core';
 import ReportButton from './report';
 import GTLmenu from '../Game/GTLmenu';
-import { db } from '../../firebase';
+import { auth, db } from '../../firebase';
 
 export interface SinglePostNewProps {
     username?: string;
@@ -57,6 +57,7 @@ export interface SinglePostNewState {
     gotLocs: boolean;
     loc1: string;
     loc2: string;
+    played: boolean;
 }
 class SinglePostNew extends Component<SinglePostNewProps, SinglePostNewState> {
     constructor(SinglePostNewProps: any) {
@@ -79,6 +80,7 @@ class SinglePostNew extends Component<SinglePostNewProps, SinglePostNewState> {
             locations: [],
             loc1: '',
             loc2: '',
+            played: true,
         };
         this.handleColorChange = this.handleColorChange.bind(this);
         this.handleButtonClick = this.handleButtonClick.bind(this);
@@ -119,6 +121,8 @@ class SinglePostNew extends Component<SinglePostNewProps, SinglePostNewState> {
     share_area = React.createRef();
 
     async componentDidMount() {
+        db.didUserPlay(this.props.id).then((played) => this.setState({ played }));
+
         this.getUser().then(
             (user) => {
                 this.setState({ isAuthenticated: true, post_user: user });
@@ -305,6 +309,7 @@ class SinglePostNew extends Component<SinglePostNewProps, SinglePostNewState> {
                                 location3={this.state.loc2}
                                 order={this.state.random}
                                 uid={this.props.uid}
+                                pid={this.props.id}
                             />
                         </div>
                     )}
