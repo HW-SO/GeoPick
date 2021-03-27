@@ -154,6 +154,7 @@ export default class PostViewScreen extends Component<PostViewProps, PostViewSta
                 id: this.props.uid,
                 name: this.props.user.User_name,
                 comment: this.state.newComment,
+                Avatar: this.props.user.Avatar,
             };
             // newC[this.state.uid] =  this.state.newComment;
 
@@ -260,10 +261,10 @@ export default class PostViewScreen extends Component<PostViewProps, PostViewSta
                                     <ListItem key={index}>
                                         <ListItemAvatar>
                                             <AvatarSmall
-                                                User={this.props.user}
-                                                uid={this.props.uid}
-                                                User_name={this.props.user.User_name}
-                                                Avatar={this.props.user.Avatar}
+                                                // User={this.props.user}
+                                                uid={val.id}
+                                                User_name={val.name}
+                                                Avatar={val.Avatar}
                                                 Size="small"
                                             />
                                         </ListItemAvatar>

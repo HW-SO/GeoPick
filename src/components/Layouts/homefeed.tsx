@@ -42,7 +42,8 @@ export default function HomeFeed(props: any) {
     }, [following.length]);
 
     const getFollowing = async () => {
-        const f = new Array([]);
+        // eslint-disable-next-line @typescript-eslint/no-array-constructor
+        const f = new Array();
         let doc;
         console.log('following in');
         const result = await firebase.firestore().collection('users').doc(props.uid).collection('following').get();

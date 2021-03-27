@@ -27,6 +27,8 @@ import Geocoder from 'react-map-gl-geocoder';
 export interface SearchProps {}
 
 export default function ExploreScreen() {
+    const REACT_APP_MAPBOX_TOKEN =
+        'pk.eyJ1IjoiZ2VvcGljazIwMjEiLCJhIjoiY2tscXhqY2xjMWgwMjJubjFzd3g5ZGZ3ZSJ9.cpc7KmJM9DGfo2jbxwUK6A';
     const [posts, setPosts] = useState<any[]>([]);
     const firstUpdate = useRef(true);
     const mapRef = useRef(null);
@@ -91,12 +93,12 @@ export default function ExploreScreen() {
                     {...viewport}
                     width="100%"
                     onViewportChange={handleViewportChange}
-                    mapboxApiAccessToken={process.env.REACT_APP_MAPBOX_TOKEN}
+                    mapboxApiAccessToken={REACT_APP_MAPBOX_TOKEN}
                 >
                     <Geocoder
                         mapRef={mapRef}
                         onViewportChange={handleGeocoderViewportChange}
-                        mapboxApiAccessToken={process.env.REACT_APP_MAPBOX_TOKEN}
+                        mapboxApiAccessToken={REACT_APP_MAPBOX_TOKEN}
                         position="top-left"
                     />
                     {posts.map(({ id, post }) => (
