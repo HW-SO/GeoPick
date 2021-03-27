@@ -18,7 +18,7 @@ import firebase from 'firebase';
 import { Box } from '@material-ui/core';
 import ReportButton from './report';
 import GTLmenu from '../Game/GTLmenu';
-import { auth, db } from '../../firebase';
+import { db } from '../../firebase';
 
 export interface SinglePostNewProps {
     username?: string;

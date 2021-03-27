@@ -1,5 +1,4 @@
 import firebase from 'firebase';
-import { currentUser } from './auth';
 import auth, { db, firestore } from './firebase';
 
 // User API
@@ -94,7 +93,7 @@ export const userPlay = async (pid: string, points: number) => {
     if (played) return true;
 
     const pointFB = firebase.firestore.FieldValue.increment(points);
-    const post = await firestore.collection('Posts').doc(pid).collection('players').doc(currentUser.uid).set({});
+    await firestore.collection('Posts').doc(pid).collection('players').doc(currentUser.uid).set({});
 
     await firestore.collection('users').doc(currentUser.uid).update({
         GamePoint: pointFB,

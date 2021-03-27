@@ -3,7 +3,6 @@ import { Menu, MenuItem, MenuHeader } from '@szhsin/react-menu';
 import '@szhsin/react-menu/dist/index.css';
 import { Button, Typography } from '@material-ui/core';
 import GTLicon from '../Inputs/The pin.svg';
-import fb from 'firebase/app';
 
 import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert, { AlertProps } from '@material-ui/lab/Alert';
@@ -451,5 +450,4 @@ export default function GTLmenus(props: {
             </>
         );
     }
-    return <></>;
 }
