@@ -24,11 +24,9 @@ import Geocoder from 'react-map-gl-geocoder';
 // import Geocoder from "@mapbox/mapbox-gl-geocoder";
 // import "@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css";
 
-export interface SearchProps {}
+const REACT_APP_MAPBOX_TOKEN = 'pk.eyJ1IjoiZ2VvcGljazIwMjEiLCJhIjoiY2tscXhmdWwxMWg3dzJ2cXltZmozNGllciJ9.73S1X_5G7okdQReMY0fV4Q';
 
 export default function ExploreScreen() {
-    const REACT_APP_MAPBOX_TOKEN =
-        'pk.eyJ1IjoiZ2VvcGljazIwMjEiLCJhIjoiY2tscXhqY2xjMWgwMjJubjFzd3g5ZGZ3ZSJ9.cpc7KmJM9DGfo2jbxwUK6A';
     const [posts, setPosts] = useState<any[]>([]);
     const firstUpdate = useRef(true);
     const mapRef = useRef(null);
@@ -37,7 +35,7 @@ export default function ExploreScreen() {
         longitude: 55.2962,
         width: '100%',
         height: '100vh',
-        zoom: 4,
+        zoom: 1,
     });
 
     useLayoutEffect(() => {
