@@ -28,7 +28,6 @@ export default function GTLmenus(props: {
         if (props.uid !== undefined) {
             console.log('playing');
             db.userPlay(props.pid, 10).then((p) => {
-                console.log(p);
                 setPlayed(p);
             });
         }
@@ -44,7 +43,6 @@ export default function GTLmenus(props: {
 
     useEffect(() => {
         db.didUserPlay(props.pid).then((p) => {
-            console.log('setting', p);
             setPlayed(p);
         });
     });
@@ -65,7 +63,7 @@ export default function GTLmenus(props: {
 
         setOpenWrong(false);
     };
-    console.log(`${props.pid} ${played}`);
+
     if (played) return <></>;
     if (props.order === 1) {
         return (
