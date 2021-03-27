@@ -5,10 +5,9 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { ThemeProvider } from '@material-ui/core';
 import theme from './theme';
-import * as serviceWorker from './service-worker';
+// import * as serviceWorker from './service-worker';
 
-serviceWorker.register();
-
+// serviceWorker.register();
 
 ReactDOM.render(
     <React.StrictMode>
@@ -22,7 +21,6 @@ ReactDOM.render(
     </React.StrictMode>,
     document.getElementById('root'),
 );
-
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))
