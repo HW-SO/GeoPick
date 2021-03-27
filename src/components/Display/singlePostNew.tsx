@@ -146,7 +146,8 @@ class SinglePostNew extends Component<SinglePostNewProps, SinglePostNewState> {
 
     getLocations = (loc: string) => {
         return new Promise((resolve, reject) => {
-            let locs = new Array([]);
+            // eslint-disable-next-line @typescript-eslint/no-array-constructor
+            let locs = new Array();
             firebase
                 .firestore()
                 .collection('Posts')

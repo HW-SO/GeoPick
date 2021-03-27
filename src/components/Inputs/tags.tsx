@@ -5,7 +5,8 @@ import Textfield from './TextField';
 import { Chip, Typography } from '@material-ui/core';
 
 const Tags = (props: any) => {
-    const [tags, setTags] = React.useState(Array([]));
+    // eslint-disable-next-line @typescript-eslint/no-array-constructor
+    const [tags, setTags] = React.useState(new Array());
 
     const addTags = (event: any) => {
         if (event.key === 'Enter' && event.target.value !== '') {

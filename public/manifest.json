@@ -9,14 +9,14 @@
             "type": "image/x-icon"
         },
         {
-            "src": "ICONs.png",
+            "src": "logo512.png",
             "type": "image/png",
-            "sizes": "122x128"
+            "sizes": "512x512"
         },
         {
-            "src": "Charcoal-logo.png",
+            "src": "logo192.png",
             "type": "image/png",
-            "sizes": "298x70"
+            "sizes": "192x192"
         }
     ],
     "start_url": "./welcome",
