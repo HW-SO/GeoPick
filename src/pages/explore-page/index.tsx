@@ -24,8 +24,10 @@ import Geocoder from 'react-map-gl-geocoder';
 // import Geocoder from "@mapbox/mapbox-gl-geocoder";
 // import "@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css";
 
-const REACT_APP_MAPBOX_TOKEN = 'pk.eyJ1IjoiZ2VvcGljazIwMjEiLCJhIjoiY2tscXhmdWwxMWg3dzJ2cXltZmozNGllciJ9.73S1X_5G7okdQReMY0fV4Q';
-
+// const REACT_APP_MAPBOX_TOKEN =
+//     'pk.eyJ1IjoiZ2VvcGljazIwMjEiLCJhIjoiY2tscXhmdWwxMWg3dzJ2cXltZmozNGllciJ9.73S1X_5G7okdQReMY0fV4Q';
+console.log(process.env.REACT_APP_MAPBOX_TOKEN);
+// console.log('token comes up!');
 export default function ExploreScreen() {
     const [posts, setPosts] = useState<any[]>([]);
     const firstUpdate = useRef(true);
@@ -91,12 +93,12 @@ export default function ExploreScreen() {
                     {...viewport}
                     width="100%"
                     onViewportChange={handleViewportChange}
-                    mapboxApiAccessToken={REACT_APP_MAPBOX_TOKEN}
+                    mapboxApiAccessToken={process.env.REACT_APP_MAPBOX_TOKEN}
                 >
                     <Geocoder
                         mapRef={mapRef}
                         onViewportChange={handleGeocoderViewportChange}
-                        mapboxApiAccessToken={REACT_APP_MAPBOX_TOKEN}
+                        mapboxApiAccessToken={process.env.REACT_APP_MAPBOX_TOKEN}
                         position="top-left"
                     />
                     {posts.map(({ id, post }) => (
