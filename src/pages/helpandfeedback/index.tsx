@@ -9,6 +9,7 @@ import emailjs from 'emailjs-com';
 import { useHistory } from 'react-router-dom';
 import ArrowForwardIosOutlinedIcon from '@material-ui/icons/ArrowForwardIosOutlined';
 import { useLocation } from 'react-router-dom';
+import { auth } from '../../firebase/firebase';
 export interface HelpandFeedbackProps {
     postID?: string;
 }
@@ -27,20 +28,21 @@ const useQuery = () => {
 export default function HelpandFeedback(props: HelpandFeedbackProps) {
     const history = useHistory();
     const query = useQuery();
+    const [feedback, setFeedback] = React.useState<string>('');
 
     function sendEmail(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault();
 
         const postID = query.get('postID');
-        console.log(e.target[0]);
+
         let myTemplate = {
-            username: e.target[0].value,
-            feedbacks: e.target[1].value,
+            username: auth.currentUser?.uid,
+            feedbacks: feedback,
             postID: postID,
         };
+
         emailjs.send('service_7um7ypw', 'template_my7a0ii', myTemplate, 'user_pKzNS4ftM2sSAMAFNjGVw').then(
             (result) => {
-                console.log(result.text);
                 alert('Thank You For Your Feedback ✅ ');
                 history.push('/home');
             },
@@ -81,20 +83,12 @@ export default function HelpandFeedback(props: HelpandFeedbackProps) {
                     <form onSubmit={sendEmail}>
                         <TextField
                             id="standard-multiline-flexible"
-                            label="Username"
-                            variant="outlined"
-                            placeholder="Enter Username"
-                            name="username"
-                        />
-                        <br></br>
-
-                        <TextField
-                            id="standard-multiline-flexible"
                             label="Feedback"
                             variant="outlined"
                             placeholder="Write something..."
                             name="feedbacks"
                             multiline
+                            onChange={(e) => setFeedback(e.target.value)}
                             rowsMax={5}
                         />
 

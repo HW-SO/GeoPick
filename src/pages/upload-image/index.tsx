@@ -122,7 +122,7 @@ export class UploadImage extends Component<UploadImageProps, UploadImageState> {
                                         .add({
                                             Image: url,
                                             caption: this.state.caption,
-                                            // comments: [],
+                                            comments: [],
                                             comment_count: 0,
                                             likes_count: 0,
                                             uid: user.uid,
